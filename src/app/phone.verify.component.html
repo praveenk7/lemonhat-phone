@@ -1,0 +1,14 @@
+<!--<div>
+    <input [(ngModel)]="otp"><br/>
+    <button (click)="verify()">Verify</button>
+</div>-->
+
+<div class="container">
+    <form class="form-inline container-mobile">
+        <div class="form-group">
+            <input class="form-control input-sm" type="text" placeholder="Enter OTP" [(ngModel)]="otp" [ngModelOptions]="{standalone: true}"/>
+        </div>
+    <button type="button" class="btn btn-danger btn-md btn-round center-block" (click)="verify()">Verify OTP <span class="glyphicon glyphicon-arrow-right text-justify"></span></button>    
+    </form>
+    
+</div>

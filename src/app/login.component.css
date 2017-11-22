@@ -1,0 +1,53 @@
+﻿.btn-round-lg{
+border-radius: 22.5px;
+}
+.btn-round{
+border-radius: 17px;
+}
+.btn-round-sm{
+border-radius: 15px;
+}
+.btn-round-xs{
+border-radius: 11px;
+padding-left: 10px;
+padding-right: 10px;
+}
+
+.container-mobile {
+    /*width:300px;*/
+    text-align: -webkit-center;
+    margin-top: 10%;
+}
+
+.form-inline .form-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    width:250px;
+}
+.container-mobile h2 {
+    margin-bottom:30px;
+}
+
+.customModal .modal-header,.customModal h4,.customModal .close {
+      background-color: #5cb85c;
+      color:white !important;
+      text-align: center;
+      font-size: 25px;
+  }
+.customModal  .modal-footer {
+      background-color: #f9f9f9;
+  }
+
+.panel-group {
+    margin-bottom: 20px;
+    margin-top: 110px;
+}
+
+.fa fa-share-alt {
+    color: #3c3838;
+}
+
+
+

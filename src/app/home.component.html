@@ -1,0 +1,52 @@
+<!--<ul>
+    <li *ngFor="let channel of subscribedChannels">
+        {{channel.friendlyName}}
+    </li>
+</ul>-->
+
+<div class="container">
+    <div class="col-md-12">
+        <h2 style="display:inline-block;">Items List</h2>
+        <span class="glyphicon glyphicon-plus pull-right well well-sm" style="margin-top:20px;" (click)="createChannel()"></span>
+    </div>
+  
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-default" *ngFor="let channel of subscribedChannels;let idx = index">
+      <div class="panel-heading">
+        <h4 class="panel-title" >
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{idx}}" (click)="showItems(channel.itemsList,channel.others.listName)">{{channel.others.listName}}</a>
+            <span class="pull-right" (click)="shareUsers(channel.itemsList,channel.others.twilioChannelId)"><i class="fa fa-share-alt"></i></span>
+        </h4>
+          
+      </div>
+      
+    </div>
+  
+  </div> 
+
+     <!-- Modal -->
+  <div class="modal fade customModal" id="channelModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4>Create ItemList</h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+          <form role="form">
+            <div class="form-group">
+              <label for="usrname"><span class="glyphicon glyphicon-user"></span> List Name:</label>
+              <input type="text" class="form-control"  placeholder="List Name" [(ngModel)]="listName" [ngModelOptions]="{standalone: true}">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success btn-default pull-right" (click)="saveChannel()">Save</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>

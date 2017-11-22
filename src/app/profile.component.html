@@ -1,0 +1,21 @@
+<div class="container">
+    
+    <form class="container-mobile">
+        <h2>User Profile</h2>
+        <div class="form-group">
+            <input class="form-control input-sm" type="text" placeholder="Name" [(ngModel)]="userObj.userName" [ngModelOptions]="{standalone: true}"/>
+        </div>
+        <div class="form-group">
+            <input class="form-control input-sm" type="text" placeholder="Email" [(ngModel)]="userObj.email" [ngModelOptions]="{standalone: true}"/>
+        </div>
+        <div class="form-group">
+            <input class="form-control input-sm" type="text" placeholder="Phone" [(ngModel)]="userObj.phone" [ngModelOptions]="{standalone: true}"/>
+        </div>
+        <button type="button" class="btn btn-primary btn-md btn-round" (click)="updateUser()">Save</button> 
+        <button type="button" class="btn btn-danger btn-md btn-round" >Cancel</button>    
+    </form>
+    <div class="container-mobile">
+        <button type="button" class="btn btn-danger btn-md btn-round" (click)="getShoppingList()">Show lists</button>   
+    </div>
+    
+</div>

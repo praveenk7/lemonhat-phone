@@ -1,0 +1,31 @@
+<div class="container">
+    
+    <form class="container-mobile" style="margin-top:0px;">
+        <h2>Share User</h2>
+        <div class="panel-group">
+            <div class="panel panel-default"  *ngFor="let user of allUsers;let idx = index">
+                <div class="panel-heading">
+                    <h4 class="panel-title" style="text-align:left;">
+                        <input type="checkbox" class="" value="{{user.usr}}" [(ngModel)]="user['isChecked'+idx]" [ngModelOptions]="{standalone: true}"/>
+                        <span [innerHtml]="user.others.userName"></span>
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <!--<div class="form-group">
+            <input class="form-control input-sm" type="text" placeholder="Name" [(ngModel)]="userObj.userName" [ngModelOptions]="{standalone: true}"/>
+        </div>
+        <div class="form-group">
+            <input class="form-control input-sm" type="text" placeholder="Email" [(ngModel)]="userObj.email" [ngModelOptions]="{standalone: true}"/>
+        </div>
+        <div class="form-group">
+            <input class="form-control input-sm" type="text" placeholder="Phone" [(ngModel)]="userObj.phone" [ngModelOptions]="{standalone: true}"/>
+        </div>-->
+        <button type="button" class="btn btn-primary btn-md btn-round" (click)="shareListToUsers()">Share</button> 
+        <!--<button type="button" class="btn btn-danger btn-md btn-round" >Cancel</button> -->   
+    </form>
+    <div class="container-mobile">
+       <!-- <button type="button" class="btn btn-danger btn-md btn-round" (click)="getShoppingList()">Show lists</button>   -->
+    </div>
+    
+</div>
