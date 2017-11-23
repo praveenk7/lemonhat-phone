@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {TwilioService} from './_services/twilio.service';
 import { Router, ActivatedRoute, NavigationExtras} from "@angular/router";
 import {User} from './user';
 
-declare const Fingerprint2: any;
-declare const Twilio: any;
+//declare const Fingerprint2: any;
+//declare const Twilio: any;
 @Component({   
     templateUrl: 'phone.verify.component.html',
     styleUrls: ['./login.component.css']
@@ -29,7 +29,7 @@ export class VerifyPhone{
 
             this.twilioService.verifyPhoneToken(this.otp, this.userObj).subscribe(
                 data=> {
-                    let response = JSON.parse(data._body);
+                    let response = JSON.parse((<any>data)._body);
                     if (response.status == 200) {
                         //this.client = new Twilio.Chat.Client(response.token, { logLevel: 'debug' });
                         //this.twilioService.setTwilioClient(this.client);
@@ -43,6 +43,17 @@ export class VerifyPhone{
                 }
             )
         }
+    }
+
+    resendOTP() {
+        this.twilioService.getPhoneVerificationToken(this.userObj.phone, this.userObj.countryCode).subscribe(
+            data=> {
+                     let response = JSON.parse((<any>data)._body);
+                if (response.status == 200) {
+                    alert("OTP resend to mobile no");
+                }
+            }
+            )
     }
 
 }

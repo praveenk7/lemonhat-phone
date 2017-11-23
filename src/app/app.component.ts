@@ -1,14 +1,14 @@
-﻿import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Platform } from 'ionic-angular';
+﻿import { Component } from '@angular/core';
+//import { Router, ActivatedRoute } from '@angular/router';
+//import { Platform } from 'ionic-angular';
 
-import {TwilioService} from './_services/twilio.service';
+//import {TwilioService} from './_services/twilio.service';
 
-declare const Fingerprint2: any;
-declare const Twilio: any;
+//declare const Fingerprint2: any;
+//declare const Twilio: any;
 @Component({
     //moduleId: module.id,
-    selector: 'app',
+    selector: 'ion-app',
     templateUrl: 'app.component.html'
 })
 export class AppComponent { 

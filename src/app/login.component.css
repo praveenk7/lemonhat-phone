@@ -23,7 +23,7 @@ padding-right: 10px;
     margin-bottom: 20px;
 }
 
-.form-control {
+.container-mobile .form-control {
     width:250px;
 }
 .container-mobile h2 {

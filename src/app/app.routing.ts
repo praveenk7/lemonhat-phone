@@ -1,7 +1,7 @@
 import { RouterModule, Routes } from '@angular/router'; 
 import { HomeComponent } from './home.component';
 import { LoginComponent } from './login.component';
-import { AppComponent } from './app.component';
+//import { AppComponent } from './app.component';
 import { VerifyPhone } from './phone.verify.component';
 import { ProfileComponent } from './profile.component';
 import { ItemComponent } from './item.component';
@@ -16,7 +16,7 @@ const appRoutes: Routes = [
     { path: 'share', component: ShareComponent },
     { path: 'verifyphone', component: VerifyPhone },
     { path: 'profile', component: ProfileComponent },
-    { path: '', component: LoginComponent }
+    { path: '', component: LoginComponent , pathMatch: 'full'}
 ] 
 
 export const routing = RouterModule.forRoot(appRoutes);

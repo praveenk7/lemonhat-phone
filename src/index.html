@@ -30,7 +30,7 @@
 
   <link href="build/main.css" rel="stylesheet">
   <!-- bootstrap css -->
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- application css -->
@@ -41,7 +41,7 @@
 <body>
 
   <!-- Ionic's root component and where the app will load -->
-  <app></app>
+  <ion-app></ion-app>
 
   <!-- The polyfills js is generated during the build process -->
   <script src="build/polyfills.js"></script>
@@ -52,8 +52,8 @@
 
   <!-- The main bundle js is generated during the build process -->
   <script src="build/main.js"></script>
-
-  <script src="/js/vendor/fingerprint2.js"></script>
+  <script src="build/fingerprint2.js"></script>
+  <!--<script>console.log('bundles loaded.', $);  // jQuery is set! </script>-->
   <script src="https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js"></script>
   <script src="https://media.twiliocdn.com/sdk/js/chat/v1.0/twilio-chat.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

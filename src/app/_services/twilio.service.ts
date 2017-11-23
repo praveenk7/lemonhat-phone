@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Http, Response } from '@angular/http';
+//import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 
 import {User} from '../user'
@@ -13,7 +13,8 @@ export class TwilioService{
         //client:any
     ){}
     client: any;
-    baseURL: string ="http://192.168.2.48:8080"
+    //baseURL: string = "https://bjg25wnk9f.execute-api.us-east-1.amazonaws.com/dev";//"http://192.168.2.48:8089"
+    baseURL: string = "";
     getToken(identity:string, endpointId:string){
         //request('/getToken?identity=' + identity + '&endpointId=' + endpointId, function(err, res) {
         //return this.http.get('/api/users', this.jwt()).map((response: Response) => response.json());
@@ -22,16 +23,20 @@ export class TwilioService{
         });
     }
 
-    getPhoneVerificationToken(phoneNumber:string,countryCode:number){
+    getPhoneVerificationToken(phoneNumber: string, countryCode: number) {
+        //let headers = new Headers();
+        //headers.append('Access-Control-Allow-Origin', '*');
+        //let options = new RequestOptions({ headers: headers });
+        
         let postObj = { "phone": phoneNumber, "countryCode":countryCode}
-        return this.http.post(this.baseURL+'/phoneVerification',postObj).map((response:Response)=>{
+        return this.http.post(this.baseURL + '/phone-verification', postObj).map((response:Response)=>{
             return response;
         });
     }
 
     verifyPhoneToken(otp:number,userObj:User){
         let postObj = { "verificationToken": otp, "phone": userObj.phone, "countryCode":userObj.countryCode};
-        return this.http.post(this.baseURL+'/verifyOTP',postObj).map((response:Response)=>{
+        return this.http.post(this.baseURL+'/verify-otp',postObj).map((response:Response)=>{
             return response;
         });
     }
@@ -60,7 +65,7 @@ export class TwilioService{
         //this.obj.phone = user.others.phone;
         //this.obj.countryCode = user.others.countryCode;
     
-        return this.http.post(this.baseURL + '/updateUser', user).map((response: Response) => {
+        return this.http.post(this.baseURL + '/updateuser', user).map((response: Response) => {
             return response;
         });
     }
@@ -70,7 +75,7 @@ export class TwilioService{
 
     createItemsList(listName: string, uid: string) {
         var requestObj = { "uid": uid, "listName": listName, "channelType":"private"}
-        return this.http.post(this.baseURL + '/createItemsList', requestObj).map((response: Response) => {
+        return this.http.post(this.baseURL + '/createitemslist', requestObj).map((response: Response) => {
             return response;
         });
     }
@@ -89,26 +94,26 @@ export class TwilioService{
 
     createItem(itemsList: string, uid: string, itemName: string) {
         var requestObj = { "uid": uid, "itemName": itemName, itemsList: itemsList,"imageUrl":""}
-        return this.http.post(this.baseURL + '/createItem', requestObj).map((response: Response) => {
+        return this.http.post(this.baseURL + '/createitem', requestObj).map((response: Response) => {
             return response;
         });
     }
 
-    getAllUser() {
-        return this.http.get(this.baseURL + '/allUsers').map((response: Response) => {
+    getAllUser(uid:any) {
+        return this.http.post(this.baseURL + '/users', { "uid": uid}).map((response: Response) => {
             return response;
         });
     }
     
     shareListtoUsers(itemsList: string, sharedUsers: Array<Object>, tChannelId:string) {
         var requestObj = { "itemsList": itemsList, "sharedUsers": sharedUsers, "tChannelId": tChannelId };
-        return this.http.post(this.baseURL + '/shareList', requestObj).map((response: Response) => {
+        return this.http.post(this.baseURL + '/sharelist', requestObj).map((response: Response) => {
             return response;
         });
     }
 
     sendMessagetoChannel() {
-        return this.http.post(this.baseURL + '/sendMessage', {}).map((response: Response) => {
+        return this.http.post(this.baseURL + '/sendmessage', {}).map((response: Response) => {
             return response;
         });
     }

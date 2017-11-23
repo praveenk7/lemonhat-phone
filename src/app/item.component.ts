@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
-import {TwilioService} from './_services/twilio.service';
+import {  ActivatedRoute } from "@angular/router";
+import {TwilioService } from './_services/twilio.service';
+import * as $ from 'jquery';
+declare var $: any;
 
 @Component({   
     templateUrl: 'item.component.html',
@@ -13,8 +15,7 @@ export class ItemComponent implements OnInit{
     imageUrl: any;  
     uid: any;
     container: Object = {};
-    constructor(private twilioService: TwilioService, private route: ActivatedRoute,
-        private router: Router) {
+    constructor(private twilioService: TwilioService, private route: ActivatedRoute) {
         this.route.queryParams.subscribe(params => {
             this.itemsList = params["lid"];
             this.uid = params["uid"];
@@ -32,25 +33,27 @@ export class ItemComponent implements OnInit{
     createItem() {
         //in progress
         this.itemName = "";
-        $("#itemModal").modal("show");
+        $("#itemModal").appendTo("body").modal("show");
     }
 
     saveItem() {
-        this.twilioService.createItem(this.itemsList,this.uid,this.itemName).subscribe(
-            data=> {
-                    let response = JSON.parse(data._body);
-                if (response.status == 200) {
-                    this.items.push({ "item": response.item, "others": { "itemName": this.itemName, "createdDate": "", "createdBy": this.uid, "itemListId": this.itemsList } })
+        if (this.itemName) {
+            this.twilioService.createItem(this.itemsList, this.uid, this.itemName).subscribe(
+                data=> {
+                    let response = JSON.parse((<any>data)._body);
+                    if (response.status == 200) {
+                        this.items.push({ "item": response.item, "others": { "itemName": this.itemName, "createdDate": "", "createdBy": this.uid, "itemListId": this.itemsList } })
                         $("#itemModal").modal("hide");
                     }
+                }
+                )
             }
-            )
     }
 
     getItems() {
         this.twilioService.getitems(this.itemsList).subscribe(
             data=> {
-                    let response = JSON.parse(data._body);
+                    let response = JSON.parse((<any>data)._body);
                     if (response.status == 200) {
                         this.items = response.items;
                     }
@@ -69,15 +72,15 @@ export class ItemComponent implements OnInit{
         //alert('Open ');
     }
 
-private addJoinedChannel(channel:Object){
+//private addJoinedChannel(channel:Object){
 
-}
+//}
 
-private addInvitedChannel(channel:Object){
+//private addInvitedChannel(channel:Object){
 
-}
+//}
 
-private addKnownChannel(channel:Object){
+//private addKnownChannel(channel:Object){
 
-}
+//}
 }

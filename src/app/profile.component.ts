@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
 import {TwilioService } from './_services/twilio.service';
 import {User } from './user';
 
-declare const Fingerprint2: any;
-declare const Twilio: any;
+//declare const Fingerprint2: any;
+//declare const Twilio: any;
 
 @Component({  
     templateUrl: 'profile.component.html',
@@ -21,7 +21,7 @@ export class ProfileComponent{
               this.twilioService.getUserDetails([this.userId]).subscribe(
                   data=> {
                     let obj = (JSON.parse((<any>data)._body)).usr;
-                      if (obj.length > 0) {
+                      if (obj && obj.length > 0) {
                           this.userObj.email = obj[0].others.email;
                           this.userObj.phone = obj[0].others.phone;
                           this.userObj.userName = obj[0].others.userName;

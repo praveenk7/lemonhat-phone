@@ -5,10 +5,11 @@
 
 <div class="container">
     <form class="form-inline container-mobile">
-        <div class="form-group">
-            <input class="form-control input-sm" type="text" placeholder="Enter OTP" [(ngModel)]="otp" [ngModelOptions]="{standalone: true}"/>
+        <div class="form-group"  style="display:block">
+            <input class="form-control input-sm input-field-width" type="text" placeholder="Enter OTP" [(ngModel)]="otp" [ngModelOptions]="{standalone: true}"/>
         </div>
-    <button type="button" class="btn btn-danger btn-md btn-round center-block" (click)="verify()">Verify OTP <span class="glyphicon glyphicon-arrow-right text-justify"></span></button>    
+    <button type="button" class="btn btn-danger btn-md btn-round" (click)="verify()">Verify OTP <span class="glyphicon glyphicon-arrow-right text-justify"></span></button>   
+    <button type="button" class="btn btn-md btn-link" (click)="resendOTP()">Resend OTP</button>
     </form>
     
 </div>

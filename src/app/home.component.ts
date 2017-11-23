@@ -3,6 +3,10 @@ import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
 import {TwilioService} from './_services/twilio.service';
 import * as $ from 'jquery';
 
+//window["$"] = $;
+//window["jQuery"] = $;
+//import 'bootstrap';
+declare var $: any;
 @Component({    
     templateUrl: 'home.component.html',
     styleUrls: ['./login.component.css']
@@ -39,48 +43,53 @@ export class HomeComponent implements OnInit{
         
     }
 
-//    private loadChannels(){
-//        this.client=this.twilioService.getTwilioClient();
-//       this.client.getSubscribedChannels().then(
-//            channelList => {
-//                this.subscribedChannels = channelList.items.sort(function(a, b) {
-//                    return a.friendlyName > b.friendlyName;
-//                  })
-              
-//                  this.subscribedChannels.forEach(channel=>{
-//                    switch (channel.status) {
-//                      case 'joined':
-//                        this.addJoinedChannel(channel);
-//                        break;
-//                      case 'invited':
-//                        this.addInvitedChannel(channel);
-//                        break;
-//                      default:
-//                        this.addKnownChannel(channel);
-//                        break;
-               
-//    }
-//})
+    //    private loadChannels(){
+    //        this.client=this.twilioService.getTwilioClient();
+    //       this.client.getSubscribedChannels().then(
+    //            channelList => {
+    //                this.subscribedChannels = channelList.items.sort(function(a, b) {
+    //                    return a.friendlyName > b.friendlyName;
+    //                  })
 
-//})
-//}
+    //                  this.subscribedChannels.forEach(channel=>{
+    //                    switch (channel.status) {
+    //                      case 'joined':
+    //                        this.addJoinedChannel(channel);
+    //                        break;
+    //                      case 'invited':
+    //                        this.addInvitedChannel(channel);
+    //                        break;
+    //                      default:
+    //                        this.addKnownChannel(channel);
+    //                        break;
+
+    //    }
+    //})
+
+    //})
+    //}
 
     createChannel() {
         //in progress
         this.listName = "";
-        $("#channelModal").modal("show");
+        //document.getElementById("channelModal").modal("show");
+        //ionViewLoaded() {
+            $("#channelModal").modal("show");
+        //}
     }
 
     saveChannel() {
-        this.twilioService.createItemsList(this.listName, this.uid).subscribe(
-            data=> {
+        if (this.listName) {
+            this.twilioService.createItemsList(this.listName, this.uid).subscribe(
+                data=> {
                     let response = JSON.parse((<any>data)._body);
-                if (response.status == 200) {
-                    this.subscribedChannels.push({ "itemsList": response.itemsList, "others": { "listName": this.listName, "channelType": "private", "createdDate": "", "createdBy": this.uid, "twilioChannelId": response.tChannelId } })
+                    if (response.status == 200) {
+                        this.subscribedChannels.push({ "itemsList": response.itemsList, "others": { "listName": this.listName, "channelType": "private", "createdDate": "", "createdBy": this.uid, "twilioChannelId": response.tChannelId } })
                         $("#channelModal").modal("hide");
                     }
+                }
+                )
             }
-            )
     }
 
     getChannels() {
@@ -109,21 +118,22 @@ export class HomeComponent implements OnInit{
          let navigationExtras: NavigationExtras = {
             queryParams: {
                 "lid": itemsList,
-               "tid": tChannelId
+                "tid": tChannelId,
+                "uid": this.uid
             }
          };
         this.router.navigate(['share'], navigationExtras);
     }
 
-private addJoinedChannel(channel:Object){
+//private addJoinedChannel(channel:Object){
 
-}
+//}
 
-private addInvitedChannel(channel:Object){
+//private addInvitedChannel(channel:Object){
 
-}
+//}
 
-private addKnownChannel(channel:Object){
+//private addKnownChannel(channel:Object){
 
-}
+//}
 }

@@ -5,6 +5,9 @@ import { HttpModule } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import * as $ from 'jquery';
 
+window["$"] = $;
+window["jQuery"] = $;
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 //routing
@@ -46,7 +49,16 @@ import { ShareComponent } from './share.component';
         TwilioService,
         User    
     ],
-    bootstrap: [IonicApp]
+    bootstrap: [IonicApp],
+    entryComponents: [
+        AppComponent,
+        LoginComponent,
+        VerifyPhone,
+        HomeComponent,
+        ItemComponent,
+        ShareComponent,
+        ProfileComponent
+    ]
 })
 
 export class AppModule { }
