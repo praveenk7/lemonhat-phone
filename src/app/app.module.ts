@@ -31,7 +31,7 @@ import { ShareComponent } from './share.component';
         FormsModule,
         HttpModule,
         routing,
-        IonicModule.forRoot(AppComponent)
+        IonicModule.forRoot(AppComponent, { locationStrategy: 'path' })
     ],
     declarations: [
         AppComponent,
