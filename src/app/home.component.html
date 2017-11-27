@@ -6,8 +6,9 @@
 
 <div class="container">
     <div class="col-md-12">
+        <i class="fa fa-chevron-left" aria-hidden="true" style="font-size: 25px;color: #3f6e96;padding-right: 5px;cursor: pointer;" (click)="navigateBack()"></i>
         <h2 style="display:inline-block;">Items List</h2>
-        <span class="glyphicon glyphicon-plus pull-right well well-sm" style="margin-top:20px;" (click)="createChannel()"></span>
+        <span class="glyphicon glyphicon-plus pull-right well well-sm" style="margin-top:20px;cursor: pointer;" (click)="createChannel()"></span>
     </div>
   
   <div class="panel-group" id="accordion">
@@ -24,7 +25,7 @@
   
   </div> 
 
-  
+    
 </div>
    <!-- Modal -->
   <div class="modal fade customModal" id="channelModal" role="dialog" data-backdrop="false">

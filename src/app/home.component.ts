@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
 import {TwilioService} from './_services/twilio.service';
 import * as $ from 'jquery';
@@ -17,7 +18,7 @@ export class HomeComponent implements OnInit{
     client: any;  
     uid: any;
     constructor(private twilioService: TwilioService, private route: ActivatedRoute,
-        private router: Router) {
+        private router: Router, private location: Location) {
         this.route.queryParams.subscribe(params => {
             this.uid = params["uid"];
             
@@ -85,7 +86,7 @@ export class HomeComponent implements OnInit{
                     let response = JSON.parse((<any>data)._body);
                     if (response.status == 200) {
                         this.subscribedChannels.push({ "itemsList": response.itemsList, "others": { "listName": this.listName, "channelType": "private", "createdDate": "", "createdBy": this.uid, "twilioChannelId": response.tChannelId } })
-                        $("#channelModal").modal("hide");
+                        $("#channelModal").appendTo("body").modal("hide");
                     }
                 }
                 )
@@ -123,6 +124,10 @@ export class HomeComponent implements OnInit{
             }
          };
         this.router.navigate(['share'], navigationExtras);
+    }
+
+    navigateBack() {
+        this.location.back(); // <-- go back to previous location on cancel
     }
 
 //private addJoinedChannel(channel:Object){

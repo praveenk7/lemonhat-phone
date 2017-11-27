@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import {  ActivatedRoute } from "@angular/router";
 import {TwilioService } from './_services/twilio.service';
 import * as $ from 'jquery';
@@ -15,7 +16,7 @@ export class ItemComponent implements OnInit{
     imageUrl: any;  
     uid: any;
     container: Object = {};
-    constructor(private twilioService: TwilioService, private route: ActivatedRoute) {
+    constructor(private twilioService: TwilioService, private route: ActivatedRoute, private location: Location) {
         this.route.queryParams.subscribe(params => {
             this.itemsList = params["lid"];
             this.uid = params["uid"];
@@ -43,7 +44,7 @@ export class ItemComponent implements OnInit{
                     let response = JSON.parse((<any>data)._body);
                     if (response.status == 200) {
                         this.items.push({ "item": response.item, "others": { "itemName": this.itemName, "createdDate": "", "createdBy": this.uid, "itemListId": this.itemsList } })
-                        $("#itemModal").modal("hide");
+                        $("#itemModal").appendTo("body").modal("hide");
                     }
                 }
                 )
@@ -70,6 +71,10 @@ export class ItemComponent implements OnInit{
         }
 
         //alert('Open ');
+    }
+
+    navigateBack() {
+        this.location.back(); // <-- go back to previous location on cancel
     }
 
 //private addJoinedChannel(channel:Object){

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import {  ActivatedRoute } from "@angular/router";
 import {TwilioService } from './_services/twilio.service';
 //import {User } from './user';
@@ -16,7 +17,7 @@ export class ShareComponent implements OnInit{
     uid: any = "";
     //allUsers: any;
     constructor(private twilioService: TwilioService,
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute, private location: Location) {
         this.route.queryParams.subscribe(params => {
             this.itemsList = params["lid"];
             this.tChannelId = params["tid"];
@@ -57,6 +58,10 @@ export class ShareComponent implements OnInit{
                     }
                 });
         }
+    }
+
+    navigateBack() {
+        this.location.back(); // <-- go back to previous location on cancel
     }
 
 }
