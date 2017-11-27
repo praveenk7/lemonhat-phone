@@ -55,7 +55,7 @@ export class ItemComponent implements OnInit{
             data=> {
                     let response = JSON.parse((<any>data)._body);
                     if (response.status == 200) {
-                        this.items = response.items;
+                        this.items = response.items ? response.items : [];;
                     }
             }
             )

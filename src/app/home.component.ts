@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit{
         this.listName = "";
         //document.getElementById("channelModal").modal("show");
         //ionViewLoaded() {
-            $("#channelModal").modal("show");
+        $("#channelModal").appendTo("body").modal("show");
         //}
     }
 

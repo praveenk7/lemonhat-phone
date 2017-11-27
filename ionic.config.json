@@ -2,11 +2,7 @@
   "name": "ionic2-app-base",
   "app_id": "",
   "type": "ionic-angular",
-  "integrations": {},
-  "proxies": [
-    {
-        "path": "/",
-        "proxyUrl": "https://bjg25wnk9f.execute-api.us-east-1.amazonaws.com/dev/"
-    }
-]
+  "integrations": {
+ 
+  }
 }

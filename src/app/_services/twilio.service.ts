@@ -13,8 +13,8 @@ export class TwilioService{
         //client:any
     ){}
     client: any;
-    //baseURL: string = "https://bjg25wnk9f.execute-api.us-east-1.amazonaws.com/dev";//"http://192.168.2.48:8089"
-    baseURL: string = "";
+    baseURL: string = "https://bjg25wnk9f.execute-api.us-east-1.amazonaws.com/dev";
+    //baseURL: string = "http://192.168.2.48:8089";
     getToken(identity:string, endpointId:string){
         //request('/getToken?identity=' + identity + '&endpointId=' + endpointId, function(err, res) {
         //return this.http.get('/api/users', this.jwt()).map((response: Response) => response.json());
@@ -29,14 +29,14 @@ export class TwilioService{
         //let options = new RequestOptions({ headers: headers });
         
         let postObj = { "phone": phoneNumber, "countryCode":countryCode}
-        return this.http.post(this.baseURL + '/phone-verification', postObj).map((response:Response)=>{
+        return this.http.post(this.baseURL + '/phoneverification', postObj).map((response:Response)=>{
             return response;
         });
     }
 
     verifyPhoneToken(otp:number,userObj:User){
         let postObj = { "verificationToken": otp, "phone": userObj.phone, "countryCode":userObj.countryCode};
-        return this.http.post(this.baseURL+'/verify-otp',postObj).map((response:Response)=>{
+        return this.http.post(this.baseURL+'/verifyotp',postObj).map((response:Response)=>{
             return response;
         });
     }
