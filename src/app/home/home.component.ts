@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
-import {TwilioService} from './_services/twilio.service';
+//import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
+import {TwilioService} from '../_services/twilio.service';
 import * as $ from 'jquery';
 
 //window["$"] = $;
@@ -17,12 +17,15 @@ export class HomeComponent implements OnInit{
     twilioToken: string;
     client: any;  
     uid: any;
-    constructor(private twilioService: TwilioService, private route: ActivatedRoute,
-        private router: Router, private location: Location) {
-        this.route.queryParams.subscribe(params => {
-            this.uid = params["uid"];
+    constructor(private twilioService: TwilioService
+        // private route: ActivatedRoute,
+        // private router: Router, 
+        // private location: Location
+    ) {
+        // this.route.queryParams.subscribe(params => {
+        //     this.uid = params["uid"];
             
-        });
+        // });
     }
     
     //channelList:string[];
@@ -80,65 +83,55 @@ export class HomeComponent implements OnInit{
     }
 
     saveChannel() {
-        if (this.listName) {
-            this.twilioService.createItemsList(this.listName, this.uid).subscribe(
-                data=> {
-                    let response = JSON.parse((<any>data)._body);
-                    if (response.status == 200) {
-                        this.subscribedChannels.push({ "itemsList": response.itemsList, "others": { "listName": this.listName, "channelType": "private", "createdDate": "", "createdBy": this.uid, "twilioChannelId": response.tChannelId } })
-                        $("#channelModal").appendTo("body").modal("hide");
-                    }
-                }
-                )
-            }
+        // if (this.listName) {
+        //     this.twilioService.createItemsList(this.listName, this.uid).subscribe(
+        //         data=> {
+        //             let response = JSON.parse((<any>data)._body);
+        //             if (response.status == 200) {
+        //                 this.subscribedChannels.push({ "itemsList": response.itemsList, "others": { "listName": this.listName, "channelType": "private", "createdDate": "", "createdBy": this.uid, "twilioChannelId": response.tChannelId } })
+        //                 $("#channelModal").appendTo("body").modal("hide");
+        //             }
+        //         }
+        //         )
+        //     }
     }
 
     getChannels() {
-        this.twilioService.getitemslist(this.uid).subscribe(
-            data=> {
-                    let response = JSON.parse((<any>data)._body);
-                    if (response.status == 200) {
-                        this.subscribedChannels = response.lst;
-                    }
-            }
-            )
+        // this.twilioService.getitemslist(this.uid).subscribe(
+        //     data=> {
+        //             let response = JSON.parse((<any>data)._body);
+        //             if (response.status == 200) {
+        //                 this.subscribedChannels = response.lst;
+        //             }
+        //     }
+        //     )
     }
 
     showItems(itemsList, listName) {
-        let navigationExtras: NavigationExtras = {
-            queryParams: {
-                "uid": this.uid,
-                "lid": itemsList,
-                "lst": listName
-            }
-        };
-        this.router.navigate(['item'], navigationExtras);
+        // let navigationExtras: NavigationExtras = {
+        //     queryParams: {
+        //         "uid": this.uid,
+        //         "lid": itemsList,
+        //         "lst": listName
+        //     }
+        // };
+        // this.router.navigate(['item'], navigationExtras);
     }
 
     shareUsers(itemsList, tChannelId) {
-         let navigationExtras: NavigationExtras = {
-            queryParams: {
-                "lid": itemsList,
-                "tid": tChannelId,
-                "uid": this.uid
-            }
-         };
-        this.router.navigate(['share'], navigationExtras);
+        //  let navigationExtras: NavigationExtras = {
+        //     queryParams: {
+        //         "lid": itemsList,
+        //         "tid": tChannelId,
+        //         "uid": this.uid
+        //     }
+        //  };
+        // this.router.navigate(['share'], navigationExtras);
     }
 
     navigateBack() {
-        this.location.back(); // <-- go back to previous location on cancel
+        //this.location.back(); // <-- go back to previous location on cancel
     }
 
-//private addJoinedChannel(channel:Object){
 
-//}
-
-//private addInvitedChannel(channel:Object){
-
-//}
-
-//private addKnownChannel(channel:Object){
-
-//}
 }

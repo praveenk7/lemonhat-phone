@@ -1,5 +1,12 @@
-
-
+<ion-header>
+    <ion-navbar>
+      <ion-title>
+        login
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
 <div class="container">
     <form class="form-inline container-mobile">
         <div class="form-group">
@@ -10,6 +17,6 @@
             <input class="form-control input-sm col-lg-10 col-md-10 col-sm-10" style="display:inline-block;margin: 2px;width: auto;" type="text" placeholder="Enter your Phone number" [(ngModel)]="phone" [ngModelOptions]="{standalone: true}"/>
         </div>
     <button type="button" class="btn btn-danger btn-md btn-round center-block" (click)="login()">Send OTP <span class="glyphicon glyphicon-arrow-right text-justify"></span></button>    
-    </form>
-    
+    </form>    
 </div>
+  </ion-content>

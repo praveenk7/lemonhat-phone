@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import {  ActivatedRoute } from "@angular/router";
-import {TwilioService } from './_services/twilio.service';
+import {TwilioService } from '../_services/twilio.service';
 import * as $ from 'jquery';
 declare var $: any;
 

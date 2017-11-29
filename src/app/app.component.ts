@@ -1,37 +1,21 @@
 ﻿import { Component } from '@angular/core';
-//import { Router, ActivatedRoute } from '@angular/router';
-//import { Platform } from 'ionic-angular';
+import { LoginComponent } from './login.component';
+import {TabsComponent} from './tabs/tabs.component';
 
-//import {TwilioService} from './_services/twilio.service';
+//import {}
 
-//declare const Fingerprint2: any;
-//declare const Twilio: any;
-@Component({
-    //moduleId: module.id,
-    selector: 'ion-app',
+@Component({    
     templateUrl: 'app.component.html'
 })
 export class AppComponent { 
-    // constructor(
-    //     private twilioService:TwilioService,
-    //     private route: ActivatedRoute,
-    //     private router: Router) {};
+    rootPage:any = TabsComponent;
 
-    // name:string;
-    // twilioToken:string;
-    // client:any;
-    // login(){
-    //     if(this.name=="test"){
-    //         new Fingerprint2().get((result, components) => {  
-    //             this.twilioService.getToken(this.name,result).subscribe(                    
-    //                 data=>{
-    //                     this.twilioToken=data._body;
-    //                     this.client = new Twilio.Chat.Client(data._body, { logLevel: 'debug' }); 
-    //                     this.twilioService.setTwilioClient(this.client);
-    //                     this.router.navigate(['home']);
-    //                 }                  
-    //            )
-    //           });
-    //     }
-    // }
+    constructor() {
+        // platform.ready().then(() => {
+        //   // Okay, so the platform is ready and our plugins are available.
+        //   // Here you can do any higher level native things you might need.
+        //   statusBar.styleDefault();
+        //   splashScreen.hide();
+        // });
+      }
 }
