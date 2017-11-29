@@ -7,7 +7,7 @@
   </ion-header>
   
   <ion-content padding>
-<div class="container">
+<!--<div class="container">
     <form class="form-inline container-mobile">
         <div class="form-group">
             <select class="form-control input-sm col-lg-2 col-md-2 col-sm-2" style="display:inline-block;margin: 2px;width: auto;" [(ngModel)]="selectedCountryCode" [ngModelOptions]="{standalone: true}">
@@ -18,5 +18,22 @@
         </div>
     <button type="button" class="btn btn-danger btn-md btn-round center-block" (click)="login()">Send OTP <span class="glyphicon glyphicon-arrow-right text-justify"></span></button>    
     </form>    
-</div>
+</div>-->
+      <ion-list>
+            <ion-item>
+              <ion-select [(ngModel)]="selectedCountryCode">
+              <ion-option value="001">001</ion-option>
+              <ion-option value="91">91</ion-option>
+            </ion-select>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="text" placeholder="Enter your Phone number" [(ngModel)]="phone"></ion-input>
+            </ion-item>
+       </ion-list>
+
+  <div padding>
+    <button ion-button color="primary" block (click)="login()">Send OTP</button>
+  </div>
+
   </ion-content>

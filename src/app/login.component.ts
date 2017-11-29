@@ -13,7 +13,7 @@ import {VerifyPhone} from './phone.verify.component';
 export class LoginComponent { 
     constructor(
         public navCtrl: NavController,
-        public twilioService:TwilioService,        
+        public twilioService:TwilioService       
     ) {};
 
     phone:string;
@@ -22,29 +22,24 @@ export class LoginComponent {
     //countryCode: number;
     selectedCountryCode: any = "91";
     login(){
-        this.navCtrl.push(VerifyPhone, {
-            // id: "123",
-            // name: "Carl"
-          });
         
-        // if(this.phone){
-        //     //this.countryCode=91;
-        //     let navigationExtras: NavigationExtras = {
-        //         queryParams: {
-        //             "phone": this.phone,
-        //             "countryCode": this.selectedCountryCode
-        //         }
-        //     };
-        //     this.twilioService.getPhoneVerificationToken(this.phone, this.selectedCountryCode).subscribe(
-        //          data=> {
-        //              let response = JSON.parse((<any>data)._body);
-        //              if (response.status == 200) {
-        //                  this.router.navigate(['verifyphone'], navigationExtras);
-        //              }
-        //          },
-        //         (error) => console.log('error', error),
-        //      )
+        
+         if(this.phone){
+             //this.countryCode=91;
+           
+             this.twilioService.getPhoneVerificationToken(this.phone, this.selectedCountryCode).subscribe(
+                  data=> {
+                      let response = JSON.parse((<any>data)._body);
+                      if (response.status == 200) {
+                          this.navCtrl.push(VerifyPhone, {
+                              "phone": this.phone,
+                              "countryCode": this.selectedCountryCode
+                          });
+                      }
+                  },
+                 (error) => console.log('error', error),
+              )
             
-        // }
+         }
     }
 }
