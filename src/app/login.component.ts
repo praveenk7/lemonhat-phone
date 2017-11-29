@@ -4,8 +4,7 @@ import { NavController } from 'ionic-angular';
 import {TwilioService} from './_services/twilio.service';
 //import {TabsComponent} from './tabs/tabs.component';
 import {VerifyPhone} from './phone.verify.component';
-//declare const Fingerprint2: any;
-//declare const Twilio: any;
+
 @Component({    
     templateUrl: 'login.component.html',
     styleUrls: ['./login.component.css']
@@ -21,12 +20,9 @@ export class LoginComponent {
     client:any;
     //countryCode: number;
     selectedCountryCode: any = "91";
-    login(){
-        
-        
-         if(this.phone){
-             //this.countryCode=91;
-           
+    login(){     
+        //this.navCtrl.push(VerifyPhone, {});   
+         if(this.phone){                        
              this.twilioService.getPhoneVerificationToken(this.phone, this.selectedCountryCode).subscribe(
                   data=> {
                       let response = JSON.parse((<any>data)._body);
