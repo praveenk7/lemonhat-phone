@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 //import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
-import {TwilioService} from '../_services/twilio.service';
-import * as $ from 'jquery';
+import {TwilioService } from '../_services/twilio.service';
+import { AlertController, LoadingController } from 'ionic-angular';
+//import * as $ from 'jquery';
 
 //window["$"] = $;
 //window["jQuery"] = $;
@@ -16,8 +17,11 @@ export class HomeComponent implements OnInit{
     listName: any ;
     twilioToken: string;
     client: any;  
-    uid: any;
-    constructor(private twilioService: TwilioService
+    uid: any = "AV_9tkw_OEwIORfq8zsz";
+    loader: any;
+    constructor(private twilioService: TwilioService,
+        public alertCtrl: AlertController,
+        public loadingCtrl: LoadingController
         // private route: ActivatedRoute,
         // private router: Router, 
         // private location: Location
@@ -75,36 +79,68 @@ export class HomeComponent implements OnInit{
 
     createChannel() {
         //in progress
-        this.listName = "";
-        //document.getElementById("channelModal").modal("show");
-        //ionViewLoaded() {
-        $("#channelModal").appendTo("body").modal("show");
-        //}
+        //this.listName = "";
+         let prompt = this.alertCtrl.create({
+            title: 'Create ItemList',
+            //message: "Enter a name for this new album you're so keen on adding",
+            inputs: [
+                {
+                    name: 'listName',
+                    placeholder: 'List Name'
+                },
+            ],
+            buttons: [
+                {
+                    text: 'Cancel',
+                    handler: data => {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Save',
+                    handler: data => {
+                        this.listName = data.listName;
+                        if (this.listName) {
+                        this.loader = this.loadingCtrl.create({
+                                content: "Please wait...",
+                            });
+                            this.loader.present();
+                            this.saveChannel();
+                        }
+                        console.log('Saved clicked');
+                    }
+                }
+            ]
+        });
+        prompt.present();
+        //$("#channelModal").appendTo("body").modal("show");
+        
     }
 
     saveChannel() {
-        // if (this.listName) {
-        //     this.twilioService.createItemsList(this.listName, this.uid).subscribe(
-        //         data=> {
-        //             let response = JSON.parse((<any>data)._body);
-        //             if (response.status == 200) {
-        //                 this.subscribedChannels.push({ "itemsList": response.itemsList, "others": { "listName": this.listName, "channelType": "private", "createdDate": "", "createdBy": this.uid, "twilioChannelId": response.tChannelId } })
-        //                 $("#channelModal").appendTo("body").modal("hide");
-        //             }
-        //         }
-        //         )
-        //     }
+         if (this.listName) {
+             this.twilioService.createItemsList(this.listName, this.uid).subscribe(
+                 data=> {
+                     let response = JSON.parse((<any>data)._body);
+                     if (response.status == 200) {
+                         this.subscribedChannels.push({ "itemsList": response.itemsList, "others": { "listName": this.listName, "channelType": "private", "createdDate": "", "createdBy": this.uid, "twilioChannelId": response.tChannelId } })
+                         this.loader.dismiss();
+                         //$("#channelModal").appendTo("body").modal("hide");
+                     }
+                 }
+                 )
+             }
     }
 
     getChannels() {
-        // this.twilioService.getitemslist(this.uid).subscribe(
-        //     data=> {
-        //             let response = JSON.parse((<any>data)._body);
-        //             if (response.status == 200) {
-        //                 this.subscribedChannels = response.lst;
-        //             }
-        //     }
-        //     )
+         this.twilioService.getitemslist(this.uid).subscribe(
+             data=> {
+                     let response = JSON.parse((<any>data)._body);
+                     if (response.status == 200) {
+                         this.subscribedChannels = response.lst;
+                     }
+             }
+             )
     }
 
     showItems(itemsList, listName) {

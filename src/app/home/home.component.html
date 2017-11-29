@@ -9,13 +9,34 @@
       Shopping List
     </ion-title>
   </ion-navbar>
+    
 </ion-header>
 
 <ion-content padding>
+    <ion-list>
+        <ion-list-header >
+            Lists
+            <!--<button ion-button outline item-end (click)="createChannel()">-->
+                <ion-icon item-end name="add-circle-outline" (click)="createChannel()"></ion-icon>
+            <!--</button>-->
+        </ion-list-header>
+  <ion-item-sliding *ngFor="let channel of subscribedChannels">
+    <ion-item (click)="showItems(channel.itemsList,channel.others.listName)">
+      {{channel.others.listName}}
+    </ion-item>
+    <ion-item-options side="left">
+      <button ion-button>
+          <ion-icon name="md-share" (click)="shareUsers(channel.itemsList,channel.others.twilioChannelId)"></ion-icon>
+      </button>
+      <button ion-button color="danger" >
+          <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-item-options>
+  </ion-item-sliding>
+</ion-list>
 
 
-
-<div class="container">
+<!--<div class="container">
     <div class="col-md-12">
         <i class="fa fa-chevron-left" aria-hidden="true" style="font-size: 25px;color: #3f6e96;padding-right: 5px;cursor: pointer;" (click)="navigateBack()"></i>
         <h2 style="display:inline-block;">Items List</h2>
@@ -37,12 +58,12 @@
   </div> 
 
     
-</div>
+</div>-->
    <!-- Modal -->
-  <div class="modal fade customModal" id="channelModal" role="dialog" data-backdrop="false">
+ <!-- <div class="modal fade customModal" id="channelModal" role="dialog" data-backdrop="false">
     <div class="modal-dialog">
     
-      <!-- Modal content-->
+     
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -62,6 +83,6 @@
       </div>
       
     </div>
-  </div>
+  </div>-->
 
 </ion-content>
