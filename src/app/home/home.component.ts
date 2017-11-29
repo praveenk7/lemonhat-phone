@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit{
         //in progress
         //this.listName = "";
          let prompt = this.alertCtrl.create({
-            title: 'Create ItemList',
+             title: 'Create Shop List',
             //message: "Enter a name for this new album you're so keen on adding",
             inputs: [
                 {

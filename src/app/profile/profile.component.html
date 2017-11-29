@@ -1,15 +1,28 @@
 <ion-header>
     <ion-navbar>
       <ion-title>
-        About
+        User Profile
       </ion-title>
     </ion-navbar>
   </ion-header>
   
   <ion-content padding>
-  
+  <ion-list>
+      <ion-item>
+              <ion-input type="text" placeholder="Name" [(ngModel)]="userObj.userName"></ion-input>
+            </ion-item>
+      <ion-item>
+              <ion-input type="text" placeholder="Email" [(ngModel)]="userObj.email"></ion-input>
+            </ion-item>
+      <ion-item>
+              <ion-input type="text" placeholder="Phone" [(ngModel)]="userObj.phone"></ion-input>
+            </ion-item>
+  </ion-list>
+  <div padding>
+    <button ion-button color="primary" block (click)="updateUser()">Update</button>
+  </div>
 
-<div class="container">
+<!--<div class="container">
     
     <form class="container-mobile">
         <h2>User Profile</h2>
@@ -29,6 +42,6 @@
         <button type="button" class="btn btn-danger btn-md btn-round" (click)="getShoppingList()">Show lists</button>   
     </div>
     
-</div>
+</div>-->
 
 </ion-content>

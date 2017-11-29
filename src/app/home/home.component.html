@@ -25,11 +25,13 @@
       {{channel.others.listName}}
     </ion-item>
     <ion-item-options side="left">
-      <button ion-button>
-          <ion-icon name="md-share" (click)="shareUsers(channel.itemsList,channel.others.twilioChannelId)"></ion-icon>
+      <button ion-button (click)="shareUsers(channel.itemsList,channel.others.twilioChannelId)">
+          <ion-icon name="md-share" ></ion-icon>
+          Share
       </button>
       <button ion-button color="danger" >
           <ion-icon name="trash"></ion-icon>
+          Delete
       </button>
     </ion-item-options>
   </ion-item-sliding>
