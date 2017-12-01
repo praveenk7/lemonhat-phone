@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { AlertController, LoadingController, NavController, NavParams } from 'ionic-angular';
+import { NativeStorage } from '@ionic-native/native-storage';
 //import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
 import {TwilioService } from '../_services/twilio.service';
-import { AlertController, LoadingController } from 'ionic-angular';
+import { LoginComponent} from '../login.component';
+
 //import * as $ from 'jquery';
 
 //window["$"] = $;
@@ -17,65 +20,44 @@ export class HomeComponent implements OnInit{
     listName: any ;
     twilioToken: string;
     client: any;  
-    uid: any = "AV_9tkw_OEwIORfq8zsz";
+    uid: string //= "AV_9IGx-OEwIORfq8zsq";
     loader: any;
+    subscribedChannels:any;
     constructor(private twilioService: TwilioService,
         public alertCtrl: AlertController,
-        public loadingCtrl: LoadingController
+        public loadingCtrl: LoadingController,
+        public navCtrl: NavController,
+        public navParams: NavParams,
+        public nativeStorage: NativeStorage
         // private route: ActivatedRoute,
         // private router: Router, 
         // private location: Location
     ) {
-        // this.route.queryParams.subscribe(params => {
-        //     this.uid = params["uid"];
-            
-        // });
-    }
+        this.nativeStorage.getItem('user')
+        .then(
+          data => {
+            console.log(data);
+            if(!data){
+              this.navCtrl.push(LoginComponent);
+            }else{          
+              this.uid=data.uid;
+              console.log("uid value",this.uid);
+            }
+          },
+          error => {
+            console.log(error);
+            this.navCtrl.push(LoginComponent);
+          }
+        );
+       
+    }    
     
-    //channelList:string[];
-    subscribedChannels:any;
+    
     ngOnInit() {
         this.getChannels();
-        //this.loadChannels();//load chat lists
-        //new Fingerprint2().get((result, components) => {
-        //    this.twilioService.getToken(this.channelName, result).subscribe(
-        //        data=> {
-        //            this.twilioToken = data._body;
-        //            this.client = new Twilio.Chat.Client(data._body, { logLevel: 'debug' });
-        //            this.twilioService.setTwilioClient(this.client);
-                    
-        //        }
-        //        )
-        //      });
         
         
-    }
-
-    //    private loadChannels(){
-    //        this.client=this.twilioService.getTwilioClient();
-    //       this.client.getSubscribedChannels().then(
-    //            channelList => {
-    //                this.subscribedChannels = channelList.items.sort(function(a, b) {
-    //                    return a.friendlyName > b.friendlyName;
-    //                  })
-
-    //                  this.subscribedChannels.forEach(channel=>{
-    //                    switch (channel.status) {
-    //                      case 'joined':
-    //                        this.addJoinedChannel(channel);
-    //                        break;
-    //                      case 'invited':
-    //                        this.addInvitedChannel(channel);
-    //                        break;
-    //                      default:
-    //                        this.addKnownChannel(channel);
-    //                        break;
-
-    //    }
-    //})
-
-    //})
-    //}
+    }  
 
     createChannel() {
         //in progress
@@ -169,5 +151,24 @@ export class HomeComponent implements OnInit{
         //this.location.back(); // <-- go back to previous location on cancel
     }
 
-
+    // ionViewCanEnter() {
+    //     //console.log("enterr");    
+    //     this.nativeStorage.getItem('user')
+    //     .then(
+    //       data => {
+    //         console.log(data);
+    //         if(!data){
+    //           this.navCtrl.push(LoginComponent);
+    //         }else{          
+    //           this.uid=data.uid;
+    //           console.log("uid value",this.uid);
+    //         }
+    //       },
+    //       error => {
+    //         console.log(error);
+    //         this.navCtrl.push(LoginComponent);
+    //       }
+    //     );
+    //     // return 
+    //   }
 }

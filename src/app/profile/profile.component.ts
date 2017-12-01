@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 //import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
 import {TwilioService } from '../_services/twilio.service';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { AlertController, LoadingController, NavController, NavParams } from 'ionic-angular';
 import {User } from '../user';
+import { LoginComponent} from '../login.component';
 
 //declare const Fingerprint2: any;
 //declare const Twilio: any;
@@ -11,36 +14,49 @@ import {User } from '../user';
     styleUrls: ['./login.component.css']
 })
 export class ProfileComponent{
-    userId: any = "AV_9tkw_OEwIORfq8zsz";
+    userId: string //= "AV_9IGx-OEwIORfq8zsq";
     constructor(private twilioService: TwilioService,
         // private route: ActivatedRoute,
         // private router: Router,
+        public nativeStorage: NativeStorage,
+        public navCtrl: NavController,
         private userObj: User
     ) {
         // this.route.queryParams.subscribe(params => {
         //     this.userId = params["uid"];
-               this.twilioService.getUserDetails([this.userId]).subscribe(
-                   data=> {
-                     let obj = (JSON.parse((<any>data)._body)).usr;
-                       if (obj && obj.length > 0) {
-                           this.userObj.email = obj[0].others.email;
-                           this.userObj.phone = obj[0].others.phone;
-                           this.userObj.userName = obj[0].others.userName;
-                           this.userObj.countryCode = obj[0].others.countryCode;
-                           this.userObj.id = obj[0].id;
-                       }
-                 });
+        this.nativeStorage.getItem('user')
+            .then(
+              data => {
+                console.log(data);
+                if(!data){
+                  this.navCtrl.push(LoginComponent);
+                }else{          
+                  this.userId=data.uid;
+                  //console.log("profile user id value",this.userId);
+                  this.twilioService.getUserDetails([this.userId]).subscribe(
+                    data=> {
+                      let obj = (JSON.parse((<any>data)._body)).usr;
+                        if (obj && obj.length > 0) {
+                            this.userObj.email = obj[0].others.email;
+                            this.userObj.phone = obj[0].others.phone;
+                            this.userObj.userName = obj[0].others.userName;
+                            this.userObj.countryCode = obj[0].others.countryCode;
+                            this.userObj.id = obj[0].id;
+                        }
+                  });
+                }
+              },
+              error => {
+                console.log(error);
+                this.navCtrl.push(LoginComponent);
+              }
+            );
+               
          //});
          }
   
     getShoppingList() {
-        //  let navigationExtras: NavigationExtras = {
-        //     queryParams: {
-        //         "uid": this.userObj.id,
-        //     }
-        //  };
-        // this.router.navigate(['home'], navigationExtras);
-
+      
       
     }
 
@@ -53,4 +69,6 @@ export class ProfileComponent{
         //         }
         //     });;
     }
+
+   
 }

@@ -50,7 +50,7 @@ export class VerifyPhone{
                        this.nativeStorage.setItem('user', {'token': response.token, 'uid':response.uid}).
                        then(
                            () => {console.log('Stored item!')
-                           this.navCtrl.push(TabsComponent, {});
+                           this.navCtrl.push(TabsComponent, { "uid": response.uid});
                        },
                        error => console.error('Error storing item', error)
                     );

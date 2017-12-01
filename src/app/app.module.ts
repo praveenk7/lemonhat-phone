@@ -1,19 +1,13 @@
-﻿import { NgModule, ErrorHandler }      from '@angular/core';
+﻿import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler, Platform } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
-//import * as $ from 'jquery';
-
-// window["$"] = $;
-// window["jQuery"] = $;
-
+import { Network } from '@ionic-native/network';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-//routing
-//import {routing} from './app.routing';
-
+import {NativeStorageMock} from './_services/custom.service';
 //services
 import {TwilioService} from './_services/twilio.service';
 import {User} from './user';
@@ -22,10 +16,12 @@ import {User} from './user';
  import { LoginComponent }  from './login.component';
  import { TabsComponent} from './tabs/tabs.component';
  import { HomeComponent }  from './home/home.component';
- import {VerifyPhone } from './phone.verify.component';
- import{ProfileComponent } from './profile/profile.component';
-// import{ ItemComponent } from './item.component';
-// import { ShareComponent } from './share.component';
+ import { VerifyPhone } from './phone.verify.component';
+ import { ProfileComponent } from './profile/profile.component';
+ import { ItemComponent } from './items/item.component';
+ import { ShareComponent } from './share.component';
+import { FilterPipe } from './filter.pipe';
+
 
 @NgModule({
     imports: [
@@ -40,19 +36,13 @@ import {User} from './user';
         LoginComponent,
         TabsComponent,
         VerifyPhone,
-        HomeComponent,
-        // ItemComponent,
-        // ShareComponent,
-         ProfileComponent     
+        HomeComponent,       
+        ProfileComponent,
+        ItemComponent,
+        ShareComponent,        
+        FilterPipe
     ],
-    providers: [ 
-        StatusBar,
-        SplashScreen,
-        {provide: ErrorHandler, useClass: IonicErrorHandler,},
-        NativeStorage,
-        TwilioService,
-        User    
-    ],
+    providers: AppModule.getProviders(),
     bootstrap: [IonicApp],
     entryComponents: [
         AppComponent,
@@ -60,10 +50,48 @@ import {User} from './user';
         VerifyPhone,
         TabsComponent,        
         HomeComponent,
-        // ItemComponent,
-        // ShareComponent,
+        ItemComponent,
+        ShareComponent,
          ProfileComponent
     ]
 })
 
-export class AppModule { }
+//@Injectable()
+export class AppModule {   
+    
+    public static getProviders() {
+      
+      
+          let providers;
+         
+        
+          if(document.URL.includes('http://')){
+
+            // Use browser providers
+           providers= [ 
+               StatusBar,
+               SplashScreen,
+               {provide: ErrorHandler, useClass: IonicErrorHandler,},
+               {provide: NativeStorage, useClass: NativeStorageMock,},
+               TwilioService,
+               User    
+           ]
+   
+          } else {
+   
+            //Use device providers
+            providers= [ 
+               StatusBar,
+               SplashScreen,
+               {provide: ErrorHandler, useClass: IonicErrorHandler,},
+               NativeStorage,
+               TwilioService,
+               User    
+           ]
+   
+          }   
+          return providers;
+   
+      }
+   
+ }
