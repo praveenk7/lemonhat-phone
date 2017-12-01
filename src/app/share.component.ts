@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import {  ActivatedRoute } from "@angular/router";
+//import { Location } from '@angular/common';
+//import {  ActivatedRoute } from "@angular/router";
 import {TwilioService } from './_services/twilio.service';
+import { NavParams } from 'ionic-angular';
+//import { filter } from './filter.pipe';
 //import {User } from './user';
 
 //declare const Fingerprint2: any;
@@ -15,14 +17,22 @@ export class ShareComponent implements OnInit{
     itemsList: any = "";
     tChannelId: any = "";
     uid: any = "";
+    myInput:string= "";
     //allUsers: any;
     constructor(private twilioService: TwilioService,
-        private route: ActivatedRoute, private location: Location) {
-        this.route.queryParams.subscribe(params => {
-            this.itemsList = params["lid"];
-            this.tChannelId = params["tid"];
-            this.uid = params["uid"];
-        });
+        public navParams: NavParams
+        //private route: ActivatedRoute, private location: Location
+        ) {
+
+        this.itemsList = this.navParams.get('lid');
+        this.tChannelId = this.navParams.get('tid');
+        this.uid = this.navParams.get('uid');
+
+        //this.route.queryParams.subscribe(params => {
+        //    this.itemsList = params["lid"];
+        //    this.tChannelId = params["tid"];
+        //    this.uid = params["uid"];
+        //});
     }
 
     ngOnInit() {
@@ -61,7 +71,7 @@ export class ShareComponent implements OnInit{
     }
 
     navigateBack() {
-        this.location.back(); // <-- go back to previous location on cancel
+        //this.location.back(); // <-- go back to previous location on cancel
     }
 
 }

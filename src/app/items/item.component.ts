@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import {  ActivatedRoute } from "@angular/router";
+//import { Location } from '@angular/common';
+//import {  ActivatedRoute } from "@angular/router";
 import {TwilioService } from '../_services/twilio.service';
-import * as $ from 'jquery';
-declare var $: any;
+import { AlertController, LoadingController, NavParams } from 'ionic-angular';
+//import * as $ from 'jquery';
+//declare var $: any;
 
 @Component({   
     templateUrl: 'item.component.html',
@@ -16,12 +17,19 @@ export class ItemComponent implements OnInit{
     imageUrl: any;  
     uid: any;
     container: Object = {};
-    constructor(private twilioService: TwilioService, private route: ActivatedRoute, private location: Location) {
-        this.route.queryParams.subscribe(params => {
-            this.itemsList = params["lid"];
-            this.uid = params["uid"];
-            this.listName = params["lst"]
-        });
+    searchItemName: string = "";
+    constructor(private twilioService: TwilioService, public alertCtrl: AlertController,
+        public loadingCtrl: LoadingController,
+        public navParams: NavParams) {
+        this.itemsList = this.navParams.get('lid');
+        this.uid = this.navParams.get('uid');
+        this.listName = this.navParams.get('lst');
+
+        //this.route.queryParams.subscribe(params => {
+        //    this.itemsList = params["lid"];
+        //    this.uid = params["uid"];
+        //    this.listName = params["lst"]
+        //});
     }
     
     //channelList:string[];
@@ -34,7 +42,40 @@ export class ItemComponent implements OnInit{
     createItem() {
         //in progress
         this.itemName = "";
-        $("#itemModal").appendTo("body").modal("show");
+        //$("#itemModal").appendTo("body").modal("show");
+         let prompt = this.alertCtrl.create({
+            title: 'Create Item',
+            //message: "Enter a name for this new album you're so keen on adding",
+            inputs: [
+                {
+                    name: 'itemName',
+                    placeholder: 'Item Name'
+                },
+            ],
+            buttons: [
+                {
+                    text: 'Cancel',
+                    handler: data => {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Save',
+                    handler: data => {
+                        this.itemName = data.itemName;
+                        if (this.itemName) {
+                            this.loader = this.loadingCtrl.create({
+                                content: "Please wait...",
+                            });
+                            this.loader.present();
+                            this.saveItem();
+                        }
+                        console.log('Saved clicked');
+                    }
+                }
+            ]
+        });
+        prompt.present();
     }
 
     saveItem() {
@@ -44,7 +85,8 @@ export class ItemComponent implements OnInit{
                     let response = JSON.parse((<any>data)._body);
                     if (response.status == 200) {
                         this.items.push({ "item": response.item, "others": { "itemName": this.itemName, "createdDate": "", "createdBy": this.uid, "itemListId": this.itemsList } })
-                        $("#itemModal").appendTo("body").modal("hide");
+                        //$("#itemModal").appendTo("body").modal("hide");
+                        this.loader.dismiss();
                     }
                 }
                 )
@@ -56,7 +98,7 @@ export class ItemComponent implements OnInit{
             data=> {
                     let response = JSON.parse((<any>data)._body);
                     if (response.status == 200) {
-                        this.items = response.items ? response.items : [];;
+                        this.items = response.items ? response.items : [];
                     }
             }
             )
@@ -74,18 +116,8 @@ export class ItemComponent implements OnInit{
     }
 
     navigateBack() {
-        this.location.back(); // <-- go back to previous location on cancel
+        //this.location.back(); // <-- go back to previous location on cancel
     }
 
-//private addJoinedChannel(channel:Object){
 
-//}
-
-//private addInvitedChannel(channel:Object){
-
-//}
-
-//private addKnownChannel(channel:Object){
-
-//}
 }

@@ -1,10 +1,36 @@
-<!--<ul>
-    <li *ngFor="let channel of subscribedChannels">
-        {{channel.friendlyName}}
-    </li>
-</ul>-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Items
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <ion-searchbar color="dark" [(ngModel)]="searchItemName"></ion-searchbar>
+        <ion-list>
+            <ion-list-header>
+                Items : {{listName}}
+                    <ion-icon item-end name="add-circle-outline" (click)="createItem()"></ion-icon>
+            </ion-list-header>
+            <ion-item-sliding *ngFor="let idx = index; let item of items |customFilter: {others :{itemName:searchItemName}}">
+                <ion-item>
+                    {{item.others.itemName}}
+                </ion-item>
+                <!--<ion-item-options side="left">
+                    <button ion-button (click)="shareUsers(channel.itemsList,channel.others.twilioChannelId)">
+                        <ion-icon name="md-share" ></ion-icon>
+                        Share
+                    </button>
+                    <button ion-button color="danger" >
+                        <ion-icon name="trash"></ion-icon>
+                        Delete
+                    </button>
+                </ion-item-options>-->
+            </ion-item-sliding>
+        </ion-list>
+</ion-content>
 
-<div class="container">
+<!--<div class="container">
     <div class="col-md-12">
         <i class="fa fa-chevron-left" aria-hidden="true" style="font-size: 25px;color: #3f6e96;padding-right: 5px;cursor: pointer;" (click)="navigateBack()"></i>
         <h2 style="display:inline-block;">Items :</h2>
@@ -20,12 +46,8 @@
         </h4>
       </div>
       <div id="collapse{{idx}}" class="panel-collapse collapse">
-        <div class="panel-body" >
-            
+        <div class="panel-body">
             <span  (click)="openChart($event,idx,container[idx])"><i class="fa fa-comment-o" aria-hidden="true"></i></span>
-    
-           <!-- <span class="glyphicon glyphicon-plus-sign"></span>
-            <span class="glyphicon glyphicon-remove-sign"></span>-->
         </div>
         <div class="panel-body" [hidden]="!container[idx]">
             <input type="text" placeholder="Describe yourself here..." class="form-control col-md-12" style="width:100%;"/>
@@ -37,11 +59,10 @@
 
  
 </div>
-    <!-- Modal -->
+    
   <div class="modal fade customModal" id="itemModal" role="dialog">
     <div class="modal-dialog">
     
-      <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -61,4 +82,4 @@
       </div>
       
     </div>
-  </div>
+  </div>-->
