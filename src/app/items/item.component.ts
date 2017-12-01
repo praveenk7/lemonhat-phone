@@ -18,6 +18,7 @@ export class ItemComponent implements OnInit{
     uid: any;
     container: Object = {};
     searchItemName: string = "";
+    loader: any;
     constructor(private twilioService: TwilioService, public alertCtrl: AlertController,
         public loadingCtrl: LoadingController,
         public navParams: NavParams) {

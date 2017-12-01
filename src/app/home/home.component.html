@@ -13,6 +13,7 @@
 </ion-header>
 
 <ion-content padding>
+    <ion-searchbar color="dark" [(ngModel)]="searchListName"></ion-searchbar>
     <ion-list>
         <ion-list-header >
             Lists
@@ -20,7 +21,7 @@
                 <ion-icon item-end name="add-circle-outline" (click)="createChannel()"></ion-icon>
             <!--</button>-->
         </ion-list-header>
-  <ion-item-sliding *ngFor="let channel of subscribedChannels">
+  <ion-item-sliding *ngFor="let channel of subscribedChannels |customFilter: {others :{listName:searchListName}}">
     <ion-item (click)="showItems(channel.itemsList,channel.others.listName)">
       {{channel.others.listName}}
     </ion-item>

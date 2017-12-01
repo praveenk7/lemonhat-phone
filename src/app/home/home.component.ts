@@ -4,7 +4,9 @@ import { AlertController, LoadingController, NavController, NavParams } from 'io
 import { NativeStorage } from '@ionic-native/native-storage';
 //import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
 import {TwilioService } from '../_services/twilio.service';
-import { LoginComponent} from '../login.component';
+import { LoginComponent } from '../login.component';
+import {ShareComponent } from '../share.component';
+import {ItemComponent } from '../items/item.component';
 
 //import * as $ from 'jquery';
 
@@ -22,7 +24,8 @@ export class HomeComponent implements OnInit{
     client: any;  
     uid: string //= "AV_9IGx-OEwIORfq8zsq";
     loader: any;
-    subscribedChannels:any;
+    subscribedChannels: any;
+    searchListName: string = "";
     constructor(private twilioService: TwilioService,
         public alertCtrl: AlertController,
         public loadingCtrl: LoadingController,
@@ -134,6 +137,11 @@ export class HomeComponent implements OnInit{
         //     }
         // };
         // this.router.navigate(['item'], navigationExtras);
+        this.navCtrl.push(ItemComponent, {
+            "uid": this.uid,
+            "lid": itemsList,
+            "lst": listName
+        });
     }
 
     shareUsers(itemsList, tChannelId) {
@@ -145,6 +153,12 @@ export class HomeComponent implements OnInit{
         //     }
         //  };
         // this.router.navigate(['share'], navigationExtras);
+        
+        this.navCtrl.push(ShareComponent, {
+            "lid": itemsList,
+            "tid": tChannelId,
+            "uid": this.uid
+        });
     }
 
     navigateBack() {
