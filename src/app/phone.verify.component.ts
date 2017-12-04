@@ -35,15 +35,19 @@ export class VerifyPhone{
     verify(){
         if(this.userObj.phone){
 
-            this.twilioService.verifyPhoneToken(this.otp, this.userObj).subscribe(
-                data=> {
-                    let response = JSON.parse((<any>data)._body);
-                    if (response.status == 200) {                 
-                    this.storage.set('user', response.uid);
-                    this.navCtrl.push(TabsComponent, {});
-                    }
-                }
-            )
+            // this.twilioService.verifyPhoneToken(this.otp, this.userObj).subscribe(
+            //     data=> {
+            //         let response = JSON.parse((<any>data)._body);
+            //         if (response.status == 200) {                 
+            //         this.storage.set('user', response.uid);
+            //         this.navCtrl.push(TabsComponent, {});
+            //         }
+            //     }
+            // )
+
+            ////uncoment to test with hardcoded values
+            this.storage.set('user', "AV_9IGx-OEwIORfq8zsq");
+            this.navCtrl.push(TabsComponent,{});
         }
     }
 

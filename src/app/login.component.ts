@@ -23,23 +23,23 @@ export class LoginComponent {
     login(){     
         
          if(this.phone){                        
-             this.twilioService.getPhoneVerificationToken(this.phone, this.selectedCountryCode).subscribe(
-                  data=> {
-                      let response = JSON.parse((<any>data)._body);
-                      if (response.status == 200) {
-                          this.navCtrl.push(VerifyPhone, {
-                              "phone": this.phone,
-                              "countryCode": this.selectedCountryCode
-                          });
-                      }
-                  },
-                 (error) => console.log('error', error),
-              )
+            //  this.twilioService.getPhoneVerificationToken(this.phone, this.selectedCountryCode).subscribe(
+            //       data=> {
+            //           let response = JSON.parse((<any>data)._body);
+            //           if (response.status == 200) {
+            //               this.navCtrl.push(VerifyPhone, {
+            //                   "phone": this.phone,
+            //                   "countryCode": this.selectedCountryCode
+            //               });
+            //           }
+            //       },
+            //      (error) => console.log('error', error),
+            //   )
             //uncomment to check with hardcoded values
-            // this.navCtrl.push(VerifyPhone, {
-            //                       "phone": "9966076655",
-            //                       "countryCode": "91"
-            //                   });
+            this.navCtrl.push(VerifyPhone, {
+                                  "phone": "9966076655",
+                                  "countryCode": "91"
+                              });
          }
     }
 }

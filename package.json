@@ -30,6 +30,7 @@
     "bootstrap": "3.3.7",
     "cordova-browser": "5.0.1",
     "cordova-ios": "4.5.4",
+    "cordova-plugin-contacts": "^3.0.0",
     "cordova-plugin-device": "^1.1.4",
     "cordova-plugin-ionic-webview": "^1.1.16",
     "cordova-plugin-nativestorage": "^2.2.2",
@@ -58,7 +59,8 @@
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-nativestorage": {},
-      "cordova-sqlite-storage": {}
+      "cordova-sqlite-storage": {},
+      "cordova-plugin-contacts": {}
     },
     "platforms": [
       "ios",
