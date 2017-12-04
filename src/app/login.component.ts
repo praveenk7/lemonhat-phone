@@ -5,6 +5,7 @@ import {TwilioService} from './_services/twilio.service';
 //import {TabsComponent} from './tabs/tabs.component';
 import {VerifyPhone} from './phone.verify.component';
 
+
 @Component({    
     templateUrl: 'login.component.html',
     styleUrls: ['./login.component.css']
@@ -17,11 +18,10 @@ export class LoginComponent {
 
     phone:string;
     twilioToken:string;
-    client:any;
-    //countryCode: number;
+    client:any;    
     selectedCountryCode: any = "91";
     login(){     
-        //this.navCtrl.push(VerifyPhone, {});   
+        
          if(this.phone){                        
              this.twilioService.getPhoneVerificationToken(this.phone, this.selectedCountryCode).subscribe(
                   data=> {
@@ -35,7 +35,11 @@ export class LoginComponent {
                   },
                  (error) => console.log('error', error),
               )
-            
+            //uncomment to check with hardcoded values
+            // this.navCtrl.push(VerifyPhone, {
+            //                       "phone": "9966076655",
+            //                       "countryCode": "91"
+            //                   });
          }
     }
 }

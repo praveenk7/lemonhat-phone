@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { AlertController, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { Storage } from '@ionic/storage';
 //import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
 import {TwilioService } from '../_services/twilio.service';
 import { LoginComponent } from '../login.component';
@@ -31,34 +32,25 @@ export class HomeComponent implements OnInit{
         public loadingCtrl: LoadingController,
         public navCtrl: NavController,
         public navParams: NavParams,
-        public nativeStorage: NativeStorage
+        public nativeStorage: NativeStorage,
+        private storage: Storage    
         // private route: ActivatedRoute,
         // private router: Router, 
         // private location: Location
-    ) {
-        this.nativeStorage.getItem('user')
-        .then(
-          data => {
-            console.log(data);
-            if(!data){
-              this.navCtrl.push(LoginComponent);
-            }else{          
-              this.uid=data.uid;
-              console.log("uid value",this.uid);
-            }
-          },
-          error => {
-            console.log(error);
+    ) {};
+    
+    
+    ngOnInit() {        
+        this.storage.get('user').then((val) => {
+            console.log("tabs user value", val);
+           if(val){
+            this.uid=val;
+            console.log("home uid value",val);
+            this.getChannels();
+           }else{
             this.navCtrl.push(LoginComponent);
-          }
-        );
-       
-    }    
-    
-    
-    ngOnInit() {
-        this.getChannels();
-        
+           }
+          });
         
     }  
 
@@ -98,8 +90,6 @@ export class HomeComponent implements OnInit{
             ]
         });
         prompt.present();
-        //$("#channelModal").appendTo("body").modal("show");
-        
     }
 
     saveChannel() {

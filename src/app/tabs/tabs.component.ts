@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { Storage } from '@ionic/storage';
 // import { Network } from '@ionic-native/network';
 import { HomeComponent } from '../home/home.component';
 import { ProfileComponent} from '../profile/profile.component';
@@ -17,32 +18,27 @@ export class TabsComponent {
 
   constructor(
     private nativeStorage: NativeStorage,
-    public navCtrl: NavController    
-   ) {      
-     
-  }
+    public navCtrl: NavController,
+    private storage: Storage      
+   ) {};
 
+   ngOnInit() {
+    
+    
+}  
   //Start Praveen change
   ionViewCanEnter() {
     //console.log("enterr");   
-   
-    this.nativeStorage.getItem('user')
-    .then(
-      data => {
-        console.log(data);
-        if(!data){
-          this.navCtrl.push(LoginComponent);
-        }else{          
-          this.uid=data.uid;
-          console.log(this.uid);
-        }
-      },
-      error => {
-        console.log(error);
-        this.navCtrl.push(LoginComponent);
-      }
-    );
-    // return 
+    this.storage.get('user').then((val) => {
+      console.log("tabs user value", val);
+      console.log("tabs documentUrl", document.URL);
+     if(val){
+
+     }else{
+      this.navCtrl.push(LoginComponent);
+     }
+    });
+     
   }
-  //End
+  // //End
 }

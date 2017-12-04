@@ -8,6 +8,7 @@ import { Network } from '@ionic-native/network';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {NativeStorageMock} from './_services/custom.service';
+import { IonicStorageModule } from '@ionic/storage';
 //services
 import {TwilioService} from './_services/twilio.service';
 import {User} from './user';
@@ -29,7 +30,8 @@ import { FilterPipe } from './filter.pipe';
         FormsModule,
         HttpModule,
         //routing,
-        IonicModule.forRoot(AppComponent)
+        IonicModule.forRoot(AppComponent),
+        IonicStorageModule.forRoot()
     ],
     declarations: [
         AppComponent,
@@ -64,32 +66,41 @@ export class AppModule {
       
           let providers;
          
-        
-          if(document.URL.includes('http://')){
-
-            // Use browser providers
-           providers= [ 
-               StatusBar,
-               SplashScreen,
-               {provide: ErrorHandler, useClass: IonicErrorHandler,},
-               {provide: NativeStorage, useClass: NativeStorageMock,},
-               TwilioService,
-               User    
-           ]
+        console.log("documentUrl", document.URL);
+        //   if(document.URL.includes('http://')){
+        //     console.log("browser providers")
+        //     // Use browser providers
+        //    providers= [ 
+        //        StatusBar,
+        //        SplashScreen,
+        //        {provide: ErrorHandler, useClass: IonicErrorHandler,},
+        //        {provide: NativeStorage, useClass: NativeStorageMock,},
+        //        TwilioService,
+        //        User    
+        //    ]
    
-          } else {
+        //   } else {
+        //     console.log("device providers")
+        //     //Use device providers
+        //     providers= [ 
+        //        StatusBar,
+        //        SplashScreen,
+        //        {provide: ErrorHandler, useClass: IonicErrorHandler,},
+        //        NativeStorage,
+        //        TwilioService,
+        //        User    
+        //    ]
    
-            //Use device providers
-            providers= [ 
-               StatusBar,
-               SplashScreen,
-               {provide: ErrorHandler, useClass: IonicErrorHandler,},
-               NativeStorage,
-               TwilioService,
-               User    
-           ]
-   
-          }   
+        //   }  
+        providers= [ 
+                   StatusBar,
+                   SplashScreen,
+                   {provide: ErrorHandler, useClass: IonicErrorHandler,},
+                   NativeStorage,
+                   IonicStorageModule,
+                   TwilioService,
+                   User    
+        ] 
           return providers;
    
       }

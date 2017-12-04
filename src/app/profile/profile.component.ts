@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 //import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
 import {TwilioService } from '../_services/twilio.service';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { Storage } from '@ionic/storage';
 import { AlertController, LoadingController, NavController, NavParams } from 'ionic-angular';
 import {User } from '../user';
 import { LoginComponent} from '../login.component';
@@ -20,18 +21,15 @@ export class ProfileComponent{
         // private router: Router,
         public nativeStorage: NativeStorage,
         public navCtrl: NavController,
-        private userObj: User
+        private userObj: User,
+        private storage: Storage    
     ) {
-        // this.route.queryParams.subscribe(params => {
-        //     this.userId = params["uid"];
-        this.nativeStorage.getItem('user')
-            .then(
-              data => {
-                console.log(data);
-                if(!data){
+        this.storage.get('user').then((val) => {
+                console.log(val);
+                if(!val){
                   this.navCtrl.push(LoginComponent);
                 }else{          
-                  this.userId=data.uid;
+                  this.userId=val;
                   //console.log("profile user id value",this.userId);
                   this.twilioService.getUserDetails([this.userId]).subscribe(
                     data=> {
