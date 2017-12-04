@@ -20,7 +20,8 @@ export class VerifyPhone{
         public navParams:NavParams, 
         private twilioService:TwilioService,
         private userObj:User,
-        private storage: Storage      
+        private storage: Storage,
+        private alertCtrl: AlertController       
     ){
         this.userObj.phone=this.navParams.get('phone');
         this.userObj.countryCode=this.navParams.get('countryCode');
@@ -33,7 +34,7 @@ export class VerifyPhone{
     twilioToken:string;
     client:any;    
     verify(){
-        if(this.userObj.phone){
+        if (this.otp){
 
             // this.twilioService.verifyPhoneToken(this.otp, this.userObj).subscribe(
             //     data=> {
@@ -55,6 +56,13 @@ export class VerifyPhone{
             ////uncoment to test with hardcoded values
             this.storage.set('user', "AV_9IGx-OEwIORfq8zsq");
             this.navCtrl.push(TabsComponent,{});
+        } else {
+            let alert = this.alertCtrl.create({
+                //title: 'Low battery',
+                subTitle: "Please enter otp.",
+                buttons: ['Ok']
+            });
+            alert.present();
         }
     }
 
