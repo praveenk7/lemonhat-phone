@@ -3,7 +3,7 @@
 // import { StatusBar } from '@ionic-native/status-bar';
 // import { SplashScreen } from '@ionic-native/splash-screen';
 import {NativeStorage} from '@ionic-native/native-storage';
-
+import { Contacts, Contact, ContactField, ContactName, ContactFieldType, } from '@ionic-native/contacts';
 
 import { Network } from '@ionic-native/network';
 
@@ -24,6 +24,16 @@ export class NativeStorageMock extends NativeStorage {
     };
 }
 
+export class ContactsMock extends Contacts{
+    find(fields: ContactFieldType[], options?: any): Promise<any[]> {
+        return new Promise((reslove, reject)=>{
+            reslove([
+                {"_objectInstance":{"id":322,"rawId":null,"displayName":null,"name":{"givenName":"Praveen","formatted":"Praveen","middleName":null,"familyName":null,"honorificPrefix":null,"honorificSuffix":null},"nickname":null,"phoneNumbers":[{"type":"mobile","value":"00 1 (480) 225-4893","id":0,"pref":false}],"emails":null,"addresses":null,"ims":null,"organizations":null,"birthday":null,"note":null,"photos":null,"categories":null,"urls":null},"rawId":null},
+                {"_objectInstance":{"id":323,"rawId":null,"displayName":null,"name":{"givenName":"KaliCharan","formatted":"KaliCharan","middleName":null,"familyName":"iPhone 4","honorificPrefix":null,"honorificSuffix":null},"nickname":null,"phoneNumbers":[{"type":"mobile","value":"4802492874","id":0,"pref":false}],"emails":null,"addresses":null,"ims":null,"organizations":null,"birthday":null,"note":null,"photos":null,"categories":null,"urls":null},"rawId":null}
+            ])
+        })
+    }
+}
 
 // export class AppProviders {
 //     constructor(public platform:Platform) {

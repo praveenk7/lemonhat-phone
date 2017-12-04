@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-//import { Location } from '@angular/common';
-//import {  ActivatedRoute } from "@angular/router";
+import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
 import {TwilioService } from './_services/twilio.service';
 import { NavParams, LoadingController } from 'ionic-angular';
 //import { filter } from './filter.pipe';
@@ -22,6 +21,7 @@ export class ShareComponent implements OnInit{
     //allUsers: any;
     constructor(private twilioService: TwilioService,
         public navParams: NavParams,
+        private contacts: Contacts,
         public loadingCtrl: LoadingController
         //private route: ActivatedRoute, private location: Location
         ) {
@@ -41,7 +41,16 @@ export class ShareComponent implements OnInit{
     }
 
     ngOnInit() {
-        this.getAllUser();
+        //this.getAllUser();
+        this.contacts.find(['displayName', 'name', 'phoneNumbers', 'emails'], {filter: "", multiple: true})
+        .then(data => {
+          //console.log(data);
+          
+        });
+
+        // this.contacts.pickContact().then((result)=>{
+        //     console.log("phone contacts", result);
+        // })
     }
     allUsers: any = [];
     //[{ "usr": "AV_ZMHEeff7q3U-PKsyB", "others": { "phone": "7330558840", "countryCode": "91", "chatToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImN0eSI6InR3aWxpby1mcGE7dj0xIn0.eyJqdGkiOiJTSzNlNWE5MGUzMmJhYzQxNmQyMWEyNDczYTQ2OTEzODc3LTE1MTExNzczNTEiLCJncmFudHMiOnsiaWRlbnRpdHkiOiJBVl9aTUhFZWZmN3EzVS1QS3N5QiIsImNoYXQiOnsic2VydmljZV9zaWQiOiJJUzQxODU2MTIwZTQwODRjZTE5MmY5MTc2ZWJjNjcwNWM3IiwiZW5kcG9pbnRfaWQiOiJJUzQxODU2MTIwZTQwODRjZTE5MmY5MTc2ZWJjNjcwNWM3QVZfWk1IRWVmZjdxM1UtUEtzeUJicm93c2VyIiwicHVzaF9jcmVkZW50aWFsX3NpZCI6IkNSZTljNWVmZjI5ZTc0NDcwOWQ3ZGY4NzVmOGE3OTdiZjAifX0sImlhdCI6MTUxMTE3NzM1MSwiZXhwIjoxNTExMjE3MzUxLCJpc3MiOiJTSzNlNWE5MGUzMmJhYzQxNmQyMWEyNDczYTQ2OTEzODc3Iiwic3ViIjoiQUMwMzI2OGYxZTEwYTgzNTE4OTUwODJhMmQwNWQzZjVlMCJ9.INw9XrlqZhlhv-v-JyHVbTSn7BgjWTjJLrQmVPeguJs", "userName": "kali", "email": "kalicharan5782gmail.com" } },

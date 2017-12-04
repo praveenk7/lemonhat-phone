@@ -9,8 +9,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {NativeStorageMock} from './_services/custom.service';
 import { IonicStorageModule } from '@ionic/storage';
+import { Contacts} from '@ionic-native/contacts';
 //services
 import {TwilioService} from './_services/twilio.service';
+import {ContactsMock} from './_services/custom.service';
 import {User} from './user';
 //components
  import { AppComponent }  from './app.component';
@@ -54,7 +56,7 @@ import { FilterPipe } from './filter.pipe';
         HomeComponent,
         ItemComponent,
         ShareComponent,
-         ProfileComponent
+        ProfileComponent
     ]
 })
 
@@ -67,40 +69,35 @@ export class AppModule {
           let providers;
          
         console.log("documentUrl", document.URL);
-        //   if(document.URL.includes('http://')){
-        //     console.log("browser providers")
-        //     // Use browser providers
-        //    providers= [ 
-        //        StatusBar,
-        //        SplashScreen,
-        //        {provide: ErrorHandler, useClass: IonicErrorHandler,},
-        //        {provide: NativeStorage, useClass: NativeStorageMock,},
-        //        TwilioService,
-        //        User    
-        //    ]
-   
-        //   } else {
-        //     console.log("device providers")
-        //     //Use device providers
-        //     providers= [ 
-        //        StatusBar,
-        //        SplashScreen,
-        //        {provide: ErrorHandler, useClass: IonicErrorHandler,},
-        //        NativeStorage,
-        //        TwilioService,
-        //        User    
-        //    ]
-   
-        //   }  
-        providers= [ 
+         if(document.URL.includes('LemonHat')){
+            console.log("device providers")
+            //Use device providers
+           providers= [ 
                    StatusBar,
                    SplashScreen,
                    {provide: ErrorHandler, useClass: IonicErrorHandler,},
                    NativeStorage,
                    IonicStorageModule,
+                   Contacts,
                    TwilioService,
                    User    
-        ] 
+           ]        
+          } else {
+            console.log("browser providers")
+            // Use browser providers
+           providers= [ 
+               StatusBar,
+               SplashScreen,
+               {provide: ErrorHandler, useClass: IonicErrorHandler,},
+               {provide: NativeStorage, useClass: NativeStorageMock,},
+               IonicStorageModule,
+               {provide:Contacts, useClass:ContactsMock},
+               TwilioService,
+               User    
+           ]
+   
+          }  
+        
           return providers;
    
       }
