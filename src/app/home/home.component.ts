@@ -44,7 +44,11 @@ export class HomeComponent implements OnInit{
         this.storage.get('user').then((val) => {
             console.log("tabs user value", val);
            if(val){
-            this.uid=val;
+               this.uid = val;
+               this.loader = this.loadingCtrl.create({
+                   content: "Loading...",
+               });
+               this.loader.present();
             console.log("home uid value",val);
             this.getChannels();
            }else{
@@ -99,9 +103,9 @@ export class HomeComponent implements OnInit{
                      let response = JSON.parse((<any>data)._body);
                      if (response.status == 200) {
                          this.subscribedChannels.push({ "itemsList": response.itemsList, "others": { "listName": this.listName, "channelType": "private", "createdDate": "", "createdBy": this.uid, "twilioChannelId": response.tChannelId } })
-                         this.loader.dismiss();
                          //$("#channelModal").appendTo("body").modal("hide");
                      }
+                     this.loader.dismiss();
                  }
                  )
              }
@@ -114,6 +118,7 @@ export class HomeComponent implements OnInit{
                      if (response.status == 200) {
                          this.subscribedChannels = response.lst;
                      }
+                 this.loader.dismiss();
              }
              )
     }

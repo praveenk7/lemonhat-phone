@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import {TabsComponent} from './tabs/tabs.component';
 import {TwilioService} from './_services/twilio.service';
@@ -41,7 +41,14 @@ export class VerifyPhone{
             //         if (response.status == 200) {                 
             //         this.storage.set('user', response.uid);
             //         this.navCtrl.push(TabsComponent, {});
-            //         }
+            //         }else {
+        //                let alert = this.alertCtrl.create({
+        //        //title: 'Low battery',
+        //        subTitle: response.body,
+        //        buttons: ['Ok']
+        //    });
+        //    alert.present();
+        //}
             //     }
             // )
 

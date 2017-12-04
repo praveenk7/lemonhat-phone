@@ -25,7 +25,10 @@ export class ItemComponent implements OnInit{
         this.itemsList = this.navParams.get('lid');
         this.uid = this.navParams.get('uid');
         this.listName = this.navParams.get('lst');
-
+        this.loader = this.loadingCtrl.create({
+            content: "Loading...",
+        });
+        this.loader.present();
         //this.route.queryParams.subscribe(params => {
         //    this.itemsList = params["lid"];
         //    this.uid = params["uid"];
@@ -87,8 +90,8 @@ export class ItemComponent implements OnInit{
                     if (response.status == 200) {
                         this.items.push({ "item": response.item, "others": { "itemName": this.itemName, "createdDate": "", "createdBy": this.uid, "itemListId": this.itemsList } })
                         //$("#itemModal").appendTo("body").modal("hide");
-                        this.loader.dismiss();
                     }
+                    this.loader.dismiss();
                 }
                 )
             }
@@ -101,6 +104,7 @@ export class ItemComponent implements OnInit{
                     if (response.status == 200) {
                         this.items = response.items ? response.items : [];
                     }
+                this.loader.dismiss();
             }
             )
     }

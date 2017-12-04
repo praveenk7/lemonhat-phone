@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 //import { Location } from '@angular/common';
 //import {  ActivatedRoute } from "@angular/router";
 import {TwilioService } from './_services/twilio.service';
-import { NavParams } from 'ionic-angular';
+import { NavParams, LoadingController } from 'ionic-angular';
 //import { filter } from './filter.pipe';
 //import {User } from './user';
 
@@ -17,17 +17,22 @@ export class ShareComponent implements OnInit{
     itemsList: any = "";
     tChannelId: any = "";
     uid: any = "";
-    myInput:string= "";
+    myInput: string = "";
+    loader: any;
     //allUsers: any;
     constructor(private twilioService: TwilioService,
-        public navParams: NavParams
+        public navParams: NavParams,
+        public loadingCtrl: LoadingController
         //private route: ActivatedRoute, private location: Location
         ) {
 
         this.itemsList = this.navParams.get('lid');
         this.tChannelId = this.navParams.get('tid');
         this.uid = this.navParams.get('uid');
-
+        this.loader = this.loadingCtrl.create({
+            content: "Loading...",
+        });
+        this.loader.present();
         //this.route.queryParams.subscribe(params => {
         //    this.itemsList = params["lid"];
         //    this.tChannelId = params["tid"];
@@ -47,7 +52,8 @@ export class ShareComponent implements OnInit{
         this.twilioService.getAllUser(this.uid).subscribe(
             data=> {
                      let users = JSON.parse((<any>data)._body);
-                     this.allUsers = users.usr;
+                this.allUsers = users.usr;
+                this.loader.dismiss();
             });
     }
 
@@ -64,7 +70,7 @@ export class ShareComponent implements OnInit{
                 data=> {
                 let response = JSON.parse((<any>data)._body);
                     if (response.status == 200) {
-                        alert("saved seccessfully");
+                        alert("saved successfully");
                     }
                 });
         }

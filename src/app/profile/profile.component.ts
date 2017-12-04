@@ -15,20 +15,26 @@ import { LoginComponent} from '../login.component';
     styleUrls: ['./login.component.css']
 })
 export class ProfileComponent{
-    userId: string //= "AV_9IGx-OEwIORfq8zsq";
+    userId: string; //= "AV_9IGx-OEwIORfq8zsq";
+    loader: any;
     constructor(private twilioService: TwilioService,
         // private route: ActivatedRoute,
         // private router: Router,
         public nativeStorage: NativeStorage,
         public navCtrl: NavController,
         private userObj: User,
-        private storage: Storage    
+        private storage: Storage,
+        public loadingCtrl: LoadingController    
     ) {
         this.storage.get('user').then((val) => {
                 console.log(val);
                 if(!val){
                   this.navCtrl.push(LoginComponent);
-                }else{          
+                } else {    
+                    this.loader = this.loadingCtrl.create({
+                        content: "Loading...",
+                    });
+                    this.loader.present();       
                   this.userId=val;
                   //console.log("profile user id value",this.userId);
                   this.twilioService.getUserDetails([this.userId]).subscribe(
@@ -41,6 +47,7 @@ export class ProfileComponent{
                             this.userObj.countryCode = obj[0].others.countryCode;
                             this.userObj.id = obj[0].id;
                         }
+                        this.loader.dismiss();
                   });
                 }
               },
