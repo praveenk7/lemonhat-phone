@@ -18,6 +18,7 @@ export class ShareComponent implements OnInit{
     uid: any = "";
     myInput: string = "";
     loader: any;
+    allContacts: any;
     //allUsers: any;
     constructor(private twilioService: TwilioService,
         public navParams: NavParams,
@@ -44,8 +45,9 @@ export class ShareComponent implements OnInit{
         //this.getAllUser();
         this.contacts.find(['displayName', 'name', 'phoneNumbers', 'emails'], {filter: "", multiple: true})
         .then(data => {
-          //console.log(data);
-          
+            //console.log(data);
+            this.allContacts = data;
+            this.loader.dismiss();
         });
 
         // this.contacts.pickContact().then((result)=>{

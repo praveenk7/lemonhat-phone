@@ -11,13 +11,13 @@
     <ion-searchbar color="dark" [(ngModel)]="myInput"></ion-searchbar>
     </ion-toolbar>
 <ion-list>
-  <ion-item *ngFor="let idx = index; let user of allUsers |customFilter: {others :{userName:myInput}} ">
-    <ion-label [innerHtml]="user.others.userName">Pepperoni</ion-label>
+  <ion-item *ngFor="let idx = index; let user of allContacts |customFilter: {_objectInstance :{name: {givenName : myInput}}} ">
+    <ion-label [innerHtml]="user._objectInstance.name.givenName">Pepperoni</ion-label>
     <ion-checkbox color="danger"  [(ngModel)]="user['isChecked'+idx]" ></ion-checkbox>
   </ion-item>
 </ion-list>
     <div padding>
-    <button ion-button color="primary" block (click)="shareListToUsers()">Share</button>
+    <button ion-button color="primary" block (click)="shareListToUsers()" disabled>Share</button>
   </div>
 </ion-content>
 
