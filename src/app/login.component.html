@@ -19,19 +19,34 @@
     <button type="button" class="btn btn-danger btn-md btn-round center-block" (click)="login()">Send OTP <span class="glyphicon glyphicon-arrow-right text-justify"></span></button>    
     </form>    
 </div>-->
-      <ion-list>
+      <ion-row>
+          <ion-col col-3>
+          
+             <ion-select [(ngModel)]="selectedCountryCode" style="max-width: min-content;">
+              <ion-option value="001">001</ion-option>
+              <ion-option value="91">91</ion-option>
+            </ion-select>
+                 
+         </ion-col>
+          <ion-col col-9>
+              
+        <ion-input type="text" placeholder="Enter your Phone number" [(ngModel)]="phone"></ion-input>
+                 
+          </ion-col>
+     </ion-row>
+      <!--<ion-list>
             <ion-item>
               <ion-select [(ngModel)]="selectedCountryCode">
               <ion-option value="001">001</ion-option>
               <ion-option value="91">91</ion-option>
             </ion-select>
-                <!--<ion-input type="text" placeholder="Enter your Phone number" [(ngModel)]="phone"></ion-input>-->
+                
             </ion-item>
 
             <ion-item>
               <ion-input type="text" placeholder="Enter your Phone number" [(ngModel)]="phone"></ion-input>
             </ion-item>
-       </ion-list>
+       </ion-list>-->
 
   <div padding>
     <button ion-button color="primary" block (click)="login()">Send OTP</button>
