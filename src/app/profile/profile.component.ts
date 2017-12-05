@@ -7,7 +7,6 @@ import { AlertController, LoadingController, NavController, NavParams } from 'io
 import {User } from '../user';
 import { LoginComponent} from '../login.component';
 
-//declare const Fingerprint2: any;
 //declare const Twilio: any;
 
 @Component({  
@@ -18,8 +17,6 @@ export class ProfileComponent{
     userId: string; //= "AV_9IGx-OEwIORfq8zsq";
     loader: any;
     constructor(private twilioService: TwilioService,
-        // private route: ActivatedRoute,
-        // private router: Router,
         public nativeStorage: NativeStorage,
         public navCtrl: NavController,
         private userObj: User,
@@ -66,13 +63,13 @@ export class ProfileComponent{
     }
 
     updateUser() {
-        // this.twilioService.updateUserDetails(this.userObj).subscribe(
-        //     data=> {
-        //         let response = JSON.parse((<any>data)._body);
-        //         if (response.status == 200) {
-        //             alert("saved successfully");
-        //         }
-        //     });;
+        this.twilioService.updateUserDetails(this.userObj).subscribe(
+            data=> {
+                let response = JSON.parse((<any>data)._body);
+                if (response.status == 200) {
+                    alert("saved successfully");
+                }
+            });;
     }
 
    

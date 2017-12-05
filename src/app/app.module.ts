@@ -69,7 +69,7 @@ export class AppModule {
           let providers;
          
         console.log("documentUrl", document.URL);
-         if(document.URL.includes('LemonHat')){
+         if(document.URL.includes('Bundle')){
             console.log("device providers")
             //Use device providers
            providers= [ 

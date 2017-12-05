@@ -33,10 +33,7 @@ export class HomeComponent implements OnInit{
         public navCtrl: NavController,
         public navParams: NavParams,
         public nativeStorage: NativeStorage,
-        private storage: Storage    
-        // private route: ActivatedRoute,
-        // private router: Router, 
-        // private location: Location
+        private storage: Storage           
     ) {};
     
     
@@ -123,15 +120,7 @@ export class HomeComponent implements OnInit{
              )
     }
 
-    showItems(itemsList, listName) {
-        // let navigationExtras: NavigationExtras = {
-        //     queryParams: {
-        //         "uid": this.uid,
-        //         "lid": itemsList,
-        //         "lst": listName
-        //     }
-        // };
-        // this.router.navigate(['item'], navigationExtras);
+    showItems(itemsList, listName) {      
         this.navCtrl.push(ItemComponent, {
             "uid": this.uid,
             "lid": itemsList,
@@ -139,16 +128,7 @@ export class HomeComponent implements OnInit{
         });
     }
 
-    shareUsers(itemsList, tChannelId) {
-        //  let navigationExtras: NavigationExtras = {
-        //     queryParams: {
-        //         "lid": itemsList,
-        //         "tid": tChannelId,
-        //         "uid": this.uid
-        //     }
-        //  };
-        // this.router.navigate(['share'], navigationExtras);
-        
+    shareUsers(itemsList, tChannelId) {       
         this.navCtrl.push(ShareComponent, {
             "lid": itemsList,
             "tid": tChannelId,
@@ -158,26 +138,5 @@ export class HomeComponent implements OnInit{
 
     navigateBack() {
         //this.location.back(); // <-- go back to previous location on cancel
-    }
-
-    // ionViewCanEnter() {
-    //     //console.log("enterr");    
-    //     this.nativeStorage.getItem('user')
-    //     .then(
-    //       data => {
-    //         console.log(data);
-    //         if(!data){
-    //           this.navCtrl.push(LoginComponent);
-    //         }else{          
-    //           this.uid=data.uid;
-    //           console.log("uid value",this.uid);
-    //         }
-    //       },
-    //       error => {
-    //         console.log(error);
-    //         this.navCtrl.push(LoginComponent);
-    //       }
-    //     );
-    //     // return 
-    //   }
+    }   
 }
