@@ -34,7 +34,9 @@ export class HomeComponent implements OnInit{
         public navParams: NavParams,
         public nativeStorage: NativeStorage,
         private storage: Storage           
-    ) {};
+        ) {
+        //this.storage.remove('user');
+    };
     
     
     ngOnInit() {        
@@ -101,6 +103,14 @@ export class HomeComponent implements OnInit{
                      if (response.status == 200) {
                          this.subscribedChannels.push({ "itemsList": response.itemsList, "others": { "listName": this.listName, "channelType": "private", "createdDate": "", "createdBy": this.uid, "twilioChannelId": response.tChannelId } })
                          //$("#channelModal").appendTo("body").modal("hide");
+                     }
+                     else {
+                        let alert = this.alertCtrl.create({
+                             //title: 'Low battery',
+                             subTitle: "Something went wrong. Please try again later.",
+                             buttons: ['Ok']
+                         });
+                         alert.present();
                      }
                      this.loader.dismiss();
                  }
