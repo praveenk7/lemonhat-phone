@@ -7,12 +7,12 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { Network } from '@ionic-native/network';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import {NativeStorageMock} from './_services/custom.service';
 import { IonicStorageModule } from '@ionic/storage';
 import { Contacts} from '@ionic-native/contacts';
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
 //services
 import {TwilioService} from './_services/twilio.service';
-import {ContactsMock} from './_services/custom.service';
+import {ContactsMock, PushMock, NativeStorageMock} from './_services/custom.service';
 import {User} from './user';
 //components
  import { AppComponent }  from './app.component';
@@ -79,6 +79,7 @@ export class AppModule {
                    NativeStorage,
                    IonicStorageModule,
                    Contacts,
+                   Push,                   
                    TwilioService,
                    User    
            ]        
@@ -92,6 +93,7 @@ export class AppModule {
                {provide: NativeStorage, useClass: NativeStorageMock,},
                IonicStorageModule,
                {provide:Contacts, useClass:ContactsMock},
+               {provide: Push, useClass: PushMock},
                TwilioService,
                User    
            ]

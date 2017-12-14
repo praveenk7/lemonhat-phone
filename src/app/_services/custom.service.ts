@@ -6,7 +6,7 @@ import {NativeStorage} from '@ionic-native/native-storage';
 import { Contacts, Contact, ContactField, ContactName, ContactFieldType, } from '@ionic-native/contacts';
 
 import { Network } from '@ionic-native/network';
-
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
 
 
 export class NativeStorageMock extends NativeStorage {
@@ -33,6 +33,38 @@ export class ContactsMock extends Contacts{
             ])
         })
     }
+}
+
+
+export class PushMock extends Push{
+
+    // const options: PushOptions = {
+    //     android: {},
+    //     ios: {
+    //         alert: 'true',
+    //         badge: true,
+    //         sound: 'false'
+    //     },
+    //     windows: {},
+    //     browser: {
+    //         pushServiceURL: 'http://push.api.phonegap.com/v1/push'
+    //     }
+    //  };
+
+    init(options: PushOptions): PushObject {
+        let response: PushObject = new PushObject( options );
+        return response;
+    };
+
+
+    hasPermission(): Promise<{isEnabled: boolean}> {
+        let response={isEnabled:false};
+        return new Promise((resolve, reject) => {
+            resolve(response);
+        });
+    };
+
+    
 }
 
 // export class AppProviders {

@@ -21,7 +21,7 @@ export class ShareComponent implements OnInit{
         private contacts: Contacts,
         public loadingCtrl: LoadingController        
         ) {
-
+        console.log("share constructor start");
         this.itemsList = this.navParams.get('lid');
         this.tChannelId = this.navParams.get('tid');
         this.uid = this.navParams.get('uid');
@@ -29,13 +29,15 @@ export class ShareComponent implements OnInit{
             content: "Loading...",
         });
         this.loader.present();
+        console.log("share constructor end");
     }
 
     ngOnInit() {
         //this.getAllUser();
+        console.log("share contacts enter")
         this.contacts.find(['displayName', 'name', 'phoneNumbers', 'emails'], {filter: "", multiple: true})
         .then(data => {
-            //console.log(data);
+            console.log("share contacts response",data);
             this.allContacts = data;
             this.loader.dismiss();
         });
