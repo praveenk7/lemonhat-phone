@@ -5,9 +5,13 @@
 </ul>-->
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Shopping List
-    </ion-title>
+    <ion-title>Shopping List</ion-title>
+      <ion-buttons end>
+      <button ion-button icon-left (click)="presentPopover($event)">
+        <ion-icon ios="ios-settings" md="md-settings"></ion-icon>
+      </button>
+    </ion-buttons>
+      
   </ion-navbar>
     
 </ion-header>
@@ -17,27 +21,118 @@
     <ion-searchbar color="dark" [(ngModel)]="searchListName" ></ion-searchbar>
     </ion-toolbar>
     <ion-list>
-        <ion-list-header >
+        <ion-list-header>
             Lists
-            <!--<button ion-button outline item-end (click)="createChannel()">-->
                 <ion-icon item-end name="add-circle-outline" (click)="createChannel()"></ion-icon>
-            <!--</button>-->
         </ion-list-header>
   <ion-item-sliding *ngFor="let channel of subscribedChannels |customFilter: {others :{listName:searchListName}}">
     <ion-item (click)="showItems(channel.itemsList,channel.others.listName)">
-      {{channel.others.listName}}
+        <h2>{{channel.others.listName}}</h2>
+        <p>I've had a pretty messed up day. If we just...</p>
     </ion-item>
     <ion-item-options side="left">
       <button ion-button (click)="shareUsers(channel.itemsList,channel.others.twilioChannelId)">
           <ion-icon name="md-share" ></ion-icon>
           Share
       </button>
-      <button ion-button color="danger" >
+      <button ion-button color="danger">
           <ion-icon name="trash"></ion-icon>
           Delete
       </button>
     </ion-item-options>
   </ion-item-sliding>
+        <!--<ion-item-sliding>
+            <ion-item>
+                name1
+            </ion-item>
+            <ion-item-options side="left">
+                <button ion-button>
+                    <ion-icon name="md-share"></ion-icon>
+                </button>
+                <button ion-button color="danger" >
+                    <ion-icon name="trash"></ion-icon>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+
+        <ion-item-sliding>
+            <ion-item>
+                name2
+            </ion-item>
+            <ion-item-options side="left">
+                <button ion-button>
+                    <ion-icon name="md-share"></ion-icon>
+                </button>
+                <button ion-button color="danger" >
+                    <ion-icon name="trash"></ion-icon>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+        <ion-item-sliding>
+            <ion-item>
+                name3
+            </ion-item>
+            <ion-item-options side="left">
+                <button ion-button>
+                    <ion-icon name="md-share"></ion-icon>
+                </button>
+                <button ion-button color="danger" >
+                    <ion-icon name="trash"></ion-icon>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+        <ion-item-sliding>
+            <ion-item>
+                name4
+            </ion-item>
+            <ion-item-options side="left">
+                <button ion-button>
+                    <ion-icon name="md-share"></ion-icon>
+                </button>
+                <button ion-button color="danger" >
+                    <ion-icon name="trash"></ion-icon>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+        <ion-item-sliding>
+            <ion-item>
+                name5
+            </ion-item>
+            <ion-item-options side="left">
+                <button ion-button>
+                    <ion-icon name="md-share"></ion-icon>
+                </button>
+                <button ion-button color="danger" >
+                    <ion-icon name="trash"></ion-icon>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+        <ion-item-sliding>
+            <ion-item>
+                name6
+            </ion-item>
+            <ion-item-options side="left">
+                <button ion-button>
+                    <ion-icon name="md-share"></ion-icon>
+                </button>
+                <button ion-button color="danger" >
+                    <ion-icon name="trash"></ion-icon>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+        <ion-item-sliding>
+            <ion-item>
+                name7
+            </ion-item>
+            <ion-item-options side="left">
+                <button ion-button>
+                    <ion-icon name="md-share"></ion-icon>
+                </button>
+                <button ion-button color="danger" >
+                    <ion-icon name="trash"></ion-icon>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>-->
 </ion-list>
 
 

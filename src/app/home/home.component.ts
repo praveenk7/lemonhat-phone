@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { AlertController, LoadingController, NavController, NavParams } from 'ionic-angular';
+import { AlertController, LoadingController, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Storage } from '@ionic/storage';
 //import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
@@ -8,6 +8,8 @@ import {TwilioService } from '../_services/twilio.service';
 import { LoginComponent } from '../login.component';
 import {ShareComponent } from '../share.component';
 import {ItemComponent } from '../items/item.component';
+import {LogoutPopoverPage } from '../logout.component';
+//import {TabsComponent } from '../tabs/tabs.component';
 
 //import * as $ from 'jquery';
 
@@ -20,6 +22,7 @@ declare var $: any;
     styleUrls: ['./login.component.css']
 })
 export class HomeComponent implements OnInit{
+    //@ViewChild(TabsComponent) tabComp;
     listName: any ;
     twilioToken: string;
     client: any;  
@@ -33,7 +36,8 @@ export class HomeComponent implements OnInit{
         public navCtrl: NavController,
         public navParams: NavParams,
         public nativeStorage: NativeStorage,
-        private storage: Storage           
+        private storage: Storage,
+        public popoverCtrl: PopoverController        
         ) {
         //this.storage.remove('user');
     };
@@ -56,6 +60,11 @@ export class HomeComponent implements OnInit{
           });
         
     }  
+
+    //value: any;
+    //ngAfterViewInit() {
+    //    this.value = this.tabComp;
+    //}
 
     createChannel() {
         //in progress
@@ -146,7 +155,10 @@ export class HomeComponent implements OnInit{
         });
     }
 
-    navigateBack() {
-        //this.location.back(); // <-- go back to previous location on cancel
-    }   
+    presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(LogoutPopoverPage);
+        popover.present({
+            ev: myEvent
+        });
+    }  
 }
