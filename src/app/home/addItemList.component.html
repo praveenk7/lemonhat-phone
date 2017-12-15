@@ -1,54 +1,11 @@
-<!--<ion-header>
-  <ion-navbar>
-    <ion-title>Shopping List</ion-title>
-      <ion-buttons end>
-      <button ion-button icon-left (click)="presentPopover($event)">
-        <ion-icon ios="ios-settings" md="md-settings"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
-</ion-header>
 
-<ion-content padding>
-    <ion-toolbar>
-    <ion-searchbar color="dark" [(ngModel)]="searchListName" ></ion-searchbar>
-    </ion-toolbar>
-    <ion-list>
-        <ion-list-header>
-            Lists
-                <ion-icon item-end name="add-circle-outline" (click)="createChannel()"></ion-icon>
-        </ion-list-header>
-        <ion-item-sliding *ngFor="let channel of subscribedChannels |customFilter: {others :{listName:searchListName}}">
-        <ion-item (click)="showItems(channel.itemsList,channel.others.listName)">
-            <h2>{{channel.others.listName}}</h2>
-            <p>I've had a pretty messed up day. If we just...</p>
-        </ion-item>
-        <ion-item-options side="left">
-            <button ion-button (click)="shareUsers(channel.itemsList,channel.others.twilioChannelId)">
-                <ion-icon name="md-share" ></ion-icon>
-                Share
-            </button>
-            <button ion-button color="danger">
-                <ion-icon name="trash"></ion-icon>
-                Delete
-            </button>
-        </ion-item-options>
-        </ion-item-sliding>
-    </ion-list>
-</ion-content>-->
 <ion-header>
     <nav class="nav-top">
     		<div class="title">
         		<span class="i-cus i-menu"></span>
                 <h4>Create new list</h4>
             </div>
-            <!--<div class="actions">
-            	<div class="act-i-cuss">
-                    <span class="i-cus i-shop"></span>
-                    <span class="i-cus i-list-view"></span>
-                    <span class="i-cus i-search"></span>
-                </div>
-            </div>-->
+           
     	</nav>
 </ion-header>
 
@@ -56,8 +13,8 @@
 	<ion-row>
           <ion-col>
               <ion-input type="text" placeholder="List Name" [(ngModel)]="listName"></ion-input>
-              </ion-col>
-      </ion-row>>
+        </ion-col>
+      </ion-row>
     <div padding class="action-sheet-ios">
     <button ion-button color="primary" (click)="saveChannel()">Create Item List</button>
       

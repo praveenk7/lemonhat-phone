@@ -29,14 +29,9 @@ export class ItemComponent implements OnInit{
             content: "Loading...",
         });
         this.loader.present();
-        //this.route.queryParams.subscribe(params => {
-        //    this.itemsList = params["lid"];
-        //    this.uid = params["uid"];
-        //    this.listName = params["lst"]
-        //});
+        
     }
     
-    //channelList:string[];
     items:any;
     ngOnInit() {
         this.getItems();
@@ -44,12 +39,11 @@ export class ItemComponent implements OnInit{
 
 
     createItem() {
-        //in progress
+        
         this.itemName = "";
-        //$("#itemModal").appendTo("body").modal("show");
+        
          let prompt = this.alertCtrl.create({
             title: 'Create Item',
-            //message: "Enter a name for this new album you're so keen on adding",
             inputs: [
                 {
                     name: 'itemName',
@@ -89,7 +83,6 @@ export class ItemComponent implements OnInit{
                     let response = JSON.parse((<any>data)._body);
                     if (response.status == 200) {
                         this.items.push({ "item": response.item, "others": { "itemName": this.itemName, "createdDate": "", "createdBy": this.uid, "itemListId": this.itemsList } })
-                        //$("#itemModal").appendTo("body").modal("hide");
                     }
                     this.loader.dismiss();
                 }
@@ -116,13 +109,5 @@ export class ItemComponent implements OnInit{
         } else {
             this.container[item] = false;
         }
-
-        //alert('Open ');
     }
-
-    navigateBack() {
-        //this.location.back(); // <-- go back to previous location on cancel
-    }
-
-
 }

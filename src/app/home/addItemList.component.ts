@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AlertController, LoadingController, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { AlertController,  NavController, NavParams, PopoverController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Storage } from '@ionic/storage';
 import {TwilioService } from '../_services/twilio.service';
@@ -24,7 +24,6 @@ export class AddItemListComponent implements OnInit{
     searchListName: string = "";
     constructor(private twilioService: TwilioService,
         public alertCtrl: AlertController,
-        public loadingCtrl: LoadingController,
         public navCtrl: NavController,
         public navParams: NavParams,
         public nativeStorage: NativeStorage,
@@ -40,12 +39,6 @@ export class AddItemListComponent implements OnInit{
             console.log("tabs user value", val);
            if(val){
                this.uid = val.id;
-            //   this.loader = this.loadingCtrl.create({
-            //       content: "Loading...",
-            //   });
-            //   this.loader.present();
-            //console.log("home uid value",val);
-            //this.getChannels();
            }else{
             this.navCtrl.push(LoginComponent);
            }
@@ -53,48 +46,12 @@ export class AddItemListComponent implements OnInit{
         
     }  
 
-
-    createChannel() {
-         let prompt = this.alertCtrl.create({
-             title: 'Create Shop List',
-            inputs: [
-                {
-                    name: 'listName',
-                    placeholder: 'List Name'
-                },
-            ],
-            buttons: [
-                {
-                    text: 'Cancel',
-                    handler: data => {
-                        console.log('Cancel clicked');
-                    }
-                },
-                {
-                    text: 'Save',
-                    handler: data => {
-                        this.listName = data.listName;
-                        if (this.listName) {
-                        this.loader = this.loadingCtrl.create({
-                                content: "Please wait...",
-                            });
-                            this.loader.present();
-                            this.saveChannel();
-                        }
-                        console.log('Saved clicked');
-                    }
-                }
-            ]
-        });
-        prompt.present();
-    }
-
     saveChannel() {
          if (this.listName) {
              this.twilioService.createItemsList(this.listName, this.uid).subscribe(
                  data=> {
                      let response = JSON.parse((<any>data)._body);
-                     if (response.status == 200) {
+                     if (response && response.status == 200) {
                          this.navCtrl.push(HomeComponent, { });
                         // this.subscribedChannels.push({ "itemsList": response.itemsList, "others": { "listName": this.listName, "channelType": "private", "createdDate": "", "createdBy": this.uid, "twilioChannelId": response.tChannelId } })
                      }
@@ -105,7 +62,7 @@ export class AddItemListComponent implements OnInit{
                          });
                          alert.present();
                      }
-                     this.loader.dismiss();
+                     //this.loader.dismiss();
                  }
                  )
              }

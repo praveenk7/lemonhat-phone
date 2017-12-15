@@ -59,7 +59,7 @@
     	
   
         <div class="content add-checkbox">
-        	<div class="list-cell">
+        	<div class="list-cell" *ngFor="let channel of subscribedChannels |customFilter: {others :{listName:searchListName}}">
             	<div class="options">
                 	<span class="i-cus i-edit"></span>
                 	<span class="i-cus i-share"></span>
@@ -67,21 +67,21 @@
                 	<span class="i-cus i-more"></span>
                 </div>
             	<div class="list-cell-cont"> 
-                	<div class="cus-checkbox">
+                	<!--<div class="cus-checkbox">
                     	<input type="checkbox" id="checkbox1" name="checkbox" />
   						<label for="checkbox1"><span></span></label>
-                    </div>           	
+                    </div> -->          	
                     <div class="title">
-                    	<h4>Lorem Ipsum List</h4>
+                    	<h4>{{channel.others.listName}}</h4>
                         <p>Lorem Ipsum is simply dummy text of the printing.</p>
                     </div>
-                    <div class="list-info">
+                    <div class="list-info" (click)="showItems(channel.itemsList,channel.others.listName)">
                     	<span class="items-no"><span>20</span> Items</span>
                     </div>
                 </div>
             </div>
             
-        	<div class="list-cell">
+        <!--	<div class="list-cell">
             	<div class="options">
                 	<span class="i-cus i-edit"></span>
                 	<span class="i-cus i-share"></span>
@@ -145,7 +145,7 @@
                     	<span class="items-no"><span>40</span> Items</span>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
      
        <!-- <nav class="nav-bottom">
