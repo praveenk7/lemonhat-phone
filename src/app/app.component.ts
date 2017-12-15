@@ -3,6 +3,8 @@ import { IonicApp, IonicModule, IonicErrorHandler, Platform, AlertController } f
 import { LoginComponent } from './login.component';
 import {TabsComponent} from './tabs/tabs.component';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
+import { Storage } from '@ionic/storage';
+import {userObj} from './user';
 //import {}
 
 @Component({    
@@ -13,7 +15,9 @@ export class AppComponent {
 
     constructor(platform:Platform,
         push: Push,
-        public alertCtrl: AlertController) {
+        public alertCtrl: AlertController,
+        private storage:Storage
+        ) {
         platform.ready().then(() => {
           // Okay, so the platform is ready and our plugins are available.
           // Here you can do any higher level native things you might need.
@@ -36,8 +40,15 @@ export class AppComponent {
         console.log("platform ready", platform._platforms);
         pushObject.on('registration').subscribe((data: any) => {
             console.log('device token -> ' + data.registrationId);
+            this.storage.get('user').then((val) => {
+            if(!val){
+            userObj.deviceToken=data.registrationId;
+            this.storage.set("user", userObj);
+            }
             //TODO - send device token to server
+            
           });
+        });
         pushObject.on('notification').subscribe((notification: any) => 
         {
             console.log('Received a notification', notification)
@@ -65,5 +76,7 @@ export class AppComponent {
     });
 
     } 
-      
 }
+
+      
+

@@ -3,7 +3,7 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import {TabsComponent} from './tabs/tabs.component';
 import {TwilioService} from './_services/twilio.service';
-import {User} from './user';
+import {userObj} from './user';
 
 import { Storage } from '@ionic/storage';
 
@@ -19,12 +19,13 @@ export class VerifyPhone{
         public navCtrl: NavController,
         public navParams:NavParams, 
         private twilioService:TwilioService,
-        private userObj:User,
+        //private userObj:user,
         private storage: Storage,
         private alertCtrl: AlertController       
     ){
-        this.userObj.phone=this.navParams.get('phone');
-        this.userObj.countryCode=this.navParams.get('countryCode');
+        console.log("useree", userObj);
+         userObj.phone=this.navParams.get('phone');
+         userObj.countryCode=this.navParams.get('countryCode');
         //this.navCtrl.setRoot(VerifyPhone);
     };    
    
@@ -35,11 +36,12 @@ export class VerifyPhone{
     client:any;    
     verify(){
         if (this.otp){
-            this.twilioService.verifyPhoneToken(this.otp, this.userObj).subscribe(
+            this.twilioService.verifyPhoneToken(this.otp, userObj).subscribe(
                 data=> {
                     let response = JSON.parse((<any>data)._body);
-                    if (response.status == 200) {                 
-                    this.storage.set('user', response.uid);
+                    if (response.status == 200) {  
+                    userObj.id=response.uid;               
+                    this.storage.set('user',userObj);
                     this.navCtrl.push(TabsComponent, {});
                     }else {
                        let alert = this.alertCtrl.create({
@@ -50,8 +52,9 @@ export class VerifyPhone{
                            }
                            })
 
-            // ////uncoment to test with hardcoded values
-            // this.storage.set('user', "AV_9IGx-OEwIORfq8zsq");
+            ////uncoment to test with hardcoded values
+            // userObj.id="AV_9IGx-OEwIORfq8zsq";
+            // this.storage.set('user', userObj);
             // this.navCtrl.push(TabsComponent,{});
         } else {
             let alert = this.alertCtrl.create({
@@ -64,7 +67,7 @@ export class VerifyPhone{
     }
 
     resendOTP() {
-        this.twilioService.getPhoneVerificationToken(this.userObj.phone, this.userObj.countryCode).subscribe(
+        this.twilioService.getPhoneVerificationToken(userObj.phone, userObj.countryCode).subscribe(
             data=> {
                      let response = JSON.parse((<any>data)._body);
                 if (response.status == 200) {

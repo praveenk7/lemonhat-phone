@@ -34,8 +34,8 @@ export class TwilioService{
         });
     }
 
-    verifyPhoneToken(otp:number,userObj:User){
-        let postObj = { "verificationToken": otp, "phone": userObj.phone, "countryCode":userObj.countryCode};
+    verifyPhoneToken(otp:number,userObj:object){
+        let postObj = { "verificationToken": otp, "phone": userObj.phone, "countryCode":userObj.countryCode, "deviceToken":userObj.deviceToken};
         return this.http.post(this.baseURL+'/verifyotp',postObj).map((response:Response)=>{
             return response;
         });

@@ -15,3 +15,13 @@ export class User{
     //     }
     // }
 }
+
+
+export let userObj: object={
+    id:"",
+    userName:"",
+    email:"",
+    phone:"",
+    countryCode:"",
+    deviceToken:""
+}

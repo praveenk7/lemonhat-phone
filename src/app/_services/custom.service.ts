@@ -1,7 +1,3 @@
-// import { NgModule, ErrorHandler }      from '@angular/core';
-// import { IonicApp, IonicModule, IonicErrorHandler, Platform } from 'ionic-angular';
-// import { StatusBar } from '@ionic-native/status-bar';
-// import { SplashScreen } from '@ionic-native/splash-screen';
 import {NativeStorage} from '@ionic-native/native-storage';
 import { Contacts, Contact, ContactField, ContactName, ContactFieldType, } from '@ionic-native/contacts';
 
@@ -66,6 +62,8 @@ export class PushMock extends Push{
 
     
 }
+
+
 
 // export class AppProviders {
 //     constructor(public platform:Platform) {
