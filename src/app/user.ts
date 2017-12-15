@@ -17,7 +17,7 @@ export class User{
 }
 
 
-export let userObj: object={
+export let userObj={
     id:"",
     userName:"",
     email:"",

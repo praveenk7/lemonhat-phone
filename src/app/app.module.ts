@@ -85,9 +85,10 @@ export class AppModule {
                    NativeStorage,
                    IonicStorageModule,
                    Contacts,
-                   Push,                   
-                   TwilioService,
-                   User    
+                   Push,
+                   User,                  
+                   TwilioService
+                    
            ]        
           } else {
             console.log("browser providers")
@@ -100,8 +101,8 @@ export class AppModule {
                IonicStorageModule,
                {provide:Contacts, useClass:ContactsMock},
                {provide: Push, useClass: PushMock},
-               TwilioService,
-               User    
+               User,                  
+               TwilioService 
            ]
    
           }  

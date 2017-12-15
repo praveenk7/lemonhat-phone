@@ -3,7 +3,8 @@ import { Http, Response } from '@angular/http';
 //import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 
-import {User} from '../user'
+import {userObj} from '../user'
+//import {User} from '../user'
 
 @Injectable()
 export class TwilioService{
@@ -23,7 +24,7 @@ export class TwilioService{
         });
     }
 
-    getPhoneVerificationToken(phoneNumber: string, countryCode: number) {
+    getPhoneVerificationToken(phoneNumber: string, countryCode: string) {
         //let headers = new Headers();
         //headers.append('Access-Control-Allow-Origin', '*');
         //let options = new RequestOptions({ headers: headers });
@@ -34,7 +35,7 @@ export class TwilioService{
         });
     }
 
-    verifyPhoneToken(otp:number,userObj:object){
+    verifyPhoneToken(otp:number,userObj){
         let postObj = { "verificationToken": otp, "phone": userObj.phone, "countryCode":userObj.countryCode, "deviceToken":userObj.deviceToken};
         return this.http.post(this.baseURL+'/verifyotp',postObj).map((response:Response)=>{
             return response;
@@ -57,7 +58,7 @@ export class TwilioService{
     }
 
     obj: any = {};
-    updateUserDetails(user: User) {
+    updateUserDetails(userObj) {
         
         //this.obj["id"] = user.id;
         //this.obj.userName = user.others.userName;
@@ -65,7 +66,7 @@ export class TwilioService{
         //this.obj.phone = user.others.phone;
         //this.obj.countryCode = user.others.countryCode;
     
-        return this.http.post(this.baseURL + '/updateuser', user).map((response: Response) => {
+        return this.http.post(this.baseURL + '/updateuser', userObj).map((response: Response) => {
             return response;
         });
     }

@@ -30,7 +30,7 @@ export class VerifyPhone{
     };    
    
     phone:string;  
-    countryCode:number;
+    countryCode:string;
     otp:number;  
     twilioToken:string;
     client:any;    
