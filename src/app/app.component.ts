@@ -24,7 +24,7 @@ export class AppComponent {
         //   statusBar.styleDefault();
         //   splashScreen.hide();
         const options: PushOptions = {
-            android: {},
+            //android: {},
             ios: {
                 alert: "true",
                 badge: "true",

@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+
 import { AlertController, LoadingController, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Storage } from '@ionic/storage';
 import {TwilioService } from '../_services/twilio.service';
 import { LoginComponent } from '../login.component';
-import {ShareComponent } from '../share.component';
-import {ItemComponent } from '../items/item.component';
+import {HomeComponent } from '../home/home.component';
 import {LogoutPopoverPage } from '../logout.component';
 
 
 @Component({    
-    templateUrl: 'home.component.html',
+    templateUrl: 'addItemList.component.html',
     styleUrls: ['./css/style.css']
 })
-export class HomeComponent implements OnInit{
+export class AddItemListComponent implements OnInit{
 
     listName: any ;
     twilioToken: string;
@@ -41,12 +40,12 @@ export class HomeComponent implements OnInit{
             console.log("tabs user value", val);
            if(val){
                this.uid = val.id;
-               this.loader = this.loadingCtrl.create({
-                   content: "Loading...",
-               });
-               this.loader.present();
-            console.log("home uid value",val);
-            this.getChannels();
+            //   this.loader = this.loadingCtrl.create({
+            //       content: "Loading...",
+            //   });
+            //   this.loader.present();
+            //console.log("home uid value",val);
+            //this.getChannels();
            }else{
             this.navCtrl.push(LoginComponent);
            }
@@ -96,7 +95,8 @@ export class HomeComponent implements OnInit{
                  data=> {
                      let response = JSON.parse((<any>data)._body);
                      if (response.status == 200) {
-                         this.subscribedChannels.push({ "itemsList": response.itemsList, "others": { "listName": this.listName, "channelType": "private", "createdDate": "", "createdBy": this.uid, "twilioChannelId": response.tChannelId } })
+                         this.navCtrl.push(HomeComponent, { });
+                        // this.subscribedChannels.push({ "itemsList": response.itemsList, "others": { "listName": this.listName, "channelType": "private", "createdDate": "", "createdBy": this.uid, "twilioChannelId": response.tChannelId } })
                      }
                      else {
                         let alert = this.alertCtrl.create({
@@ -111,33 +111,18 @@ export class HomeComponent implements OnInit{
              }
     }
 
-    getChannels() {
-         this.twilioService.getitemslist(this.uid).subscribe(
-             data=> {
-                     let response = JSON.parse((<any>data)._body);
-                     if (response.status == 200) {
-                         this.subscribedChannels = response.lst;
-                     }
-                 this.loader.dismiss();
-             }
-             )
-    }
+    //getChannels() {
+    //     this.twilioService.getitemslist(this.uid).subscribe(
+    //         data=> {
+    //                 let response = JSON.parse((<any>data)._body);
+    //                 if (response.status == 200) {
+    //                     this.subscribedChannels = response.lst;
+    //                 }
+    //             this.loader.dismiss();
+    //         }
+    //         )
+    //}
 
-    showItems(itemsList, listName) {      
-        this.navCtrl.push(ItemComponent, {
-            "uid": this.uid,
-            "lid": itemsList,
-            "lst": listName
-        });
-    }
-
-    shareUsers(itemsList, tChannelId) {       
-        this.navCtrl.push(ShareComponent, {
-            "lid": itemsList,
-            "tid": tChannelId,
-            "uid": this.uid
-        });
-    }
 
     presentPopover(myEvent) {
     let popover = this.popoverCtrl.create(LogoutPopoverPage);

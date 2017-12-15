@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-//import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
+
 import {TwilioService } from '../_services/twilio.service';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Storage } from '@ionic/storage';
@@ -7,7 +7,6 @@ import { AlertController, LoadingController, NavController, NavParams } from 'io
 import {User } from '../user';
 import { LoginComponent} from '../login.component';
 
-//declare const Twilio: any;
 
 @Component({  
     templateUrl: 'profile.component.html',
@@ -32,8 +31,7 @@ export class ProfileComponent{
                         content: "Loading...",
                     });
                     this.loader.present();       
-                  this.userId=val;
-                  //console.log("profile user id value",this.userId);
+                  this.userId=val.id;
                   this.twilioService.getUserDetails([this.userId]).subscribe(
                     data=> {
                       let obj = (JSON.parse((<any>data)._body)).usr;
@@ -57,11 +55,7 @@ export class ProfileComponent{
          //});
          }
   
-    getShoppingList() {
-      
-      
-    }
-
+ 
     updateUser() {
         this.twilioService.updateUserDetails(this.userObj).subscribe(
             data=> {

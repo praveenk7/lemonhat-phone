@@ -1,9 +1,4 @@
-<!--<ul>
-    <li *ngFor="let channel of subscribedChannels">
-        {{channel.friendlyName}}
-    </li>
-</ul>-->
-<ion-header>
+<!--<ion-header>
   <ion-navbar>
     <ion-title>Shopping List</ion-title>
       <ion-buttons end>
@@ -11,9 +6,7 @@
         <ion-icon ios="ios-settings" md="md-settings"></ion-icon>
       </button>
     </ion-buttons>
-      
   </ion-navbar>
-    
 </ion-header>
 
 <ion-content padding>
@@ -25,164 +18,153 @@
             Lists
                 <ion-icon item-end name="add-circle-outline" (click)="createChannel()"></ion-icon>
         </ion-list-header>
-  <ion-item-sliding *ngFor="let channel of subscribedChannels |customFilter: {others :{listName:searchListName}}">
-    <ion-item (click)="showItems(channel.itemsList,channel.others.listName)">
-        <h2>{{channel.others.listName}}</h2>
-        <p>I've had a pretty messed up day. If we just...</p>
-    </ion-item>
-    <ion-item-options side="left">
-      <button ion-button (click)="shareUsers(channel.itemsList,channel.others.twilioChannelId)">
-          <ion-icon name="md-share" ></ion-icon>
-          Share
-      </button>
-      <button ion-button color="danger">
-          <ion-icon name="trash"></ion-icon>
-          Delete
-      </button>
-    </ion-item-options>
-  </ion-item-sliding>
-        <!--<ion-item-sliding>
-            <ion-item>
-                name1
-            </ion-item>
-            <ion-item-options side="left">
-                <button ion-button>
-                    <ion-icon name="md-share"></ion-icon>
-                </button>
-                <button ion-button color="danger" >
-                    <ion-icon name="trash"></ion-icon>
-                </button>
-            </ion-item-options>
+        <ion-item-sliding *ngFor="let channel of subscribedChannels |customFilter: {others :{listName:searchListName}}">
+        <ion-item (click)="showItems(channel.itemsList,channel.others.listName)">
+            <h2>{{channel.others.listName}}</h2>
+            <p>I've had a pretty messed up day. If we just...</p>
+        </ion-item>
+        <ion-item-options side="left">
+            <button ion-button (click)="shareUsers(channel.itemsList,channel.others.twilioChannelId)">
+                <ion-icon name="md-share" ></ion-icon>
+                Share
+            </button>
+            <button ion-button color="danger">
+                <ion-icon name="trash"></ion-icon>
+                Delete
+            </button>
+        </ion-item-options>
         </ion-item-sliding>
-
-        <ion-item-sliding>
-            <ion-item>
-                name2
-            </ion-item>
-            <ion-item-options side="left">
-                <button ion-button>
-                    <ion-icon name="md-share"></ion-icon>
-                </button>
-                <button ion-button color="danger" >
-                    <ion-icon name="trash"></ion-icon>
-                </button>
-            </ion-item-options>
-        </ion-item-sliding>
-        <ion-item-sliding>
-            <ion-item>
-                name3
-            </ion-item>
-            <ion-item-options side="left">
-                <button ion-button>
-                    <ion-icon name="md-share"></ion-icon>
-                </button>
-                <button ion-button color="danger" >
-                    <ion-icon name="trash"></ion-icon>
-                </button>
-            </ion-item-options>
-        </ion-item-sliding>
-        <ion-item-sliding>
-            <ion-item>
-                name4
-            </ion-item>
-            <ion-item-options side="left">
-                <button ion-button>
-                    <ion-icon name="md-share"></ion-icon>
-                </button>
-                <button ion-button color="danger" >
-                    <ion-icon name="trash"></ion-icon>
-                </button>
-            </ion-item-options>
-        </ion-item-sliding>
-        <ion-item-sliding>
-            <ion-item>
-                name5
-            </ion-item>
-            <ion-item-options side="left">
-                <button ion-button>
-                    <ion-icon name="md-share"></ion-icon>
-                </button>
-                <button ion-button color="danger" >
-                    <ion-icon name="trash"></ion-icon>
-                </button>
-            </ion-item-options>
-        </ion-item-sliding>
-        <ion-item-sliding>
-            <ion-item>
-                name6
-            </ion-item>
-            <ion-item-options side="left">
-                <button ion-button>
-                    <ion-icon name="md-share"></ion-icon>
-                </button>
-                <button ion-button color="danger" >
-                    <ion-icon name="trash"></ion-icon>
-                </button>
-            </ion-item-options>
-        </ion-item-sliding>
-        <ion-item-sliding>
-            <ion-item>
-                name7
-            </ion-item>
-            <ion-item-options side="left">
-                <button ion-button>
-                    <ion-icon name="md-share"></ion-icon>
-                </button>
-                <button ion-button color="danger" >
-                    <ion-icon name="trash"></ion-icon>
-                </button>
-            </ion-item-options>
-        </ion-item-sliding>-->
-</ion-list>
-
-
-<!--<div class="container">
-    <div class="col-md-12">
-        <i class="fa fa-chevron-left" aria-hidden="true" style="font-size: 25px;color: #3f6e96;padding-right: 5px;cursor: pointer;" (click)="navigateBack()"></i>
-        <h2 style="display:inline-block;">Items List</h2>
-        <span class="glyphicon glyphicon-plus pull-right well well-sm" style="margin-top:20px;cursor: pointer;" (click)="createChannel()"></span>
-    </div>
-  
-  <div class="panel-group" id="accordion">
-    <div class="panel panel-default" *ngFor="let channel of subscribedChannels;let idx = index">
-      <div class="panel-heading">
-        <h4 class="panel-title" >
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{idx}}" (click)="showItems(channel.itemsList,channel.others.listName)">{{channel.others.listName}}</a>
-            <span class="pull-right" (click)="shareUsers(channel.itemsList,channel.others.twilioChannelId)"><i class="fa fa-share-alt"></i></span>
-        </h4>
-          
-      </div>
-      
-    </div>
-  
-  </div> 
-
-    
-</div>-->
-   <!-- Modal -->
- <!-- <div class="modal fade customModal" id="channelModal" role="dialog" data-backdrop="false">
-    <div class="modal-dialog">
-    
-     
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4>Create ItemList</h4>
-        </div>
-        <div class="modal-body" style="padding:40px 50px;">
-          <form role="form">
-            <div class="form-group">
-              <label for="usrname"><span class="glyphicon glyphicon-user"></span> List Name:</label>
-              <input type="text" class="form-control"  placeholder="List Name" [(ngModel)]="listName" [ngModelOptions]="{standalone: true}">
+    </ion-list>
+</ion-content>-->
+<ion-header>
+    <nav class="nav-top">
+    		<div class="title">
+        		<span class="i-cus i-menu"></span>
+                <h4>Shopping App</h4>
             </div>
-          </form>
+            <div class="actions">
+            	<div class="act-i-cuss">
+                    <span class="i-cus i-shop"></span>
+                    <!--<span class="i-cus i-list-view"></span>-->
+                    <span class="i-cus i-search"></span>
+                </div>
+            </div>
+    	</nav>
+</ion-header>
+
+<ion-content>
+	<!-- Start My List -->
+    <section class="mylist">
+    
+    	
+  
+        <div class="content add-checkbox">
+        	<div class="list-cell">
+            	<div class="options">
+                	<span class="i-cus i-edit"></span>
+                	<span class="i-cus i-share"></span>
+                	<span class="i-cus i-delete"></span>
+                	<span class="i-cus i-more"></span>
+                </div>
+            	<div class="list-cell-cont"> 
+                	<div class="cus-checkbox">
+                    	<input type="checkbox" id="checkbox1" name="checkbox" />
+  						<label for="checkbox1"><span></span></label>
+                    </div>           	
+                    <div class="title">
+                    	<h4>Lorem Ipsum List</h4>
+                        <p>Lorem Ipsum is simply dummy text of the printing.</p>
+                    </div>
+                    <div class="list-info">
+                    	<span class="items-no"><span>20</span> Items</span>
+                    </div>
+                </div>
+            </div>
+            
+        	<div class="list-cell">
+            	<div class="options">
+                	<span class="i-cus i-edit"></span>
+                	<span class="i-cus i-share"></span>
+                	<span class="i-cus i-delete"></span>
+                	<span class="i-cus i-more"></span>
+                </div>
+            	<div class="list-cell-cont">  
+                	<div class="cus-checkbox">
+                    	<input type="checkbox" id="checkbox2" name="checkbox" checked />
+  						<label for="checkbox2"><span></span></label>
+                    </div>          	
+                    <div class="title">
+                    	<h4>My Office List</h4>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text...</p>
+                    </div>
+                    <div class="list-info">
+                    	<span class="items-no"><span>9</span> Items</span>
+                    </div>
+                </div>
+            </div>
+            
+        	<div class="list-cell">
+            	<div class="options">
+                	<span class="i-cus i-edit"></span>
+                	<span class="i-cus i-share"></span>
+                	<span class="i-cus i-delete"></span>
+                	<span class="i-cus i-more"></span>
+                </div>
+            	<div class="list-cell-cont">  
+                	<div class="cus-checkbox">
+                    	<input type="checkbox" id="checkbox3" name="checkbox" />
+  						<label for="checkbox3"><span></span></label>
+                    </div>          	
+                    <div class="title">
+                    	<h4>Party List</h4>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text...</p>
+                    </div>
+                    <div class="list-info">
+                    	<span class="items-no"><span>25</span> Items</span>
+                    </div>
+                </div>
+            </div>
+            
+        	<div class="list-cell">
+            	<div class="options">
+                	<span class="i-cus i-edit"></span>
+                	<span class="i-cus i-share"></span>
+                	<span class="i-cus i-delete"></span>
+                	<span class="i-cus i-more"></span>
+                </div>
+            	<div class="list-cell-cont"> 
+                	<div class="cus-checkbox">
+                    	<input type="checkbox" id="checkbox4" name="checkbox" />
+  						<label for="checkbox4"><span></span></label>
+                    </div>           	
+                    <div class="title">
+                    	<h4>My Favourite Item List</h4>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text...</p>
+                    </div>
+                    <div class="list-info">
+                    	<span class="items-no"><span>40</span> Items</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-success btn-default pull-right" (click)="saveChannel()">Save</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>-->
+     
+       <!-- <nav class="nav-bottom">
+        	<ul>
+            	<li class="active">
+                	<span class="i-cus i-list"></span>
+                    <span class="text">List</span>
+                </li>
+                <li>
+                	<span class="i-cus i-add-list"></span>
+                    <span class="text">Add</span>
+                </li>
+                <li>
+                	<span class="i-cus i-profile"></span>
+                    <span class="text">Profile</span>
+                </li>
+            </ul>
+        </nav>-->
+    </section>
+    <!-- End My List -->
 
 </ion-content>

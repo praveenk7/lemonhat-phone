@@ -23,8 +23,9 @@ import {User} from './user';
  import { ProfileComponent } from './profile/profile.component';
  import { ItemComponent } from './items/item.component';
  import { ShareComponent } from './share.component';
-import { FilterPipe } from './filter.pipe';
-import { LogoutPopoverPage } from './logout.component';
+ import { FilterPipe } from './filter.pipe';
+ import { LogoutPopoverPage } from './logout.component';
+ import { AddItemListComponent }  from './home/addItemList.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { LogoutPopoverPage } from './logout.component';
         ItemComponent,
         ShareComponent,        
         FilterPipe,
-        LogoutPopoverPage
+        LogoutPopoverPage,
+        AddItemListComponent
     ],
     providers: AppModule.getProviders(),
     bootstrap: [IonicApp],
@@ -59,7 +61,8 @@ import { LogoutPopoverPage } from './logout.component';
         ItemComponent,
         ShareComponent,
         ProfileComponent,
-        LogoutPopoverPage
+        LogoutPopoverPage,
+        AddItemListComponent
     ]
 })
 

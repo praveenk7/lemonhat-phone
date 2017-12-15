@@ -21,7 +21,7 @@ export class ShareComponent implements OnInit{
         private contacts: Contacts,
         public loadingCtrl: LoadingController        
         ) {
-        console.log("share constructor start");
+
         this.itemsList = this.navParams.get('lid');
         this.tChannelId = this.navParams.get('tid');
         this.uid = this.navParams.get('uid');
@@ -29,15 +29,13 @@ export class ShareComponent implements OnInit{
             content: "Loading...",
         });
         this.loader.present();
-        console.log("share constructor end");
     }
 
     ngOnInit() {
         //this.getAllUser();
-        console.log("share contacts enter")
         this.contacts.find(['displayName', 'name', 'phoneNumbers', 'emails'], {filter: "", multiple: true})
         .then(data => {
-            console.log("share contacts response",data);
+            //console.log(data);
             this.allContacts = data;
             this.loader.dismiss();
         });
@@ -58,25 +56,28 @@ export class ShareComponent implements OnInit{
 
 
     shareListToUsers() {
-        let shareUsersList = [];
-        for (var i = 0; i < this.allUsers.length; i++) {
-            if (this.allUsers[i]['isChecked' + i]) {
-                shareUsersList.push({ "uid": this.allUsers[i].usr });
+        let shareUsersList = { "sharedTo": [], "phone": [] };
+        let phone = "";
+        for (var i = 0; i < this.allContacts.length; i++) {
+            if (this.allContacts[i]['isChecked' + i]) {
+                phone = this.allContacts[i]._objectInstance.phoneNumbers.length > 0 ? this.allContacts[i]._objectInstance.phoneNumbers[0].value : "";
+                shareUsersList.sharedTo.push({ "name": this.allContacts[i]._objectInstance.name.givenName, "phone": phone });
+                shareUsersList.phone.push(phone);
             }
         }
-        if (shareUsersList && shareUsersList.length > 0) {
-            this.twilioService.shareListtoUsers(this.itemsList, shareUsersList, this.tChannelId).subscribe(
-                data=> {
-                let response = JSON.parse((<any>data)._body);
-                    if (response.status == 200) {
-                        alert("saved successfully");
-                    }
-                });
-        }
+        //if (shareUsersList && shareUsersList.length > 0) {
+        //    this.twilioService.shareListtoUsers(this.itemsList, shareUsersList, this.tChannelId).subscribe(
+        //        data=> {
+        //        let response = JSON.parse((<any>data)._body);
+        //            if (response.status == 200) {
+        //                alert("saved successfully");
+        //            }
+        //        });
+        //}
     }
 
-    navigateBack() {
-        //this.location.back(); // <-- go back to previous location on cancel
-    }
+    //navigateBack() {
+    //    //this.location.back(); // <-- go back to previous location on cancel
+    //}
 
 }
