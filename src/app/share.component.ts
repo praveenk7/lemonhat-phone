@@ -56,12 +56,12 @@ export class ShareComponent implements OnInit{
 
 
     shareListToUsers() {
-        let shareUsersList = { "sharedTo": [], "phone": [] };
+        let shareUsersList = { "sharedTo": [], "phone": [], "itemsList": "","tChannelId":"" };
         let phone = "";
         for (var i = 0; i < this.allContacts.length; i++) {
             if (this.allContacts[i]['isChecked' + i]) {
                 phone = this.allContacts[i]._objectInstance.phoneNumbers.length > 0 ? this.allContacts[i]._objectInstance.phoneNumbers[0].value : "";
-                shareUsersList.sharedTo.push({ "name": this.allContacts[i]._objectInstance.name.givenName, "phone": phone });
+                shareUsersList.sharedTo.push({ "name": this.allContacts[i]._objectInstance.name.givenName, "phone": (formatPhone()).slice(-10) });
                 shareUsersList.phone.push(phone);
             }
         }
@@ -76,8 +76,9 @@ export class ShareComponent implements OnInit{
         //}
     }
 
-    //navigateBack() {
-    //    //this.location.back(); // <-- go back to previous location on cancel
-    //}
-
+    formatPhone(str) {
+            return str.replace(/(?![0-9]|\s)./g, '')
+                .replace(/\s+/g, '')
+                .replace(/^(\s*)([\W\w]*)(\b\s*$)/g, '$2');
+    }
 }

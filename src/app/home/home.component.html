@@ -40,7 +40,7 @@
     <nav class="nav-top">
     		<div class="title">
         		<span class="i-cus i-menu"></span>
-                <h4>Shopping App</h4>
+                <h4>Shopping</h4>
             </div>
             <div class="actions">
             	<div class="act-i-cuss">
@@ -59,7 +59,56 @@
     	
   
         <div class="content add-checkbox">
-        	<div class="list-cell" *ngFor="let channel of subscribedChannels |customFilter: {others :{listName:searchListName}}">
+             <ion-list>
+                <ion-item-sliding *ngFor="let channel of subscribedChannels |customFilter: {others :{listName:searchListName}}">
+                <ion-item (click)="showItems(channel.itemsList,channel.others.listName)">
+                    <div class="list-cell-cont"> 
+                        <div class="title">
+                            <h4>{{channel.others.listName}}</h4>
+                            <p>I've had a pretty messed up day. If we just...</p>
+                        </div>
+                        <!--<div class="list-info" (click)="showItems(channel.itemsList,channel.others.listName)">
+                    	    <span class="items-no"><span>20</span> Items</span>
+                        </div>-->
+                    </div>
+                </ion-item>
+                <ion-item-options side="left">
+                    <button ion-button (click)="shareUsers(channel.itemsList,channel.others.twilioChannelId)">
+                        <ion-icon name="md-share" ></ion-icon>
+                        Share
+                    </button>
+                    <button ion-button color="danger">
+                        <ion-icon name="trash"></ion-icon>
+                        Delete
+                    </button>
+                </ion-item-options>
+                </ion-item-sliding>
+            </ion-list>
+
+            <!--<ion-list>
+            <ion-item-sliding class="list-cell" *ngFor="let channel of subscribedChannels |customFilter: {others :{listName:searchListName}}">
+                <div class="list-cell-cont"> 
+                    <ion-item>
+                    <div class="title">
+                    	<h4>{{channel.others.listName}}</h4>
+                        <p>Lorem Ipsum is simply dummy text of the printing.</p>
+                    </div>
+                    </ion-item>
+                    <div class="list-info" (click)="showItems(channel.itemsList,channel.others.listName)">
+                    	<span class="items-no"><span>20</span> Items</span>
+                    </div>
+                </div>
+                <ion-item-options side="left">
+                    <div class="options">
+                	<span class="i-cus i-edit"></span>
+                	<span class="i-cus i-share"></span>
+                	<span class="i-cus i-delete"></span>
+                	<span class="i-cus i-more"></span>
+                </div>
+                </ion-item-options>
+            </ion-item-sliding>
+            </ion-list>-->
+        	<!--<div class="list-cell" *ngFor="let channel of subscribedChannels |customFilter: {others :{listName:searchListName}}">
             	<div class="options">
                 	<span class="i-cus i-edit"></span>
                 	<span class="i-cus i-share"></span>
@@ -67,82 +116,16 @@
                 	<span class="i-cus i-more"></span>
                 </div>
             	<div class="list-cell-cont"> 
-                	<!--<div class="cus-checkbox">
+                	<div class="cus-checkbox">
                     	<input type="checkbox" id="checkbox1" name="checkbox" />
   						<label for="checkbox1"><span></span></label>
-                    </div> -->          	
+                    </div>           	
                     <div class="title">
                     	<h4>{{channel.others.listName}}</h4>
                         <p>Lorem Ipsum is simply dummy text of the printing.</p>
                     </div>
                     <div class="list-info" (click)="showItems(channel.itemsList,channel.others.listName)">
                     	<span class="items-no"><span>20</span> Items</span>
-                    </div>
-                </div>
-            </div>
-            
-        <!--	<div class="list-cell">
-            	<div class="options">
-                	<span class="i-cus i-edit"></span>
-                	<span class="i-cus i-share"></span>
-                	<span class="i-cus i-delete"></span>
-                	<span class="i-cus i-more"></span>
-                </div>
-            	<div class="list-cell-cont">  
-                	<div class="cus-checkbox">
-                    	<input type="checkbox" id="checkbox2" name="checkbox" checked />
-  						<label for="checkbox2"><span></span></label>
-                    </div>          	
-                    <div class="title">
-                    	<h4>My Office List</h4>
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text...</p>
-                    </div>
-                    <div class="list-info">
-                    	<span class="items-no"><span>9</span> Items</span>
-                    </div>
-                </div>
-            </div>
-            
-        	<div class="list-cell">
-            	<div class="options">
-                	<span class="i-cus i-edit"></span>
-                	<span class="i-cus i-share"></span>
-                	<span class="i-cus i-delete"></span>
-                	<span class="i-cus i-more"></span>
-                </div>
-            	<div class="list-cell-cont">  
-                	<div class="cus-checkbox">
-                    	<input type="checkbox" id="checkbox3" name="checkbox" />
-  						<label for="checkbox3"><span></span></label>
-                    </div>          	
-                    <div class="title">
-                    	<h4>Party List</h4>
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text...</p>
-                    </div>
-                    <div class="list-info">
-                    	<span class="items-no"><span>25</span> Items</span>
-                    </div>
-                </div>
-            </div>
-            
-        	<div class="list-cell">
-            	<div class="options">
-                	<span class="i-cus i-edit"></span>
-                	<span class="i-cus i-share"></span>
-                	<span class="i-cus i-delete"></span>
-                	<span class="i-cus i-more"></span>
-                </div>
-            	<div class="list-cell-cont"> 
-                	<div class="cus-checkbox">
-                    	<input type="checkbox" id="checkbox4" name="checkbox" />
-  						<label for="checkbox4"><span></span></label>
-                    </div>           	
-                    <div class="title">
-                    	<h4>My Favourite Item List</h4>
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text...</p>
-                    </div>
-                    <div class="list-info">
-                    	<span class="items-no"><span>40</span> Items</span>
                     </div>
                 </div>
             </div>-->

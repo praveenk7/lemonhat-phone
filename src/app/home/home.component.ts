@@ -30,29 +30,49 @@ export class HomeComponent implements OnInit{
         public navParams: NavParams,
         public nativeStorage: NativeStorage,
         private storage: Storage,
-        public popoverCtrl: PopoverController        
+        public popoverCtrl: PopoverController      
         ) {
+       
         //this.storage.remove('user')
+        //console.log(this.lemontabs);
     };
     
     
-    ngOnInit() {        
-        this.storage.get('user').then((val) => {
-            console.log("tabs user value", val);
-           if(val){
-               this.uid = val.id;
-               this.loader = this.loadingCtrl.create({
-                   content: "Loading...",
-               });
-               this.loader.present();
-            console.log("home uid value",val);
-            this.getChannels();
-           }else{
-            this.navCtrl.push(LoginComponent);
-           }
-          });
+    ngOnInit() {  
+        
+    //    this.storage.get('user').then((val) => {
+    //        console.log("tabs user value", val);
+    //       if(val){
+    //           this.uid = val.id;
+    //           this.loader = this.loadingCtrl.create({
+    //               content: "Loading...",
+    //           });
+    //           this.loader.present();
+    //        console.log("home uid value",val);
+    //        this.getChannels();
+    //       }else{
+    //        this.navCtrl.push(LoginComponent);
+    //       }
+    //      });
         
     }  
+
+    ionViewDidEnter() {
+        this.storage.get('user').then((val) => {
+            console.log("tabs user value", val);
+            if (val) {
+                this.uid = val.id;
+                this.loader = this.loadingCtrl.create({
+                    content: "Loading...",
+                });
+                this.loader.present();
+                console.log("home uid value", val);
+                this.getChannels();
+            } else {
+                this.navCtrl.push(LoginComponent);
+            }
+        });
+    }
 
 
     createChannel() {
