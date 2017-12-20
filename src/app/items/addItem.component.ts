@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TwilioService } from '../_services/twilio.service';
 import { Storage } from '@ionic/storage';
+import { LoginComponent } from '../login.component';
 import { AlertController, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { DataProvider } from "../data";
 
