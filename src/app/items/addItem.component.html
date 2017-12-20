@@ -1,0 +1,22 @@
+
+<ion-header>
+    <nav class="nav-top">
+    		<div class="title">
+        		<span class="i-cus i-menu"></span>
+                <h4>Create new item</h4>
+            </div>
+           
+    	</nav>
+</ion-header>
+
+<ion-content>
+	<ion-row>
+          <ion-col>
+              <ion-input type="text" placeholder="Item Name" [(ngModel)]="itemName"></ion-input>
+        </ion-col>
+      </ion-row>
+    <div padding class="action-sheet-ios">
+    <button ion-button color="secondary" (click)="saveItem()">Create Item</button>
+      
+  </div>
+</ion-content>

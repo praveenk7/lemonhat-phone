@@ -13,7 +13,8 @@ import { Push, PushObject, PushOptions } from '@ionic-native/push';
 //services
 import {TwilioService} from './_services/twilio.service';
 import {ContactsMock, PushMock, NativeStorageMock} from './_services/custom.service';
-import {User} from './user';
+import {User } from './user';
+ import { DataProvider } from "./data";
 //components
  import { AppComponent }  from './app.component';
  import { LoginComponent }  from './login.component';
@@ -26,6 +27,8 @@ import {User} from './user';
  import { FilterPipe } from './filter.pipe';
  import { LogoutPopoverPage } from './logout.component';
  import { AddItemListComponent }  from './home/addItemList.component';
+import { AddItemComponent } from './items/addItem.component';
+
 
 
 @NgModule({
@@ -48,7 +51,9 @@ import {User} from './user';
         ShareComponent,        
         FilterPipe,
         LogoutPopoverPage,
-        AddItemListComponent
+        AddItemListComponent,
+        AddItemComponent
+        
     ],
     providers: AppModule.getProviders(),
     bootstrap: [IonicApp],
@@ -62,7 +67,8 @@ import {User} from './user';
         ShareComponent,
         ProfileComponent,
         LogoutPopoverPage,
-        AddItemListComponent
+        AddItemListComponent,
+        AddItemComponent
     ]
 })
 
@@ -87,7 +93,8 @@ export class AppModule {
                    Contacts,
                    Push,
                    User,                  
-                   TwilioService
+               TwilioService,
+               DataProvider
                     
            ]        
           } else {
@@ -102,7 +109,8 @@ export class AppModule {
                {provide:Contacts, useClass:ContactsMock},
                {provide: Push, useClass: PushMock},
                User,                  
-               TwilioService 
+               TwilioService,
+               DataProvider 
            ]
    
           }  

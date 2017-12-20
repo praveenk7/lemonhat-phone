@@ -5,6 +5,7 @@ import {TwilioService } from '../_services/twilio.service';
 import { LoginComponent } from '../login.component';
 import {HomeComponent } from '../home/home.component';
 import {LogoutPopoverPage } from '../logout.component';
+import { DataProvider } from "../data";
 
 
 @Component({    
@@ -26,23 +27,30 @@ export class AddItemListComponent implements OnInit{
         public navCtrl: NavController,
         public navParams: NavParams,
         private storage: Storage,
-        public popoverCtrl: PopoverController        
+        public popoverCtrl: PopoverController,
+        public data: DataProvider        
         ) {
         //this.storage.remove('user')
+        //this.navParams.data = {"isAddTab":true };
     };
     
     
     ngOnInit() {        
-        this.storage.get('user').then((val) => {
-            console.log("tabs user value", val);
-           if(val){
-               this.uid = val.id;
-           }else{
-            this.navCtrl.push(LoginComponent);
-           }
-          });
+       
         
     }  
+
+    ionViewDidEnter() {
+        this.storage.get('user').then((val) => {
+            console.log("tabs user value", val);
+            if (val) {
+                this.uid = val.id;
+            } else {
+                this.navCtrl.push(LoginComponent);
+            }
+        });
+        this.listName = "";
+        }
 
     saveChannel() {
         if (this.listName) {
@@ -55,6 +63,7 @@ export class AddItemListComponent implements OnInit{
                      let response = JSON.parse((<any>data)._body);
                      if (response && response.status == 200) {
                          this.listName = "";
+                         this.data.paramData = "itemList";
                          this.navCtrl.parent.select(0);
                         // this.subscribedChannels.push({ "itemsList": response.itemsList, "others": { "listName": this.listName, "channelType": "private", "createdDate": "", "createdBy": this.uid, "twilioChannelId": response.tChannelId } })
                      }
@@ -69,6 +78,8 @@ export class AddItemListComponent implements OnInit{
                  }
                  )
              }
+        //this.data.paramData = true;
+        //this.navCtrl.parent.select(0);
     }
 
     //getChannels() {

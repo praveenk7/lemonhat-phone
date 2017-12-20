@@ -106,8 +106,8 @@ export class TwilioService{
         });
     }
     
-    shareListtoUsers(itemsList: string, sharedUsers: Array<Object>, tChannelId:string) {
-        var requestObj = { "itemsList": itemsList, "sharedUsers": sharedUsers, "tChannelId": tChannelId };
+    shareListtoUsers(requestObj:Object) {
+        //var requestObj = { "itemsList": itemsList, "sharedUsers": sharedUsers, "tChannelId": tChannelId };
         return this.http.post(this.baseURL + '/sharelist', requestObj).map((response: Response) => {
             return response;
         });

@@ -1,0 +1,15 @@
+﻿@charset "utf-8";
+/* Shopping App Stylesheets */
+ion-item {
+    padding-left: 0px;
+}
+.item-inner {
+    padding-right:0px;
+}
+ion-label {
+    margin:0;
+}
+
+.bg-color-yellow {
+    background-color: #ffcb00;
+}

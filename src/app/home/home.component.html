@@ -60,26 +60,29 @@
   
         <div class="content add-checkbox">
              <ion-list>
-                <ion-item-sliding *ngFor="let channel of subscribedChannels |customFilter: {others :{listName:searchListName}}">
-                <ion-item (click)="showItems(channel.itemsList,channel.others.listName)">
-                    <div class="list-cell-cont"> 
-                        <div class="title">
-                            <h4>{{channel.others.listName}}</h4>
-                            <p>I've had a pretty messed up day. If we just...</p>
+                <ion-item-sliding  *ngFor="let channel of subscribedChannels |customFilter: {others :{listName:searchListName}}">
+                <ion-item>
+                    <div class="list-cell">
+                        <div class="list-cell-cont"> 
+                            <div class="title">
+                                <h4>{{channel.others.listName}}</h4>
+                                <p>I've had a pretty messed up day. If we just...</p>
+                            </div>
+                            <div class="list-info" (click)="showItems(channel.itemsList,channel.others.listName)">
+                    	        <span class="items-no"><span>20</span> Items</span>
+                            </div>
                         </div>
-                        <!--<div class="list-info" (click)="showItems(channel.itemsList,channel.others.listName)">
-                    	    <span class="items-no"><span>20</span> Items</span>
-                        </div>-->
                     </div>
                 </ion-item>
-                <ion-item-options side="left">
-                    <button ion-button (click)="shareUsers(channel.itemsList,channel.others.twilioChannelId)">
-                        <ion-icon name="md-share" ></ion-icon>
-                        Share
+                <ion-item-options side="left" >
+                    <button class="bg-color-yellow" ion-button (click)="shareUsers(channel.itemsList,channel.others.twilioChannelId)">
+                        <span class="i-cus i-share"></span>
                     </button>
-                    <button ion-button color="danger">
-                        <ion-icon name="trash"></ion-icon>
-                        Delete
+                    <button class="bg-color-yellow" ion-button>
+                        <span class="i-cus i-delete"></span>
+                    </button>
+                    <button class="bg-color-yellow" ion-button>
+                    <span class="i-cus i-more"></span>
                     </button>
                 </ion-item-options>
                 </ion-item-sliding>
@@ -131,7 +134,7 @@
             </div>-->
         </div>
      
-       <!-- <nav class="nav-bottom">
+        <!--<nav class="nav-bottom">
         	<ul>
             	<li class="active">
                 	<span class="i-cus i-list"></span>
@@ -151,3 +154,23 @@
     <!-- End My List -->
 
 </ion-content>
+
+<!--<ion-footer>
+    <nav class="nav-bottom">
+        	<ul>
+            	<li class="active">
+                	<span class="i-cus i-list"></span>
+                    <span class="text">List</span>
+                </li>
+                <li>
+                	<span class="i-cus i-add-list"></span>
+                    <span class="text">Add</span>
+                </li>
+                <li>
+                	<span class="i-cus i-profile"></span>
+                    <span class="text">Profile</span>
+                </li>
+            </ul>
+        </nav>
+
+</ion-footer>-->

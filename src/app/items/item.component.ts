@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-//import { Location } from '@angular/common';
-//import {  ActivatedRoute } from "@angular/router";
 import {TwilioService } from '../_services/twilio.service';
 import { AlertController, LoadingController, NavParams } from 'ionic-angular';
-//import * as $ from 'jquery';
-//declare var $: any;
+import { DataProvider } from "../data";
 
 @Component({   
     templateUrl: 'item.component.html',
-    styleUrls: ['./login.component.css']
+    styleUrls: ['./css/style.css']
 })
 export class ItemComponent implements OnInit{
     listName: any;
@@ -21,7 +18,9 @@ export class ItemComponent implements OnInit{
     loader: any;
     constructor(private twilioService: TwilioService, public alertCtrl: AlertController,
         public loadingCtrl: LoadingController,
-        public navParams: NavParams) {
+        public navParams: NavParams,
+        public data: DataProvider) {
+        
         this.itemsList = this.navParams.get('lid');
         this.uid = this.navParams.get('uid');
         this.listName = this.navParams.get('lst');
@@ -35,6 +34,15 @@ export class ItemComponent implements OnInit{
     items:any;
     ngOnInit() {
         this.getItems();
+    }
+
+    ionViewDidEnter() {
+        if (this.data.paramData == "item") {
+            this.getItems();
+            this.data.paramData = "";
+        }
+        this.data.tabComponent = "item";
+        this.data.itemListId = this.itemsList;
     }
 
 

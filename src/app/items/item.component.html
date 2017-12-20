@@ -1,4 +1,4 @@
-<ion-header>
+<!--<ion-header>
   <ion-navbar>
     <ion-title>
       Items
@@ -19,63 +19,131 @@
                     <ion-avatar item-start="">
                       <img src="../assets/imgs/logo.png">
                     </ion-avatar>
-                    
                     <ion-label>
                      <h2>{{item.others.itemName}}</h2>
                      <p>I've had a pretty messed up day. If we just...</p>
-                     <!--<ion-checkbox color="secondary" style="float: left;margin-right:8px;"></ion-checkbox>
-                     <p style="height: 21px; margin-top: 12px;">Bought</p>-->
                         <ion-row>
                             <ion-item no-lines col-7 style="padding-left: 0;border:0 !important">
                                 <ion-checkbox color="secondary" style="margin-right:8px;"></ion-checkbox>
                                 <ion-label >Bought</ion-label>
                             </ion-item>
-                            <!--<ion-col col-4><ion-label >Bought</ion-label></ion-col>-->
                             <ion-icon name="ios-chatboxes-outline" style="margin-top:16px;"></ion-icon>
                         </ion-row>                            
                         </ion-label>
-                    
-                    
-                    
-                          <!-- <ion-label>Bought</ion-label>-->
-                            <!--<ion-checkbox color="danger"></ion-checkbox>-->
-                     <!--<ion-row>
-                        <ion-col>
-                            <ion-item>
-                            <ion-label>Bought</ion-label>
-                            <ion-checkbox color="danger"></ion-checkbox>
-                            </ion-item>
-                        </ion-col>
-                    </ion-row>-->
                 </ion-item>
-
-             <!--   <ion-item>
-                    <ion-row>
-                        <ion-col col-2>
-                            <ion-avatar item-start="">
-                                <img src="../assets/imgs/logo.png">
-                            </ion-avatar>
-                        </ion-col>
-        
-                        <ion-col col-10>
-                            <ion-row>
-                                <ion-col>
-                    
-                                    <h2>{{item.others.itemName}}</h2>
-                                    <p>I've had a pretty messed up day. If we just...</p>
-                                </ion-col>
-                             </ion-row>
-                            <ion-row>
-                                <ion-col>
-                                    <ion-checkbox></ion-checkbox><ion-label>Bought</ion-label>
-
-                                         </ion-col>
-                            </ion-row>
-                        </ion-col>
-                    </ion-row>
-           
-                </ion-item>-->
-               
             </ion-item-sliding>
         </ion-list>
+</ion-content>-->
+
+<ion-header>
+    <nav class="nav-top">
+    		<div class="title">
+        		<span class="i-cus i-menu"></span>
+                <h4>List Detail</h4>
+            </div>
+            <div class="actions">
+            	<div class="act-i-cuss">
+                    <!--<span class="i-cus i-shop"></span>-->
+                    <!--<span class="i-cus i-list-view"></span>-->
+                    <span class="i-cus i-move"></span>
+                    <!--<span class="i-cus i-search"></span>-->
+                </div>
+            </div>
+    	</nav>
+</ion-header>
+
+<ion-content>
+    <section class="list-items">
+        <div class="content"><!-- Add 'add-checkbox' class to show radio buttons -->
+        	<div class="list-tile">
+            	<h2>{{listName}}</h2>
+                <p><span>9</span> items</p>
+            </div>
+        	<div class="sch-field">
+                <input type="search" placeholder="Search an item..." [(ngModel)]="searchItemName"/>
+                <button type="submit" class="btn-search"><span class="i-cus i-search"></span></button>
+            </div>
+            <div class="list-detail">
+            	<div class="list-cell" *ngFor="let idx = index; let item of items |customFilter: {others :{itemName:searchItemName}}">
+                    <div class="list-cell-cont">  
+                        <div class="cus-checkbox">
+                            <input type="checkbox" id="checkbox1" name="checkbox" />
+                            <label for="checkbox1"><span></span></label>
+                        </div>                        
+                        <div class="pic-cell">
+                            <figure>
+                                <img src="images/pic.jpg" alt=""/>
+                            </figure>
+                        </div>          	
+                        <div class="title">                    	
+                            <h4>{{item.others.itemName}}</h4>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                            <div class="tools">
+                            	<div class="cus-checkbox">
+                                    <input type="checkbox" id="checkbox2" name="checkbox" />
+                                    <label for="checkbox2"><span></span>&nbsp; Bought</label>
+                                </div>
+                                <span class="i-cus i-chat"></span>
+                                <!--<span class="i-cus i-cart"></span>-->
+                                <div class="count">
+                                    <div class="table">
+                                        <div class="table-cell">
+                                            <span class="i-cus i-minus small"></span>
+                                        </div>
+                                        <div class="table-cell">
+                                            <input type="text" value="2"/>
+                                        </div>
+                                        <div class="table-cell">
+                                            <span class="i-cus i-plus small"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="i-cus i-favourite small"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="list-cell">
+                    <div class="list-cell-cont">  
+                        <div class="cus-checkbox">
+                            <input type="checkbox" id="checkbox3" name="checkbox" />
+                            <label for="checkbox3"><span></span></label>
+                        </div>                        
+                        <div class="pic-cell">
+                            <figure>
+                                <img src="images/pic.jpg" alt=""/>
+                            </figure>
+                        </div>          	
+                        <div class="title">                    	
+                            <h4>Vegetable pizza with tomato</h4>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                            <div class="tools">
+                            	<div class="cus-checkbox">
+                                    <input type="checkbox" id="checkbox4" name="checkbox" />
+                                    <label for="checkbox4"><span></span>&nbsp; Bought</label>
+                                </div>
+                                <span class="i-cus i-chat"></span>
+                                <div class="count">
+                                    <div class="table">
+                                        <div class="table-cell">
+                                            <span class="i-cus i-minus small"></span>
+                                        </div>
+                                        <div class="table-cell">
+                                            <input type="text" value="2"/>
+                                        </div>
+                                        <div class="table-cell">
+                                            <span class="i-cus i-plus small"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="i-cus i-favourite small"></span>
+                        </div>
+                    </div>
+                </div>
+                                
+            </div>
+        </div>
+    </section>
 </ion-content>

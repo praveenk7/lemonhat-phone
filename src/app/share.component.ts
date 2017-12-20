@@ -54,31 +54,35 @@ export class ShareComponent implements OnInit{
             });
     }
 
+    formatPhone(str) {
+        return str.replace(/(?![0-9]|\s)./g, '')
+            .replace(/\s+/g, '')
+            .replace(/^(\s*)([\W\w]*)(\b\s*$)/g, '$2');
+    }
 
     shareListToUsers() {
-        let shareUsersList = { "sharedTo": [], "phone": [], "itemsList": "","tChannelId":"" };
+        let shareUsersList = { "sharedTo": [], "itemsList": "","sharedBy":"" };
         let phone = "";
         for (var i = 0; i < this.allContacts.length; i++) {
             if (this.allContacts[i]['isChecked' + i]) {
                 phone = this.allContacts[i]._objectInstance.phoneNumbers.length > 0 ? this.allContacts[i]._objectInstance.phoneNumbers[0].value : "";
-                shareUsersList.sharedTo.push({ "name": this.allContacts[i]._objectInstance.name.givenName, "phone": (formatPhone()).slice(-10) });
-                shareUsersList.phone.push(phone);
+                //shareUsersList.sharedTo.push({ "name": this.allContacts[i]._objectInstance.name.givenName, "phone": (this.formatPhone(phone)).slice(-10) });
+                shareUsersList.sharedTo.push((this.formatPhone(phone)));
+               
             }
         }
-        //if (shareUsersList && shareUsersList.length > 0) {
-        //    this.twilioService.shareListtoUsers(this.itemsList, shareUsersList, this.tChannelId).subscribe(
-        //        data=> {
-        //        let response = JSON.parse((<any>data)._body);
-        //            if (response.status == 200) {
-        //                alert("saved successfully");
-        //            }
-        //        });
-        //}
+        shareUsersList.sharedBy = this.uid;
+        shareUsersList.itemsList = this.itemsList;
+        if (shareUsersList.sharedTo && shareUsersList.sharedTo.length > 0) {
+            this.twilioService.shareListtoUsers(shareUsersList).subscribe(
+                data=> {
+                let response = JSON.parse((<any>data)._body);
+                    if (response.status == 200) {
+                        alert("saved successfully");
+                    }
+                });
+        }
     }
 
-    formatPhone(str) {
-            return str.replace(/(?![0-9]|\s)./g, '')
-                .replace(/\s+/g, '')
-                .replace(/^(\s*)([\W\w]*)(\b\s*$)/g, '$2');
-    }
+   
 }

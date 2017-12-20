@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { AlertController, LoadingController, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Storage } from '@ionic/storage';
@@ -8,6 +7,7 @@ import { LoginComponent } from '../login.component';
 import {ShareComponent } from '../share.component';
 import {ItemComponent } from '../items/item.component';
 import {LogoutPopoverPage } from '../logout.component';
+import { DataProvider } from "../data";
 
 
 @Component({    
@@ -30,50 +30,41 @@ export class HomeComponent implements OnInit{
         public navParams: NavParams,
         public nativeStorage: NativeStorage,
         private storage: Storage,
-        public popoverCtrl: PopoverController      
-        ) {
-       
-        //this.storage.remove('user')
-        //console.log(this.lemontabs);
-    };
+        public popoverCtrl: PopoverController,
+        public data: DataProvider      
+        ) {  
+             
+          };
     
     
     ngOnInit() {  
         
-    //    this.storage.get('user').then((val) => {
-    //        console.log("tabs user value", val);
-    //       if(val){
-    //           this.uid = val.id;
-    //           this.loader = this.loadingCtrl.create({
-    //               content: "Loading...",
-    //           });
-    //           this.loader.present();
-    //        console.log("home uid value",val);
-    //        this.getChannels();
-    //       }else{
-    //        this.navCtrl.push(LoginComponent);
-    //       }
-    //      });
+        this.storage.get('user').then((val) => {
+            console.log("tabs user value", val);
+           if(val){
+               this.uid = val.id;
+               this.loader = this.loadingCtrl.create({
+                   content: "Loading...",
+               });
+               this.loader.present();
+            console.log("home uid value",val);
+            this.getChannels();
+           }else{
+            this.navCtrl.push(LoginComponent);
+           }
+          });
         
     }  
 
     ionViewDidEnter() {
-        this.storage.get('user').then((val) => {
-            console.log("tabs user value", val);
-            if (val) {
-                this.uid = val.id;
-                this.loader = this.loadingCtrl.create({
-                    content: "Loading...",
-                });
-                this.loader.present();
-                console.log("home uid value", val);
-                this.getChannels();
-            } else {
-                this.navCtrl.push(LoginComponent);
-            }
-        });
+        console.log('ionViewDidLoad tab1Page');
+        console.log(this.data.paramData);
+        if (this.data.paramData == "itemList") {
+            this.getChannels();
+            this.data.paramData = "";
+        }
+        this.data.tabComponent = "home";
     }
-
 
     createChannel() {
          let prompt = this.alertCtrl.create({
@@ -135,7 +126,7 @@ export class HomeComponent implements OnInit{
          this.twilioService.getitemslist(this.uid).subscribe(
              data=> {
                      let response = JSON.parse((<any>data)._body);
-                     if (response.status == 200) {
+                 if (response.status == 200) {
                          this.subscribedChannels = response.lst;
                      }
                  this.loader.dismiss();
