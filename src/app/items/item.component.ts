@@ -31,7 +31,7 @@ export class ItemComponent implements OnInit{
         
     }
     
-    items:any;
+    items:any=[];
     ngOnInit() {
         this.getItems();
     }

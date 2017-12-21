@@ -101,26 +101,26 @@ export class HomeComponent implements OnInit{
         prompt.present();
     }
 
-    saveChannel() {
-         if (this.listName) {
-             this.twilioService.createItemsList(this.listName, this.uid).subscribe(
-                 data=> {
-                     let response = JSON.parse((<any>data)._body);
-                     if (response.status == 200) {
-                         this.subscribedChannels.push({ "itemsList": response.itemsList, "others": { "listName": this.listName, "channelType": "private", "createdDate": "", "createdBy": this.uid, "twilioChannelId": response.tChannelId } })
-                     }
-                     else {
-                        let alert = this.alertCtrl.create({
-                             subTitle: "Something went wrong. Please try again later.",
-                             buttons: ['Ok']
-                         });
-                         alert.present();
-                     }
-                     this.loader.dismiss();
-                 }
-                 )
-             }
-    }
+    //saveChannel() {
+    //     if (this.listName) {
+    //         this.twilioService.createItemsList(this.listName, this.uid).subscribe(
+    //             data=> {
+    //                 let response = JSON.parse((<any>data)._body);
+    //                 if (response.status == 200) {
+    //                     this.subscribedChannels.push({ "itemsList": response.itemsList, "others": { "listName": this.listName, "channelType": "private", "createdDate": "", "createdBy": this.uid, "twilioChannelId": response.tChannelId } })
+    //                 }
+    //                 else {
+    //                    let alert = this.alertCtrl.create({
+    //                         subTitle: "Something went wrong. Please try again later.",
+    //                         buttons: ['Ok']
+    //                     });
+    //                     alert.present();
+    //                 }
+    //                 this.loader.dismiss();
+    //             }
+    //             )
+    //         }
+    //}
 
     getChannels() {
          this.twilioService.getitemslist(this.uid).subscribe(

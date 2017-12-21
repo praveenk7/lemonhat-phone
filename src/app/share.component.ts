@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
 import {TwilioService } from './_services/twilio.service';
-import { NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 //declare const Twilio: any;
 
 @Component({   
@@ -18,6 +18,7 @@ export class ShareComponent implements OnInit{
     //allUsers: any;
     constructor(private twilioService: TwilioService,
         public navParams: NavParams,
+        public navCtrl: NavController,
         private contacts: Contacts,
         public loadingCtrl: LoadingController        
         ) {
@@ -74,11 +75,17 @@ export class ShareComponent implements OnInit{
         shareUsersList.sharedBy = this.uid;
         shareUsersList.itemsList = this.itemsList;
         if (shareUsersList.sharedTo && shareUsersList.sharedTo.length > 0) {
+            this.loader = this.loadingCtrl.create({
+                content: "please wait...",
+            });
+            this.loader.present();
             this.twilioService.shareListtoUsers(shareUsersList).subscribe(
                 data=> {
                 let response = JSON.parse((<any>data)._body);
+                    this.loader.dismiss();
                     if (response.status == 200) {
                         alert("saved successfully");
+                        this.navCtrl.parent.select(0);
                     }
                 });
         }
