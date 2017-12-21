@@ -69,8 +69,8 @@
             	<div class="list-cell" *ngFor="let idx = index; let item of items |customFilter: {others :{itemName:searchItemName}}">
                     <div class="list-cell-cont">  
                         <div class="cus-checkbox">
-                            <input type="checkbox" id="checkbox1" name="checkbox" />
-                            <label for="checkbox1"><span></span></label>
+                            <input type="checkbox" id="check{{idx}}" name="checkbox" />
+                            <label for="check{{idx}}"><span></span></label>
                         </div>                        
                         <div class="pic-cell">
                             <figure>
@@ -82,12 +82,12 @@
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                             <div class="tools">
                             	<div class="cus-checkbox">
-                                    <input type="checkbox" id="checkbox2" name="checkbox" />
-                                    <label for="checkbox2"><span></span>&nbsp; Bought</label>
+                                    <input type="checkbox" id="chkBought{{idx}}" name="checkbox" />
+                                    <label for="chkBought{{idx}}"><span></span>&nbsp; Bought</label>
                                 </div>
                                 <span class="i-cus i-chat"></span>
                                 <!--<span class="i-cus i-cart"></span>-->
-                                <div class="count">
+                               <!-- <div class="count">
                                     <div class="table">
                                         <div class="table-cell">
                                             <span class="i-cus i-minus small"></span>
@@ -99,9 +99,9 @@
                                             <span class="i-cus i-plus small"></span>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
                             </div>
-                            <span class="i-cus i-favourite small"></span>
+                            <!--<span class="i-cus i-favourite small"></span>-->
                         </div>
                     </div>
                 </div>
