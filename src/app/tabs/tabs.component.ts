@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform, Nav } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Storage } from '@ionic/storage';
 // import { Network } from '@ionic-native/network';
@@ -17,11 +17,11 @@ import { DataProvider } from "../data";
 
 export class TabsComponent {
     //@ViewChild('mainTabs') mainTabs: Tabs;
-    tab1Root = HomeComponent;
-    tab2Root = AddItemListComponent;
-    tab3Root = AddItemComponent;
-    tab4Root = ProfileComponent;
-    
+    tab1Root: any;
+    tab2Root: any;
+    tab3Root: any;
+    tab4Root: any;
+    isLoaded: any = false;
   uid:string;
 
   constructor(
@@ -29,8 +29,14 @@ export class TabsComponent {
     public navCtrl: NavController,
     private storage: Storage,
       public navParams: NavParams,
-      public data: DataProvider     
-   ) {};
+      public data: DataProvider,
+      public nav: Nav   
+      ) {
+      this.tab1Root = HomeComponent;
+      this.tab2Root = AddItemListComponent;
+      this.tab3Root = AddItemComponent;
+      this.tab4Root = ProfileComponent;
+  };
 
    ngOnInit() {
    }  
@@ -50,6 +56,11 @@ export class TabsComponent {
      
   }
 
+    ionViewDidLoad() {
+        let name = this.nav.getActive();
+        console.log("nav bar:" + this.nav.getActive());
+
+    }
     //tapped() {
     ////let selectedTab = this.mainTabs._selectHistory;
 

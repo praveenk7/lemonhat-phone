@@ -32,7 +32,7 @@ export class FilterPipe implements PipeTransform {
                           }
                       }
                       else if (typeof filter[field][innerField] === "string") {
-                          if (item[field][innerField].toLowerCase().indexOf(filter[field][innerField].toLowerCase()) === -1) {
+                          if (item[field][innerField] && (item[field][innerField].toLowerCase().indexOf(filter[field][innerField].toLowerCase()) === -1)) {
                               return false;
                           }
                       }

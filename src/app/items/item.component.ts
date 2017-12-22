@@ -14,6 +14,7 @@ export class ItemComponent implements OnInit{
     imageUrl: any;  
     uid: any;
     container: Object = {};
+    isBought: Object = {};
     searchItemName: string = "";
     loader: any;
     items: any = [];
@@ -21,7 +22,7 @@ export class ItemComponent implements OnInit{
         public loadingCtrl: LoadingController,
         public navParams: NavParams,
         public data: DataProvider) {
-        
+        this.data.tabComponent = "item";
         this.itemsList = this.navParams.get('lid');
         this.uid = this.navParams.get('uid');
         this.listName = this.navParams.get('lst');
@@ -118,5 +119,20 @@ export class ItemComponent implements OnInit{
         } else {
             this.container[item] = false;
         }
+    }
+
+    saveBought(itemData: Object) {
+        this.loader = this.loadingCtrl.create({
+            content: "Please wait...",
+        });
+        this.twilioService.updateBought(itemData).subscribe(
+            data=> {
+                    let response = JSON.parse((<any>data)._body);
+                if (response.status == 200) {
+                    
+                    }
+                this.loader.dismiss();
+            }
+            )
     }
 }

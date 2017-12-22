@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit{
         public popoverCtrl: PopoverController,
         public data: DataProvider      
         ) {  
-             
+        this.data.tabComponent = "home";
           };
     
     
@@ -127,8 +127,9 @@ export class HomeComponent implements OnInit{
              data=> {
                      let response = JSON.parse((<any>data)._body);
                  if (response.status == 200) {
-                         this.subscribedChannels = response.lst;
-                     }
+                     this.subscribedChannels = response.lst;
+                     //[{ "itemsList": "AWB3qtnxOEwIORfq8zwb", "others": { "listName": "1st week list", "createdDate": "2017-12-21T06:02:53.584Z", "createdBy": "hauup4kjbg2ny2u", "sharedTo": [] } }, { "itemsList": "AWB4hISOOEwIORfq8zwn", "others": { "listName": "2nd list", "createdDate": "2017-12-21T10:00:38.561Z", "createdBy": "hauup4kjbg2ny2u" } }];
+                 }
                  this.loader.dismiss();
              }
              )
@@ -142,11 +143,11 @@ export class HomeComponent implements OnInit{
         });
     }
 
-    shareUsers(itemsList, tChannelId) {       
+    shareUsers(itemsList, itemListName) {       
         this.navCtrl.push(ShareComponent, {
             "lid": itemsList,
-            "tid": tChannelId,
-            "uid": this.uid
+            "uid": this.uid,
+            "lstName": itemListName
         });
     }
 

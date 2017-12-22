@@ -64,12 +64,12 @@
                 <button type="submit" class="btn-search"><span class="i-search-bar-custom"></span></button>
             </div>
              <ion-list>
-                <ion-item-sliding  *ngFor="let channel of subscribedChannels |customFilter: {others :{listName:searchListName}}">
+                <ion-item-sliding  *ngFor="let channel of subscribedChannels |customFilter: {others :{itemListName:searchListName}}">
                 <ion-item>
-                    <div class="list-cell" (click)="showItems(channel.itemsList,channel.others.listName)">
+                    <div class="list-cell" (click)="showItems(channel.itemsList,channel.others.itemListName)">
                         <div class="list-cell-cont"> 
                             <div class="title">
-                                <h4>{{channel.others.listName}}</h4>
+                                <h4>{{channel.others.itemListName}}</h4>
                                 <!--<p>I've had a pretty messed up day. If we just...</p>-->
                             </div>
                             <div class="list-info">
@@ -79,7 +79,7 @@
                     </div>
                 </ion-item>
                 <ion-item-options side="left" >
-                    <button class="bg-color-yellow" ion-button (click)="shareUsers(channel.itemsList,channel.others.twilioChannelId)">
+                    <button class="bg-color-yellow" ion-button (click)="shareUsers(channel.itemsList,channel.others.itemListName)">
                         <span class="i-share-custom"></span>
                     </button>
                     <button class="bg-color-yellow" ion-button>

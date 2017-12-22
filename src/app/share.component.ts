@@ -10,7 +10,7 @@ import { NavController, NavParams, LoadingController } from 'ionic-angular';
 })
 export class ShareComponent implements OnInit{
     itemsList: any = "";
-    tChannelId: any = "";
+    itemListName: any = "";
     uid: any = "";
     myInput: string = "";
     loader: any;
@@ -24,7 +24,7 @@ export class ShareComponent implements OnInit{
         ) {
 
         this.itemsList = this.navParams.get('lid');
-        this.tChannelId = this.navParams.get('tid');
+        this.itemListName = this.navParams.get('lstName');
         this.uid = this.navParams.get('uid');
         this.loader = this.loadingCtrl.create({
             content: "Loading...",
@@ -62,7 +62,7 @@ export class ShareComponent implements OnInit{
     }
 
     shareListToUsers() {
-        let shareUsersList = { "sharedTo": [], "itemsList": "","sharedBy":"" };
+        let shareUsersList = { "sharedTo": [], "itemsList": "", "sharedBy": "","listName":"" };
         let phone = "";
         for (var i = 0; i < this.allContacts.length; i++) {
             if (this.allContacts[i]['isChecked' + i]) {
@@ -74,6 +74,7 @@ export class ShareComponent implements OnInit{
         }
         shareUsersList.sharedBy = this.uid;
         shareUsersList.itemsList = this.itemsList;
+        shareUsersList.listName = this.itemListName;
         if (shareUsersList.sharedTo && shareUsersList.sharedTo.length > 0) {
             this.loader = this.loadingCtrl.create({
                 content: "please wait...",
@@ -83,7 +84,7 @@ export class ShareComponent implements OnInit{
                 data=> {
                 let response = JSON.parse((<any>data)._body);
                     this.loader.dismiss();
-                    if (response.status == 200) {
+                    if (response && response.status == 200) {
                         alert("saved successfully");
                         this.navCtrl.parent.select(0);
                     }

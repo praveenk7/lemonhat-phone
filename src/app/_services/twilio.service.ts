@@ -94,7 +94,7 @@ export class TwilioService{
     }
 
     createItem(itemsList: string, uid: string, itemName: string) {
-        var requestObj = { "uid": uid, "itemName": itemName, itemsList: itemsList,"imageUrl":""}
+        var requestObj = { "uid": uid, "itemName": itemName, itemsList: itemsList,"imageUrl":"","bought":false,"itemQuantity":1}
         return this.http.post(this.baseURL + '/createitem', requestObj).map((response: Response) => {
             return response;
         });
@@ -115,6 +115,13 @@ export class TwilioService{
 
     sendMessagetoChannel() {
         return this.http.post(this.baseURL + '/sendmessage', {}).map((response: Response) => {
+            return response;
+        });
+    }
+
+    updateBought(itemData:Object) {
+        //var requestObj = { "itemsList": itemsList, "sharedUsers": sharedUsers, "tChannelId": tChannelId };
+        return this.http.post(this.baseURL + '/updateBought', { "bought": itemData.others.bought, "item": itemData.item}).map((response: Response) => {
             return response;
         });
     }
