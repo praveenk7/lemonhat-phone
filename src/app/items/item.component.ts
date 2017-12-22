@@ -16,6 +16,7 @@ export class ItemComponent implements OnInit{
     container: Object = {};
     searchItemName: string = "";
     loader: any;
+    items: any = [];
     constructor(private twilioService: TwilioService, public alertCtrl: AlertController,
         public loadingCtrl: LoadingController,
         public navParams: NavParams,
@@ -31,7 +32,7 @@ export class ItemComponent implements OnInit{
         
     }
     
-    items:any=[];
+    
     ngOnInit() {
         this.getItems();
     }

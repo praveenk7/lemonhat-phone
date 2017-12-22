@@ -46,7 +46,7 @@
             	<div class="act-i-cuss">
                     <span class="i-shop-custom"></span>
                     <!--<span class="i-cus i-list-view"></span>-->
-                    <span class="i-search-custom"></span>
+                    <!--<span class="i-search-custom"></span>-->
                 </div>
             </div>
     	</nav>
@@ -58,7 +58,11 @@
     
     	
   
-        <div class="content add-checkbox">
+        <div class="content"><!--add-checkbox-->
+            <div class="sch-field">
+                <input type="search" placeholder="Search an Item list..." [(ngModel)]="searchListName"/>
+                <button type="submit" class="btn-search"><span class="i-search-bar-custom"></span></button>
+            </div>
              <ion-list>
                 <ion-item-sliding  *ngFor="let channel of subscribedChannels |customFilter: {others :{listName:searchListName}}">
                 <ion-item>
@@ -78,12 +82,12 @@
                     <button class="bg-color-yellow" ion-button (click)="shareUsers(channel.itemsList,channel.others.twilioChannelId)">
                         <span class="i-share-custom"></span>
                     </button>
-                    <!--<button class="bg-color-yellow" ion-button>
-                        <span class="i-delete-custom"></span>
-                    </button>-->
                     <button class="bg-color-yellow" ion-button>
-                    <span class="i-more-custom"></span>
+                        <span class="i-delete-custom"></span>
                     </button>
+                    <!--<button class="bg-color-yellow" ion-button>
+                    <span class="i-more-custom"></span>
+                    </button>-->
                 </ion-item-options>
                 </ion-item-sliding>
             </ion-list>

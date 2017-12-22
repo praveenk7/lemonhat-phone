@@ -66,40 +66,40 @@ export class HomeComponent implements OnInit{
         this.data.tabComponent = "home";
     }
 
-    createChannel() {
-         let prompt = this.alertCtrl.create({
-             title: 'Create Shop List',
-            inputs: [
-                {
-                    name: 'listName',
-                    placeholder: 'List Name'
-                },
-            ],
-            buttons: [
-                {
-                    text: 'Cancel',
-                    handler: data => {
-                        console.log('Cancel clicked');
-                    }
-                },
-                {
-                    text: 'Save',
-                    handler: data => {
-                        this.listName = data.listName;
-                        if (this.listName) {
-                        this.loader = this.loadingCtrl.create({
-                                content: "Please wait...",
-                            });
-                            this.loader.present();
-                            this.saveChannel();
-                        }
-                        console.log('Saved clicked');
-                    }
-                }
-            ]
-        });
-        prompt.present();
-    }
+    //createChannel() {
+    //     let prompt = this.alertCtrl.create({
+    //         title: 'Create Shop List',
+    //        inputs: [
+    //            {
+    //                name: 'listName',
+    //                placeholder: 'List Name'
+    //            },
+    //        ],
+    //        buttons: [
+    //            {
+    //                text: 'Cancel',
+    //                handler: data => {
+    //                    console.log('Cancel clicked');
+    //                }
+    //            },
+    //            {
+    //                text: 'Save',
+    //                handler: data => {
+    //                    this.listName = data.listName;
+    //                    if (this.listName) {
+    //                    this.loader = this.loadingCtrl.create({
+    //                            content: "Please wait...",
+    //                        });
+    //                        this.loader.present();
+    //                        this.saveChannel();
+    //                    }
+    //                    console.log('Saved clicked');
+    //                }
+    //            }
+    //        ]
+    //    });
+    //    prompt.present();
+    //}
 
     //saveChannel() {
     //     if (this.listName) {
