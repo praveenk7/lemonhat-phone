@@ -82,7 +82,7 @@
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                             <div class="tools">
                             	<div class="cus-checkbox">
-                                    <input type="checkbox" id="chkBought{{idx}}" (click)="saveBought(item,idx,isBought[idx])" [(ngModel)]="item.bought" [disabled]="item.bought"/>
+                                    <input type="checkbox" id="chkBought{{idx}}" (click)="saveBought(item,idx,isBought[idx])" [(ngModel)]="item.others.bought" [disabled]="item.others.bought"/>
                                     <label for="chkBought{{idx}}" ><span></span>&nbsp; Bought</label>
                                 </div>
                                 <span class="i-cus i-chat"></span>
@@ -90,13 +90,13 @@
                                 <div class="count">
                                     <div class="table">
                                         <div class="table-cell">
-                                            <span class="i-cus i-minus small"></span>
+                                            <span class="i-cus i-minus small" (click)="updateQuantity(item, 'decrement')"></span>
                                         </div>
                                         <div class="table-cell">
-                                            <input type="text" value="2"/>
+                                            <input type="text" [(ngModel)]="item.others.quantity" (ngModelChange)="updateQuantity(item)" [disabled]="item.others.bought"/>
                                         </div>
                                         <div class="table-cell">
-                                            <span class="i-cus i-plus small"></span>
+                                            <span class="i-cus i-plus small" (click)="updateQuantity(item, 'increment')"></span>
                                         </div>
                                     </div>
                                 </div>

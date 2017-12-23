@@ -64,7 +64,7 @@
                 <button type="submit" class="btn-search"><span class="i-search-bar-custom"></span></button>
             </div>
              <ion-list>
-                <ion-item-sliding  *ngFor="let channel of subscribedChannels |customFilter: {others :{itemListName:searchListName}}">
+                <ion-item-sliding  *ngFor="let idx = index; let channel of subscribedChannels |customFilter: {others :{itemListName:searchListName}}" [hidden]="channel.others.sharedStatus=='archive'"><!--*ngIf="channel.others.sharedStatus!='archieve'"-->
                 <ion-item>
                     <div class="list-cell" (click)="showItems(channel.itemsList,channel.others.itemListName)">
                         <div class="list-cell-cont"> 
@@ -79,10 +79,10 @@
                     </div>
                 </ion-item>
                 <ion-item-options side="left" >
-                    <button class="bg-color-yellow" ion-button (click)="shareUsers(channel.itemsList,channel.others.itemListName)">
+                    <button class="bg-color-yellow" swipeable ion-button (click)="shareToUsers(channel.itemsList,channel.others.itemListName)">
                         <span class="i-share-custom"></span>
                     </button>
-                    <button class="bg-color-yellow" ion-button>
+                    <button class="bg-color-yellow" swipeable ion-button (click)="deleteItemList(channel.itemsList,idx)">
                         <span class="i-delete-custom"></span>
                     </button>
                     <!--<button class="bg-color-yellow" ion-button>

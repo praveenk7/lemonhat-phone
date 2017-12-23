@@ -121,17 +121,69 @@ export class ItemComponent implements OnInit{
         }
     }
 
-    saveBought(itemData: Object) {
+    saveBought(itemData: any) {
+        itemData.others.bought = itemData.others.bought ? false : true;
         this.loader = this.loadingCtrl.create({
             content: "Please wait...",
         });
         this.twilioService.updateBought(itemData).subscribe(
             data=> {
                     let response = JSON.parse((<any>data)._body);
-                if (response.status == 200) {
-                    
+                    if (response.status == 200) {
+
                     }
+                    this.loader.dismiss();
+                
+            }, error=> {
+                itemData.others.bought = itemData.others.bought ? false : true;
                 this.loader.dismiss();
+                 let alert = this.alertCtrl.create({
+                    subTitle: "Something went wrong. Please try again later.",
+                    buttons: ['Ok']
+                });
+                alert.present();
+            }
+            )
+    }
+
+    updateQuantity(itemData: any, valueType: string) {
+        if (!itemData.others.bought) {
+            if (valueType == "decrement" && itemData.others.quantity > 1) {
+                itemData.others.quantity = itemData.others.quantity - 1;
+            } else if (valueType == "increment") {
+                itemData.others.quantity = itemData.others.quantity + 1;
+            }
+            console.log(itemData.others.quantity);
+            
+                setTimeout(() => {
+                    if (!itemData["isubmitted"]) {
+                    //itemData["isubmitted"] = true;
+                    this.saveQuantity(itemData);
+                    alert("hit");
+                    }
+                }, 3000);
+            
+        }
+    };
+
+    saveQuantity(itemData) {
+        this.twilioService.updateItemQuantity(itemData).subscribe(
+            data=> {
+                    let response = JSON.parse((<any>data)._body);
+                if (response.status == 200) {
+                    itemData["isubmitted"] = false;
+                }
+                this.loader.dismiss();
+
+            }, error=> {
+                itemData["isubmitted"] = true;
+                this.loader.dismiss();
+                 let alert = this.alertCtrl.create({
+                    subTitle: "Something went wrong. Please try again later.",
+                    buttons: ['Ok']
+                });
+                alert.present();
+                itemData["isubmitted"] = false;
             }
             )
     }

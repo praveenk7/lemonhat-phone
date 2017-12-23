@@ -143,7 +143,7 @@ export class HomeComponent implements OnInit{
         });
     }
 
-    shareUsers(itemsList, itemListName) {       
+    shareToUsers(itemsList, itemListName) {       
         this.navCtrl.push(ShareComponent, {
             "lid": itemsList,
             "uid": this.uid,
@@ -156,5 +156,38 @@ export class HomeComponent implements OnInit{
         popover.present({
             ev: myEvent
         });
+    }
+
+    deleteItemList(itemsList,index) {
+        if (itemsList) {
+            this.loader = this.loadingCtrl.create({
+                content: "Please wait...",
+            });
+            //this.subscribedChannels.splice(index, 1);
+            this.twilioService.archieveItemsList(itemsList, this.uid).subscribe(
+                data=> {
+                     let response = JSON.parse((<any>data)._body);
+                    if (response && response.status == 200) {
+                        this.subscribedChannels.splice(index, 1);
+                    }
+                    else {
+                        let alert = this.alertCtrl.create({
+                            subTitle: "Something went wrong. Please try again later.",
+                            buttons: ['Ok']
+                        });
+                        alert.present();
+                    }
+                    this.loader.dismiss();
+                },
+                error=> {
+                    this.loader.dismiss();
+                     let alert = this.alertCtrl.create({
+                        subTitle: "Something went wrong. Please try again later.",
+                        buttons: ['Ok']
+                    });
+                    alert.present();
+                }
+                )
+            }
     }  
 }

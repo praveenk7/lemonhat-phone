@@ -119,9 +119,20 @@ export class TwilioService{
         });
     }
 
-    updateBought(itemData:Object) {
-        //var requestObj = { "itemsList": itemsList, "sharedUsers": sharedUsers, "tChannelId": tChannelId };
+    updateBought(itemData:any) {
         return this.http.post(this.baseURL + '/updateBought', { "bought": itemData.others.bought, "item": itemData.item}).map((response: Response) => {
+            return response;
+        });
+    }
+
+    updateItemQuantity(itemData: any) {
+        return this.http.post(this.baseURL + '/updateItemQuantity', { "itemQuantity": itemData.others.quantity, "item": itemData.item }).map((response: Response) => {
+            return response;
+        });
+    }
+
+    archieveItemsList(itemsList: string, uid: string) {
+        return this.http.post(this.baseURL + '/archiveItemList', { "itemsList": itemsList, "uid": uid }).map((response: Response) => {
             return response;
         });
     }
