@@ -163,6 +163,7 @@ export class HomeComponent implements OnInit{
             this.loader = this.loadingCtrl.create({
                 content: "Please wait...",
             });
+            this.loader.present();
             //this.subscribedChannels.splice(index, 1);
             this.twilioService.archieveItemsList(itemsList, this.uid).subscribe(
                 data=> {

@@ -112,7 +112,7 @@ export class ItemComponent implements OnInit{
             )
     }
 
-    openChart(event: Object, item: number, cont: boolean) {
+    openChart(item: number, cont: boolean) {
         this.container[item] = cont ? cont : false;
         if (!this.container[item]) {
             this.container[item] = true;
@@ -157,8 +157,8 @@ export class ItemComponent implements OnInit{
             
                 setTimeout(() => {
                     if (!itemData["isubmitted"]) {
-                    //itemData["isubmitted"] = true;
-                    this.saveQuantity(itemData);
+                        this.saveQuantity(itemData);
+                        itemData["isubmitted"] = true;
                     alert("hit");
                     }
                 }, 3000);
@@ -176,7 +176,7 @@ export class ItemComponent implements OnInit{
                 this.loader.dismiss();
 
             }, error=> {
-                itemData["isubmitted"] = true;
+                //itemData["isubmitted"] = true;
                 this.loader.dismiss();
                  let alert = this.alertCtrl.create({
                     subTitle: "Something went wrong. Please try again later.",
