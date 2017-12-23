@@ -14,7 +14,7 @@ export class ItemComponent implements OnInit{
     imageUrl: any;  
     uid: any;
     container: Object = {};
-    isBought: Object = {};
+    txtMessage: Object = {};
     searchItemName: string = "";
     loader: any;
     items: any = [];
@@ -104,9 +104,12 @@ export class ItemComponent implements OnInit{
         this.twilioService.getitems(this.itemsList).subscribe(
             data=> {
                     let response = JSON.parse((<any>data)._body);
-                    if (response.status == 200) {
-                        this.items = response.items ? response.items : [];
-                    }
+                if (response.status == 200) {
+                    this.items = response.items ? response.items : [];
+                }
+                this.loader.dismiss();
+            },
+            error=> {
                 this.loader.dismiss();
             }
             )
@@ -126,6 +129,7 @@ export class ItemComponent implements OnInit{
         this.loader = this.loadingCtrl.create({
             content: "Please wait...",
         });
+        this.loader.present();
         this.twilioService.updateBought(itemData).subscribe(
             data=> {
                     let response = JSON.parse((<any>data)._body);
@@ -159,7 +163,7 @@ export class ItemComponent implements OnInit{
                     if (!itemData["isubmitted"]) {
                         this.saveQuantity(itemData);
                         itemData["isubmitted"] = true;
-                    alert("hit");
+                    //alert("hit");
                     }
                 }, 3000);
             
@@ -186,5 +190,9 @@ export class ItemComponent implements OnInit{
                 itemData["isubmitted"] = false;
             }
             )
+    }
+
+    sendMessageForItem(itemData:any, index:number) {
+        
     }
 }

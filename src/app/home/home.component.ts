@@ -131,6 +131,9 @@ export class HomeComponent implements OnInit{
                      //[{ "itemsList": "AWB3qtnxOEwIORfq8zwb", "others": { "listName": "1st week list", "createdDate": "2017-12-21T06:02:53.584Z", "createdBy": "hauup4kjbg2ny2u", "sharedTo": [] } }, { "itemsList": "AWB4hISOOEwIORfq8zwn", "others": { "listName": "2nd list", "createdDate": "2017-12-21T10:00:38.561Z", "createdBy": "hauup4kjbg2ny2u" } }];
                  }
                  this.loader.dismiss();
+             },
+             error=> {
+                 this.loader.dismiss();
              }
              )
     }

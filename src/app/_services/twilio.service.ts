@@ -120,7 +120,7 @@ export class TwilioService{
     }
 
     updateBought(itemData:any) {
-        return this.http.post(this.baseURL + '/updateBought', { "bought": itemData.others.bought, "item": itemData.item}).map((response: Response) => {
+        return this.http.post(this.baseURL + '/itemBought', { "bought": itemData.others.bought, "itemId": itemData.item}).map((response: Response) => {
             return response;
         });
     }
