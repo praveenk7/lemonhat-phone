@@ -120,19 +120,19 @@ export class TwilioService{
     }
 
     updateBought(itemData:any) {
-        return this.http.post(this.baseURL + '/itemBought', { "bought": itemData.others.bought, "itemId": itemData.item}).map((response: Response) => {
+        return this.http.post(this.baseURL + '/itembought', { "bought": itemData.others.bought, "itemId": itemData.item}).map((response: Response) => {
             return response;
         });
     }
 
     updateItemQuantity(itemData: any) {
-        return this.http.post(this.baseURL + '/itemQuantity', { "quantity": itemData.others.quantity, "itemId": itemData.item }).map((response: Response) => {
+        return this.http.post(this.baseURL + '/itemquantity', { "quantity": itemData.others.quantity, "itemId": itemData.item }).map((response: Response) => {
             return response;
         });
     }
 
     archieveItemsList(itemsList: string, uid: string) {
-        return this.http.post(this.baseURL + '/archiveItemList', { "itemListId": itemsList, "uid": uid }).map((response: Response) => {
+        return this.http.post(this.baseURL + '/archiveitemlist', { "itemListId": itemsList, "uid": uid }).map((response: Response) => {
             return response;
         });
     }

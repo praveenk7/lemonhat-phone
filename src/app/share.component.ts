@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
 import {TwilioService } from './_services/twilio.service';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 //declare const Twilio: any;
 
 @Component({   
@@ -20,7 +20,8 @@ export class ShareComponent implements OnInit{
         public navParams: NavParams,
         public navCtrl: NavController,
         private contacts: Contacts,
-        public loadingCtrl: LoadingController        
+        public loadingCtrl: LoadingController,
+        public alertCtrl: AlertController,       
         ) {
 
         this.itemsList = this.navParams.get('lid');
@@ -88,6 +89,13 @@ export class ShareComponent implements OnInit{
                         alert("shared successfully");
                         this.navCtrl.parent.select(0);
                     }
+                },
+                error=> {
+                    let alert = this.alertCtrl.create({
+                        subTitle: "Something went wrong. Please try again later.",
+                        buttons: ['Ok']
+                    });
+                    alert.present();
                 });
         }
     }
