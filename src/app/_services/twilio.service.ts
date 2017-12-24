@@ -125,8 +125,8 @@ export class TwilioService{
         });
     }
 
-    updateItemQuantity(itemData: any) {
-        return this.http.post(this.baseURL + '/itemquantity', { "quantity": itemData.others.quantity, "itemId": itemData.item }).map((response: Response) => {
+    updateItemQuantity(itemData: any, quantity:any) {
+        return this.http.post(this.baseURL + '/itemquantity', { "quantity": quantity, "itemId": itemData.item }).map((response: Response) => {
             return response;
         });
     }

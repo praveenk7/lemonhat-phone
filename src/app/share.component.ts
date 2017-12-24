@@ -65,6 +65,8 @@ export class ShareComponent implements OnInit{
     shareListToUsers() {
         let shareUsersList = { "sharedTo": [], "itemsList": "", "sharedBy": "","listName":"" };
         let phone = "";
+        console.log("allcontact")
+        console.log(this.allContacts)
         for (var i = 0; i < this.allContacts.length; i++) {
             if (this.allContacts[i]['isChecked' + i]) {
                 phone = this.allContacts[i]._objectInstance.phoneNumbers.length > 0 ? this.allContacts[i]._objectInstance.phoneNumbers[0].value : "";
@@ -76,11 +78,15 @@ export class ShareComponent implements OnInit{
         shareUsersList.sharedBy = this.uid;
         shareUsersList.itemsList = this.itemsList;
         shareUsersList.listName = this.itemListName;
+        console.log("sharelit")
+            console.log(shareUsersList)
         if (shareUsersList.sharedTo && shareUsersList.sharedTo.length > 0) {
             this.loader = this.loadingCtrl.create({
                 content: "please wait...",
             });
             this.loader.present();
+            console.log("sharelitfinal")
+            console.log(shareUsersList)
             this.twilioService.shareListtoUsers(shareUsersList).subscribe(
                 data=> {
                 let response = JSON.parse((<any>data)._body);
@@ -88,9 +94,12 @@ export class ShareComponent implements OnInit{
                     if (response && response.status == 200) {
                         alert("shared successfully");
                         this.navCtrl.parent.select(0);
+                    } else if (response && response.status == 404) {
+                        alert(response.msg);
                     }
                 },
                 error=> {
+                    this.loader.dismiss();
                     let alert = this.alertCtrl.create({
                         subTitle: "Something went wrong. Please try again later.",
                         buttons: ['Ok']

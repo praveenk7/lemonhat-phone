@@ -84,8 +84,8 @@
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                             <div class="tools">
                             	<div class="cus-checkbox">
-                                    <input type="checkbox" id="chkBought{{idx}}" (click)="saveBought(item)" [(ngModel)]="item.others.bought" [disabled]="item.others.bought"/>
-                                    <label for="chkBought{{idx}}" ><span></span>&nbsp; Bought</label>
+                                    <input type="checkbox" id="chkBought{{idx}}"  [(ngModel)]="item.others.bought" [disabled]="item.others.bought"/>
+                                    <label for="chkBought{{idx}}" (click)="saveBought(item)"><span></span>&nbsp; Bought</label>
                                 </div>
                                 <span class="i-chat-custom" (click)="openChart(idx,container[idx])"></span>
                                 <!--<span class="i-cus i-cart"></span>-->

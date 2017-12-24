@@ -124,99 +124,107 @@ export class ItemComponent implements OnInit{
         }
     }
 
-    saveBought(itemData: any) {
-        itemData.others.bought = itemData.others.bought ? false : true;
+    saveBought(itemData: any){
+        console.log("before bought" + itemData.others.bought)
+        if (!itemData.others.bought) {
+            itemData.others.bought = itemData.others.bought ? false : true;
+            console.log("after bought" + itemData.others.bought)
         this.loader = this.loadingCtrl.create({
-            content: "Please wait...",
-        });
-        this.loader.present();
-        this.twilioService.updateBought(itemData).subscribe(
-            data=> {
+                content: "Please wait...",
+            });
+            this.loader.present();
+            this.twilioService.updateBought(itemData).subscribe(
+                data=> {
                     let response = JSON.parse((<any>data)._body);
                     if (response.status == 200) {
 
                     }
                     this.loader.dismiss();
-                
-            }, error=> {
-                itemData.others.bought = itemData.others.bought ? false : true;
-                this.loader.dismiss();
+
+                }, error=> {
+                    itemData.others.bought = itemData.others.bought ? false : true;
+                    this.loader.dismiss();
                  let alert = this.alertCtrl.create({
-                    subTitle: "Something went wrong. Please try again later.",
-                    buttons: ['Ok']
-                });
-                alert.present();
-            }
-            )
+                        subTitle: "Something went wrong. Please try again later.",
+                        buttons: ['Ok']
+                    });
+                    alert.present();
+                }
+                )
+        }
     }
 
-    updateQuantity(itemData: any, valueType: string) {
-        if (!itemData.others.bought) {
-             if (valueType == "decrement" && itemData.others.quantity == 1) {
-                return false;
-             } if (valueType == "decrement" && itemData.others.quantity > 1) {
-                itemData.others.quantity = itemData.others.quantity - 1;
-            } else if (valueType == "increment") {
-                itemData.others.quantity = itemData.others.quantity + 1;
-            }
-            console.log(itemData.others.quantity);
-            if (itemData.others.quantity >= 1) {
-                this.loader = this.loadingCtrl.create({
-                    content: "Please wait...",
-                });
-                this.loader.present();
-                //setTimeout(() => {
-                //    if (!itemData["isubmitted"]) {
-                this.saveQuantity(itemData, valueType);
-                // itemData["isubmitted"] = true;
-                //alert("hit");
-                //    }
-                //}, 3000);
-            }
-            
+updateQuantity(itemData:any, valueType:any) {
+        let quantity = 0;
+    if (!itemData.others.bought) {
+        if (valueType == "decrement" && itemData.others.quantity == 1) {
+            return false;
+        } if (valueType == "decrement" && itemData.others.quantity > 1) {
+            quantity = itemData.others.quantity - 1;
+        } else if (valueType == "increment") {
+            quantity = itemData.others.quantity + 1;
+        } else {
+            quantity = itemData.others.quantity;
         }
-    };
+        console.log(quantity);
+        if (quantity >= 1) {
+            this.loader = this.loadingCtrl.create({
+                content: "Please wait...",
+            });
+            this.loader.present();
+            //setTimeout(() => {
+            //    if (!itemData["isubmitted"]) {
+            this.saveQuantity(itemData, valueType, quantity);
+            // itemData["isubmitted"] = true;
+            //alert("hit");
+            //    }
+            //}, 3000);
+        }
 
-    saveQuantity(itemData, valueType) {
-        this.twilioService.updateItemQuantity(itemData).subscribe(
+    }
+}
+
+    saveQuantity(itemData:any, valueType:any, quantity:any) {
+        this.twilioService.updateItemQuantity(itemData, quantity).subscribe(
             data=> {
                     let response = JSON.parse((<any>data)._body);
                 if (response.status == 200) {
+                     itemData.others.quantity = quantity;
                     //itemData["isubmitted"] = false;
                 }
                 this.loader.dismiss();
 
             }, error=> {
                 //itemData["isubmitted"] = true;
-                if (valueType == "decrement" && itemData.others.quantity!=1) {
-                    itemData.others.quantity = itemData.others.quantity + 1;
-                } else if (valueType == "increment") {
-                    itemData.others.quantity = itemData.others.quantity - 1;
-                }
+                //if (valueType == "decrement" && itemData.others.quantity!=1) {
+                //    itemData.others.quantity = itemData.others.quantity + 1;
+                //} else if (valueType == "increment") {
+                //    itemData.others.quantity = itemData.others.quantity - 1;
+                //}
                 this.loader.dismiss();
                  let alert = this.alertCtrl.create({
                     subTitle: "Something went wrong. Please try again later.",
                     buttons: ['Ok']
                 });
                 alert.present();
-                itemData["isubmitted"] = false;
+                //itemData["isubmitted"] = false;
             }
             )
     }
 
-    sendMessageForItem(itemData: any, index: number) {
+    //sendMessageForItem(itemData, index) {
         
-        //this.twilioService.sendMessage(this.itemData, this.txtMessage[index]).subscribe(
-        //    data=> {
-        //            let response = JSON.parse((<any>data)._body);
-        //        if (response.status == 200) {
-        //            this.items = response.items ? response.items : [];
-        //        }
-        //        this.loader.dismiss();
-        //    },
-        //    error=> {
-        //        this.loader.dismiss();
-        //    }
-        //    )
-    }
+    //    //this.twilioService.sendMessage(this.itemData, this.txtMessage[index]).subscribe(
+    //    //    data=> {
+    //    //            let response = JSON.parse((<any>data)._body);
+    //    //        if (response.status == 200) {
+    //    //            this.items = response.items ? response.items : [];
+    //    //        }
+    //    //        this.loader.dismiss();
+    //    //    },
+    //    //    error=> {
+    //    //        this.loader.dismiss();
+    //    //    }
+    //    //    )
+    //}
 }
