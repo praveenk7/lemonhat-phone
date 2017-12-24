@@ -113,7 +113,7 @@ export class TwilioService{
         });
     }
 
-    sendMessagetoChannel() {
+    sendMessage() {
         return this.http.post(this.baseURL + '/sendmessage', {}).map((response: Response) => {
             return response;
         });

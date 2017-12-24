@@ -22,7 +22,7 @@ export class ItemComponent implements OnInit{
         public loadingCtrl: LoadingController,
         public navParams: NavParams,
         public data: DataProvider) {
-        this.data.tabComponent = "item";
+        //this.data.tabComponent = "item";
         this.itemsList = this.navParams.get('lid');
         this.uid = this.navParams.get('uid');
         this.listName = this.navParams.get('lst');
@@ -43,7 +43,7 @@ export class ItemComponent implements OnInit{
             this.getItems();
             this.data.paramData = "";
         }
-        this.data.tabComponent = "item";
+        //this.data.tabComponent = "item";
         this.data.itemListId = this.itemsList;
     }
 
@@ -204,7 +204,19 @@ export class ItemComponent implements OnInit{
             )
     }
 
-    sendMessageForItem(itemData:any, index:number) {
+    sendMessageForItem(itemData: any, index: number) {
         
+        //this.twilioService.sendMessage(this.itemData, this.txtMessage[index]).subscribe(
+        //    data=> {
+        //            let response = JSON.parse((<any>data)._body);
+        //        if (response.status == 200) {
+        //            this.items = response.items ? response.items : [];
+        //        }
+        //        this.loader.dismiss();
+        //    },
+        //    error=> {
+        //        this.loader.dismiss();
+        //    }
+        //    )
     }
 }

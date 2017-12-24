@@ -93,7 +93,7 @@
                                             <span class="i-minus-custom" (click)="updateQuantity(item, 'decrement')"></span>
                                         </div>
                                         <div class="table-cell">
-                                            <input type="text" [(ngModel)]="item.others.quantity" (ngModelChange)="updateQuantity(item)" [disabled]="item.others.bought"/>
+                                            <input type="text" [(ngModel)]="item.others.quantity" (ngModelChange)="updateQuantity(item)" [readonly]="item.others.bought"/>
                                         </div>
                                         <div class="table-cell">
                                             <span class="i-plus-custom" (click)="updateQuantity(item, 'increment')"></span>

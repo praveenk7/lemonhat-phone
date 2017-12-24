@@ -57,6 +57,7 @@ export class AddItemComponent implements OnInit{
                     if (response.status == 200) {
                         this.data.itemListId = "";
                         this.data.paramData = "item";
+                        this.data.itemAdded = true;
                         this.navCtrl.parent.select(0);
                         //this.items.push({ "item": response.item, "others": { "itemName": this.itemName, "createdDate": "", "createdBy": this.uid, "itemListId": this.itemsList } })
                     }

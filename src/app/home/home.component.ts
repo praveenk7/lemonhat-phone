@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit{
         public popoverCtrl: PopoverController,
         public data: DataProvider      
         ) {  
-        this.data.tabComponent = "home";
+        //this.data.tabComponent = "home";
           };
     
     
@@ -59,15 +59,16 @@ export class HomeComponent implements OnInit{
     ionViewDidEnter() {
         console.log('ionViewDidLoad tab1Page');
         console.log(this.data.paramData);
-        if (this.data.paramData == "itemList") {
+        if (this.data.paramData == "itemList" || this.data.itemAdded) {
             this.loader = this.loadingCtrl.create({
                 content: "Loading...",
             });
             this.loader.present();
             this.getChannels();
             this.data.paramData = "";
+            this.data.itemAdded = false;
         }
-        this.data.tabComponent = "home";
+        //this.data.tabComponent = "home";
     }
 
     //createChannel() {
