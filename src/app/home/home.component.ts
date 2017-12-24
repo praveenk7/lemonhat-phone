@@ -60,6 +60,10 @@ export class HomeComponent implements OnInit{
         console.log('ionViewDidLoad tab1Page');
         console.log(this.data.paramData);
         if (this.data.paramData == "itemList") {
+            this.loader = this.loadingCtrl.create({
+                content: "Loading...",
+            });
+            this.loader.present();
             this.getChannels();
             this.data.paramData = "";
         }
@@ -159,6 +163,27 @@ export class HomeComponent implements OnInit{
         popover.present({
             ev: myEvent
         });
+    }
+
+    deleteConfirmation(itemsList, index) {
+              let prompt = this.alertCtrl.create({
+                  message: 'Are you sure to delete this list?',
+                  buttons: [
+                      {
+                          text: 'No',
+                          handler: data => {
+                              
+                          }
+                      },
+                {
+                    text: 'Yes',
+                    handler: data => {
+                        this.deleteItemList(itemsList, index);
+                    }
+                }
+            ]
+        });
+        prompt.present();
     }
 
     deleteItemList(itemsList,index) {

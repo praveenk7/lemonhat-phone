@@ -126,7 +126,7 @@ export class TwilioService{
     }
 
     updateItemQuantity(itemData: any) {
-        return this.http.post(this.baseURL + '/updateItemQuantity', { "itemQuantity": itemData.others.quantity, "item": itemData.item }).map((response: Response) => {
+        return this.http.post(this.baseURL + '/itemQuantity', { "quantity": itemData.others.quantity, "itemId": itemData.item }).map((response: Response) => {
             return response;
         });
     }

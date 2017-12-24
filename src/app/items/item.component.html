@@ -46,7 +46,7 @@
             	<div class="act-i-cuss">
                     <!--<span class="i-cus i-shop"></span>-->
                     <!--<span class="i-cus i-list-view"></span>-->
-                    <span class="i-cus i-move"></span>
+                    <!--<span class="i-cus i-move"></span>-->
                     <!--<span class="i-cus i-search"></span>-->
                 </div>
             </div>
@@ -63,7 +63,7 @@
             </div>
         	<div class="sch-field">
                 <input type="search" placeholder="Search an item..." [(ngModel)]="searchItemName"/>
-                <button type="submit" class="btn-search"><span class="i-cus i-search"></span></button>
+                <button type="submit" class="btn-search"><span class="i-search-bar-custom"></span></button>
             </div>
             <div class="list-detail">
             	<div class="list-cell" *ngFor="let idx = index; let item of items |customFilter: {others :{itemName:searchItemName}}">
@@ -85,18 +85,18 @@
                                     <input type="checkbox" id="chkBought{{idx}}" (click)="saveBought(item)" [(ngModel)]="item.others.bought" [disabled]="item.others.bought"/>
                                     <label for="chkBought{{idx}}" ><span></span>&nbsp; Bought</label>
                                 </div>
-                                <span class="i-cus i-chat" (click)="openChart(idx,container[idx])"></span>
+                                <span class="i-chat-custom" (click)="openChart(idx,container[idx])"></span>
                                 <!--<span class="i-cus i-cart"></span>-->
                                 <div class="count">
                                     <div class="table">
                                         <div class="table-cell">
-                                            <span class="i-cus i-minus small" (click)="updateQuantity(item, 'decrement')"></span>
+                                            <span class="i-minus-custom" (click)="updateQuantity(item, 'decrement')"></span>
                                         </div>
                                         <div class="table-cell">
                                             <input type="text" [(ngModel)]="item.others.quantity" (ngModelChange)="updateQuantity(item)" [disabled]="item.others.bought"/>
                                         </div>
                                         <div class="table-cell">
-                                            <span class="i-cus i-plus small" (click)="updateQuantity(item, 'increment')"></span>
+                                            <span class="i-plus-custom" (click)="updateQuantity(item, 'increment')"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -105,7 +105,7 @@
                             <!--<span class="i-cus i-favourite small"></span>-->
                         </div>
                     </div>
-                    <div class="panel-body" [hidden]="!container[idx]">
+                    <div class="list-cell-cont" [hidden]="!container[idx]">
                         <ion-input type="text" placeholder="start chat" [(ngModel)]="txtMessage[idx]"></ion-input>
                         <button ion-button color="secondary" (click)="sendMessageForItem(item,idx)">send</button>
                     </div>

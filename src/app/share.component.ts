@@ -85,7 +85,7 @@ export class ShareComponent implements OnInit{
                 let response = JSON.parse((<any>data)._body);
                     this.loader.dismiss();
                     if (response && response.status == 200) {
-                        alert("saved successfully");
+                        alert("shared successfully");
                         this.navCtrl.parent.select(0);
                     }
                 });

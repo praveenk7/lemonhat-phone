@@ -152,35 +152,47 @@ export class ItemComponent implements OnInit{
 
     updateQuantity(itemData: any, valueType: string) {
         if (!itemData.others.bought) {
-            if (valueType == "decrement" && itemData.others.quantity > 1) {
+             if (valueType == "decrement" && itemData.others.quantity == 1) {
+                return false;
+             } if (valueType == "decrement" && itemData.others.quantity > 1) {
                 itemData.others.quantity = itemData.others.quantity - 1;
             } else if (valueType == "increment") {
                 itemData.others.quantity = itemData.others.quantity + 1;
             }
             console.log(itemData.others.quantity);
-            
-                setTimeout(() => {
-                    if (!itemData["isubmitted"]) {
-                        this.saveQuantity(itemData);
-                        itemData["isubmitted"] = true;
-                    //alert("hit");
-                    }
-                }, 3000);
+            if (itemData.others.quantity >= 1) {
+                this.loader = this.loadingCtrl.create({
+                    content: "Please wait...",
+                });
+                this.loader.present();
+                //setTimeout(() => {
+                //    if (!itemData["isubmitted"]) {
+                this.saveQuantity(itemData, valueType);
+                // itemData["isubmitted"] = true;
+                //alert("hit");
+                //    }
+                //}, 3000);
+            }
             
         }
     };
 
-    saveQuantity(itemData) {
+    saveQuantity(itemData, valueType) {
         this.twilioService.updateItemQuantity(itemData).subscribe(
             data=> {
                     let response = JSON.parse((<any>data)._body);
                 if (response.status == 200) {
-                    itemData["isubmitted"] = false;
+                    //itemData["isubmitted"] = false;
                 }
                 this.loader.dismiss();
 
             }, error=> {
                 //itemData["isubmitted"] = true;
+                if (valueType == "decrement" && itemData.others.quantity!=1) {
+                    itemData.others.quantity = itemData.others.quantity + 1;
+                } else if (valueType == "increment") {
+                    itemData.others.quantity = itemData.others.quantity - 1;
+                }
                 this.loader.dismiss();
                  let alert = this.alertCtrl.create({
                     subTitle: "Something went wrong. Please try again later.",
