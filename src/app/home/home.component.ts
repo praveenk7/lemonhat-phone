@@ -71,61 +71,14 @@ export class HomeComponent implements OnInit{
         //this.data.tabComponent = "home";
     }
 
-    //createChannel() {
-    //     let prompt = this.alertCtrl.create({
-    //         title: 'Create Shop List',
-    //        inputs: [
-    //            {
-    //                name: 'listName',
-    //                placeholder: 'List Name'
-    //            },
-    //        ],
-    //        buttons: [
-    //            {
-    //                text: 'Cancel',
-    //                handler: data => {
-    //                    console.log('Cancel clicked');
-    //                }
-    //            },
-    //            {
-    //                text: 'Save',
-    //                handler: data => {
-    //                    this.listName = data.listName;
-    //                    if (this.listName) {
-    //                    this.loader = this.loadingCtrl.create({
-    //                            content: "Please wait...",
-    //                        });
-    //                        this.loader.present();
-    //                        this.saveChannel();
-    //                    }
-    //                    console.log('Saved clicked');
-    //                }
-    //            }
-    //        ]
-    //    });
-    //    prompt.present();
-    //}
+    doRefresh(refresher) {
+        this.getChannels();
 
-    //saveChannel() {
-    //     if (this.listName) {
-    //         this.twilioService.createItemsList(this.listName, this.uid).subscribe(
-    //             data=> {
-    //                 let response = JSON.parse((<any>data)._body);
-    //                 if (response.status == 200) {
-    //                     this.subscribedChannels.push({ "itemsList": response.itemsList, "others": { "listName": this.listName, "channelType": "private", "createdDate": "", "createdBy": this.uid, "twilioChannelId": response.tChannelId } })
-    //                 }
-    //                 else {
-    //                    let alert = this.alertCtrl.create({
-    //                         subTitle: "Something went wrong. Please try again later.",
-    //                         buttons: ['Ok']
-    //                     });
-    //                     alert.present();
-    //                 }
-    //                 this.loader.dismiss();
-    //             }
-    //             )
-    //         }
-    //}
+        setTimeout(() => {
+            console.log('Async operation has ended');
+            refresher.complete();
+        }, 2000);
+    }
 
     getChannels() {
          this.twilioService.getitemslist(this.uid).subscribe(

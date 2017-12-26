@@ -53,6 +53,13 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
 	<!-- Start My List -->
     <section class="mylist">
     
@@ -73,7 +80,7 @@
                                 <!--<p>I've had a pretty messed up day. If we just...</p>-->
                             </div>
                             <div class="list-info">
-                    	        <span class="items-no"><span class="i-after-custom"></span></span>
+                    	        <span class="items-no"><span>{{channel.others.totalItems}}</span> Items<span class="i-after-custom"></span></span>
                             </div>
                         </div>
                     </div>

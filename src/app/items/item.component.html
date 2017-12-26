@@ -55,6 +55,13 @@
 </ion-header>
 
 <ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+    </ion-refresher>
     <section class="list-items">
         <div class="content"><!-- Add 'add-checkbox' class to show radio buttons -->
            
@@ -64,7 +71,7 @@
                 <p><span>{{items.length}}</span> items</p>
             </div>
         	<div class="sch-field">
-                <input type="search" placeholder="Search an item..." [(ngModel)]="searchItemName"/>
+                <input type="search" placeholder="Search an item..." [(ngModel)]="searchItemName" (ngModelChange)="searchItemChange()"/>
                 <button type="submit" class="btn-search"><span class="i-search-bar-custom"></span></button>
             </div>
             <div class="list-detail">
@@ -107,10 +114,56 @@
                             <!--<span class="i-cus i-favourite small"></span>-->
                         </div>
                     </div>
-                    <div class="list-cell-cont" [hidden]="!container[idx]">
-                        <ion-input type="text" placeholder="start chat" [(ngModel)]="txtMessage[idx]"></ion-input>
-                        <button ion-button color="secondary" (click)="sendMessageForItem(item,idx)">send</button>
-                    </div>
+                    
+                        <div class="chat-cont" [hidden]="!container[idx]">
+						<div class="chat-area">
+							<!--<ul class="chat-list">
+								<li class="chat-left-cell">
+									<div class="chat-pic">
+										<img src="images/pic.jpg" alt=""/>
+									</div>
+									<div class="chat-text">
+										<h4>
+											<label>Your Name</label>
+											<span class="time-date">Nov 24, 2017 - 10:30am</span>
+										</h4>
+										<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking.</p>
+									</div>
+								</li>
+								<li class="chat-right-cell">
+									<div class="chat-pic">
+										<img src="images/pic.jpg" alt=""/>
+									</div>
+									<div class="chat-text">
+										<h4>
+											<span class="time-date">Nov 24, 2017 - 10:30am</span>
+											<label>Your Name</label>
+										</h4>
+										<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking.</p>
+									</div>
+								</li>
+								<li class="chat-left-cell">
+									<div class="chat-pic">
+										<img src="images/pic.jpg" alt=""/>
+									</div>
+									<div class="chat-text">
+										<h4>
+											<label>Your Name</label>
+											<span class="time-date">Nov 24, 2017 - 10:30am</span>
+										</h4>
+										<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking.</p>
+									</div>
+								</li>									
+							</ul>-->
+							<div class="chat-post">
+								<textarea placeholder="Text here" [(ngModel)]="txtMessage[idx]"></textarea>
+								<span class="send" (click)="sendMessageForItem(item,idx)"></span>
+							</div>
+						</div>
+					</div>
+                  <!--      <ion-input type="text" placeholder="start chat" ></ion-input>
+                        <button ion-button color="secondary" >send</button>-->
+                   
                 </div>
                 
     <!--            <div class="list-cell">

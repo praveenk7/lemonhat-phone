@@ -47,11 +47,22 @@ export class ItemComponent implements OnInit{
         this.data.itemListId = this.itemsList;
     }
 
+    doRefresh(refresher) {
+        this.getItems();
+
+        setTimeout(() => {
+            console.log('Async operation has ended');
+            refresher.complete();
+        }, 2000);
+    }
+
+    searchItemChange() {
+        this.container = {};
+        this.txtMessage = {};
+    }
 
     createItem() {
-        
         this.itemName = "";
-        
          let prompt = this.alertCtrl.create({
             title: 'Create Item',
             inputs: [
@@ -129,7 +140,7 @@ export class ItemComponent implements OnInit{
         if (!itemData.others.bought) {
             itemData.others.bought = itemData.others.bought ? false : true;
             console.log("after bought" + itemData.others.bought)
-        this.loader = this.loadingCtrl.create({
+            this.loader = this.loadingCtrl.create({
                 content: "Please wait...",
             });
             this.loader.present();
@@ -212,19 +223,25 @@ updateQuantity(itemData:any, valueType:any) {
             )
     }
 
-    //sendMessageForItem(itemData, index) {
-        
-    //    //this.twilioService.sendMessage(this.itemData, this.txtMessage[index]).subscribe(
-    //    //    data=> {
-    //    //            let response = JSON.parse((<any>data)._body);
-    //    //        if (response.status == 200) {
-    //    //            this.items = response.items ? response.items : [];
-    //    //        }
-    //    //        this.loader.dismiss();
-    //    //    },
-    //    //    error=> {
-    //    //        this.loader.dismiss();
-    //    //    }
-    //    //    )
-    //}
+    sendMessageForItem(itemData: any, index: any) {
+        if (this.txtMessage[index]) {
+            this.loader = this.loadingCtrl.create({
+                content: "Please wait...",
+            });
+            this.loader.present();
+            this.twilioService.sendMessage(itemData.item, this.txtMessage[index], this.itemsList, this.uid, "chat").subscribe(
+                data=> {
+                    let response = JSON.parse((<any>data)._body);
+                    if (response.status == 200) {
+                        alert("message send");
+                        this.txtMessage[index] = "";
+                    }
+                    this.loader.dismiss();
+                },
+                error=> {
+                    this.loader.dismiss();
+                }
+                )
+            }
+    }
 }
