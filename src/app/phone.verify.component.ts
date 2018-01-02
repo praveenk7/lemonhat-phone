@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import {TabsComponent} from './tabs/tabs.component';
 import {TwilioService} from './_services/twilio.service';
@@ -21,7 +21,8 @@ export class VerifyPhone{
         private twilioService:TwilioService,
         //private userObj:user,
         private storage: Storage,
-        private alertCtrl: AlertController       
+        private alertCtrl: AlertController,
+        public loadingCtrl: LoadingController       
     ){
         console.log("useree", userObj);
          userObj.phone=this.navParams.get('phone');
@@ -29,21 +30,28 @@ export class VerifyPhone{
         //this.navCtrl.setRoot(VerifyPhone);
     };    
    
+    loader: any;
     phone:string;  
     countryCode:string;
     otp:number;  
     twilioToken:string;
     client:any;    
     verify(){
-        if (this.otp){
+        if (this.otp) {
+            this.loader = this.loadingCtrl.create({
+                content: "Please wait...",
+            });
+            this.loader.present();
             this.twilioService.verifyPhoneToken(this.otp, userObj).subscribe(
                 data=> {
                     let response = JSON.parse((<any>data)._body);
-                    if (response.status == 200) {  
+                    if (response && response.status == 200) {  
                     userObj.id=response.uid;               
                     this.storage.set('user',userObj);
+                    this.loader.dismiss();
                     this.navCtrl.push(TabsComponent, {});
                     }else {
+                       this.loader.dismiss();
                        let alert = this.alertCtrl.create({
                            subTitle: response.body,
                            buttons: ['Ok']
@@ -53,7 +61,7 @@ export class VerifyPhone{
                            })
 
             ////uncoment to test with hardcoded values
-            // userObj.id="AV_9IGx-OEwIORfq8zsq";
+            //userObj.id ="v3krg6ejbnqzmez";
             // this.storage.set('user', userObj);
             // this.navCtrl.push(TabsComponent,{});
         } else {

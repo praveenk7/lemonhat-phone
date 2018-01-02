@@ -40,6 +40,7 @@ export class ItemComponent implements OnInit{
 
     ionViewDidEnter() {
         if (this.data.paramData == "item") {
+            this.searchItemChange()
             this.getItems();
             this.data.paramData = "";
         }
@@ -48,6 +49,7 @@ export class ItemComponent implements OnInit{
     }
 
     doRefresh(refresher) {
+        this.searchItemChange();
         this.getItems();
 
         setTimeout(() => {
@@ -137,23 +139,24 @@ export class ItemComponent implements OnInit{
 
     saveBought(itemData: any){
         console.log("before bought" + itemData.others.bought)
+        let isBought;
         if (!itemData.others.bought) {
-            itemData.others.bought = itemData.others.bought ? false : true;
+            isBought = itemData.others.bought ? false : true;
             console.log("after bought" + itemData.others.bought)
             this.loader = this.loadingCtrl.create({
                 content: "Please wait...",
             });
             this.loader.present();
-            this.twilioService.updateBought(itemData).subscribe(
+            this.twilioService.updateBought(itemData, isBought).subscribe(
                 data=> {
                     let response = JSON.parse((<any>data)._body);
                     if (response.status == 200) {
-
+                        itemData.others.bought = isBought;
                     }
                     this.loader.dismiss();
 
                 }, error=> {
-                    itemData.others.bought = itemData.others.bought ? false : true;
+                    //itemData.others.bought = itemData.others.bought ? false : true;
                     this.loader.dismiss();
                  let alert = this.alertCtrl.create({
                         subTitle: "Something went wrong. Please try again later.",

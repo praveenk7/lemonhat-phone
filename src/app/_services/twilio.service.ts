@@ -14,8 +14,8 @@ export class TwilioService{
         //client:any
     ){}
     client: any;
-    //baseURL: string = "https://bjg25wnk9f.execute-api.us-east-1.amazonaws.com/dev";
-    baseURL: string = "http://192.168.2.53:8080";
+    baseURL: string = "https://bjg25wnk9f.execute-api.us-east-1.amazonaws.com/dev";
+    //baseURL: string = "http://192.168.2.61:8080";
     getToken(identity:string, endpointId:string){
         //request('/getToken?identity=' + identity + '&endpointId=' + endpointId, function(err, res) {
         //return this.http.get('/api/users', this.jwt()).map((response: Response) => response.json());
@@ -119,8 +119,8 @@ export class TwilioService{
         });
     }
 
-    updateBought(itemData:any) {
-        return this.http.post(this.baseURL + '/itembought', { "bought": itemData.others.bought, "itemId": itemData.item}).map((response: Response) => {
+    updateBought(itemData:any,bought:any) {
+        return this.http.post(this.baseURL + '/itembought', { "bought": bought, "itemId": itemData.item}).map((response: Response) => {
             return response;
         });
     }

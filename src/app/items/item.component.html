@@ -86,19 +86,19 @@
                                 <img src="images/pic.jpg" alt=""/>
                             </figure>
                         </div>          	
-                        <div class="title">                    	
-                            <h4>{{item.others.itemName}}</h4>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            <div class="tools">
+                        <div class="title" >                    	
+                            <h4 (click)="openChart(idx,container[idx])">{{item.others.itemName}}</h4>
+                            <!--<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>-->
+                            
+                            <div class="tools" [hidden]="!container[idx]">
                             	<div class="cus-checkbox">
                                     <input type="checkbox" id="chkBought{{idx}}"  [(ngModel)]="item.others.bought" [disabled]="item.others.bought"/>
                                     <label for="chkBought{{idx}}" (click)="saveBought(item)"><span></span>&nbsp; Bought</label>
                                 </div>
                                 <span class="i-chat-custom" (click)="openChart(idx,container[idx])"></span>
-                                <!--<span class="i-cus i-cart"></span>-->
                                 <div class="count">
                                     <div class="table">
-                                        <div class="table-cell">
+                                         <div class="table-cell">
                                             <span class="i-minus-custom" (click)="updateQuantity(item, 'decrement')"></span>
                                         </div>
                                         <div class="table-cell">
@@ -157,7 +157,7 @@
 							</ul>-->
 							<div class="chat-post">
 								<textarea placeholder="Text here" [(ngModel)]="txtMessage[idx]"></textarea>
-								<span class="send" (click)="sendMessageForItem(item,idx)"></span>
+								<span class="i-send-custom" (click)="sendMessageForItem(item,idx)"></span>
 							</div>
 						</div>
 					</div>

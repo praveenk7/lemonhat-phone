@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform, Nav } from 'ionic-angular';
+import { NavController, NavParams, Platform, Nav, App  } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Storage } from '@ionic/storage';
 // import { Network } from '@ionic-native/network';
@@ -8,6 +8,7 @@ import { ProfileComponent} from '../profile/profile.component';
 import { LoginComponent } from '../login.component';
 import { AddItemListComponent } from '../home/addItemList.component';
 import { AddItemComponent } from '../items/addItem.component';
+import {ItemComponent } from '../items/item.component';
 import { DataProvider } from "../data";
 
 @Component({
@@ -16,26 +17,72 @@ import { DataProvider } from "../data";
 })
 
 export class TabsComponent {
-    //@ViewChild('mainTabs') mainTabs: Tabs;
-    tab1Root: any;
-    tab2Root: any;
-    tab3Root: any;
-    tab4Root: any;
-    isLoaded: any = false;
-  uid:string;
 
-  constructor(
-    private nativeStorage: NativeStorage,
-    public navCtrl: NavController,
-    private storage: Storage,
-      public navParams: NavParams,
-      public data: DataProvider,
-      public nav: Nav   
-      ) {
-      this.tab1Root = HomeComponent;
-      this.tab2Root = AddItemListComponent;
-      this.tab3Root = AddItemComponent;
-      this.tab4Root = ProfileComponent;
+    //tab1Root: any;
+    //tab2Root: any;
+    //tab3Root: any;
+    //tab4Root: any;
+
+    //isItemListPage: any = true;
+    tabs: any = [
+        { title: "Lists", root: HomeComponent, icon: "i-list-img-outline" },
+        { title: "Add List", root: AddItemListComponent, icon: "i-add-img-outline" },
+        { title: "Add Item", root: AddItemComponent, icon: "i-add-img-outline" },
+        { title: "Profile", root: ProfileComponent, icon: "i-profile-img-outline" },
+    ];
+    uid: string;
+    listElements: any;
+    itemElements: any;
+    constructor(
+        private nativeStorage: NativeStorage,
+        public navCtrl: NavController,
+        private storage: Storage,
+        public navParams: NavParams,
+        public data: DataProvider,
+        public nav: Nav,
+        public app: App
+        ) {
+      
+        this.app.viewWillEnter.subscribe(viewCtrl => {
+            this.listElements = document.querySelectorAll(".tabbar a:nth-child(2)");
+            this.itemElements = document.querySelectorAll(".tabbar a:nth-child(3)");
+            let index;
+            if (viewCtrl && viewCtrl.instance instanceof HomeComponent) {
+
+                for (index = 0; index < this.listElements.length; index++) {
+                    this.listElements[index].style.display = 'flex';
+                    console.log(this.listElements[index]);
+                }
+                for (index = 0; index < this.itemElements.length; index++) {
+                    this.itemElements[index].style.display = 'none';
+                }
+                //this.tabs = [
+                //    { title: "Lists", root: HomeComponent, icon: "i-list-img-outline" },
+                //    { title: "Add List", root: AddItemListComponent, icon: "i-add-img-outline" },
+                //    { title: "Profile", root: ProfileComponent, icon: "i-profile-img-outline" },
+                //];
+                //this.isItemListPage = true;
+            }
+
+            else if (viewCtrl && viewCtrl.instance instanceof ItemComponent) {
+                for (index = 0; index < this.listElements.length; index++) {
+                    this.listElements[index].style.display = 'none';
+                }
+
+                for (index = 0; index < this.itemElements.length; index++) {
+                    this.itemElements[index].style.display = 'flex';
+                }
+
+                //this.tabs = [
+                //    { title: "Lists", root: HomeComponent, icon: "i-list-img-outline" },
+                //    { title: "Add Item", root: AddItemComponent, icon: "i-add-img-outline" },
+                //    { title: "Profile", root: ProfileComponent, icon: "i-profile-img-outline" },
+                //];
+                //this.isItemListPage = false;
+            }
+            console.log('Entering new view')
+          console.log(viewCtrl)
+      })
   };
 
    ngOnInit() {
@@ -47,7 +94,7 @@ export class TabsComponent {
     this.storage.get('user').then((val) => {
       console.log("tabs user value", val);
       console.log("tabs documentUrl", document.URL);
-     if(val){
+        if (val && val.id){
 
      }else{
       this.navCtrl.push(LoginComponent);
@@ -56,27 +103,4 @@ export class TabsComponent {
      
   }
 
-    ionViewDidLoad() {
-        let name = this.nav.getActive();
-        console.log("nav bar:" + this.nav.getActive());
-
-    }
-    //tapped() {
-    ////let selectedTab = this.mainTabs._selectHistory;
-
-    //    let name = this.data.tabComponent;
-    //    if (this.data.tabComponent == "item") {
-    //        //this.tab2Root = AddItemComponent;
-    //    } else {
-    //        //this.tab2Root = AddItemListComponent;
-    //    }
-    //    //console.log(selectedTab.index + ' - ' + selectedTab.tabTitle);
-    //}
-
-    //ionViewDidEnter() {
-    //    alert(this.navCtrl);
-    //    //.parent.getSelected().index
-    //   // this.navParams.data = { "isAddTab": false };
-    //}
-  // //End
 }

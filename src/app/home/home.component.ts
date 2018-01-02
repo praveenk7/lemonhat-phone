@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit{
     loader: any;
     subscribedChannels: any;
     searchListName: string = "";
+    userName: string = "";
     constructor(private twilioService: TwilioService,
         public alertCtrl: AlertController,
         public loadingCtrl: LoadingController,
@@ -43,6 +44,7 @@ export class HomeComponent implements OnInit{
             console.log("tabs user value", val);
            if(val){
                this.uid = val.id;
+               this.userName = val.userName;
                this.loader = this.loadingCtrl.create({
                    content: "Loading...",
                });
