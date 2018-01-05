@@ -1,83 +1,39 @@
-<!--<ion-header>
-  <ion-navbar>
-    <ion-title>Shopping List</ion-title>
-      <ion-buttons end>
-      <button ion-button icon-left (click)="presentPopover($event)">
-        <ion-icon ios="ios-settings" md="md-settings"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
-</ion-header>
-
-<ion-content padding>
-    <ion-toolbar>
-    <ion-searchbar color="dark" [(ngModel)]="searchListName" ></ion-searchbar>
-    </ion-toolbar>
-    <ion-list>
-        <ion-list-header>
-            Lists
-                <ion-icon item-end name="add-circle-outline" (click)="createChannel()"></ion-icon>
-        </ion-list-header>
-        <ion-item-sliding *ngFor="let channel of subscribedChannels |customFilter: {others :{listName:searchListName}}">
-        <ion-item (click)="showItems(channel.itemsList,channel.others.listName)">
-            <h2>{{channel.others.listName}}</h2>
-            <p>I've had a pretty messed up day. If we just...</p>
-        </ion-item>
-        <ion-item-options side="left">
-            <button ion-button (click)="shareUsers(channel.itemsList,channel.others.twilioChannelId)">
-                <ion-icon name="md-share" ></ion-icon>
-                Share
-            </button>
-            <button ion-button color="danger">
-                <ion-icon name="trash"></ion-icon>
-                Delete
-            </button>
-        </ion-item-options>
-        </ion-item-sliding>
-    </ion-list>
-</ion-content>-->
 <ion-header>
     <nav class="nav-top">
-    		<div class="title">
-        		<span class="i-menu-custom"></span>
-                <h4>Shopping</h4>
+        <div class="title">
+            <span class="i-menu-custom"></span>
+            <h4>Shopping</h4>
+        </div>
+        <div class="actions">
+            <div class="act-i-cuss">
             </div>
-            <div class="actions">
-            	<div class="act-i-cuss">
-                    <!--<span class="i-shop-custom"></span>-->
-                    <!--<span class="i-cus i-list-view"></span>-->
-                    <!--<span class="i-search-custom"></span>-->
-                </div>
-            </div>
-    	</nav>
+        </div>
+    </nav>
 </ion-header>
 
 <ion-content>
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content
-      pullingIcon="arrow-dropdown"
-      pullingText="Pull to refresh"
-      refreshingText="Refreshing...">
-    </ion-refresher-content>
-  </ion-refresher>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="Pull to refresh"
+            refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+
 	<!-- Start My List -->
     <section class="mylist">
-    
-    	
-  
         <div class="content"><!--add-checkbox-->
             <div class="sch-field">
                 <input type="search" placeholder="Search an Item list..." [(ngModel)]="searchListName"/>
                 <button type="submit" class="btn-search"><span class="i-search-bar-custom"></span></button>
             </div>
-             <ion-list>
-                <ion-item-sliding  *ngFor="let idx = index; let channel of subscribedChannels |customFilter: {others :{itemListName:searchListName}}" [hidden]="channel.others.sharedStatus=='archive'"><!--*ngIf="channel.others.sharedStatus!='archieve'"-->
+                <ion-list>
+                <ion-item-sliding #slidingItem  *ngFor="let idx = index; let channel of subscribedChannels |customFilter: {others :{itemListName:searchListName}}" [hidden]="channel.others.sharedStatus=='archive'" (ionSwipe)="openSlider(slidingItem)" (ionDrag)="openSlider(slidingItem)"><!--*ngIf="channel.others.sharedStatus!='archieve'"-->
                 <ion-item>
                     <div class="list-cell" (click)="showItems(channel.itemsList,channel.others.itemListName)">
                         <div class="list-cell-cont"> 
                             <div class="title">
                                 <h4>{{channel.others.itemListName}}</h4>
-                                <!--<p>I've had a pretty messed up day. If we just...</p>-->
                             </div>
                             <div class="list-info">
                     	        <span class="items-no"><span>{{channel.others.totalItems}}</span> Items<span class="i-after-custom"></span></span>
@@ -86,102 +42,17 @@
                     </div>
                 </ion-item>
                 <ion-item-options side="left" >
-                    <button class="bg-color-yellow" swipeable ion-button (click)="shareToUsers(channel.itemsList,channel.others.itemListName)">
+                    <button class="bg-color-yellow" ion-button (click)="shareToUsers(channel.itemsList,channel.others.itemListName)">
                         <span class="i-share-custom"></span>
                     </button>
-                    <button class="bg-color-yellow" swipeable ion-button (click)="deleteConfirmation(channel.itemsList,idx)">
+                    <button class="bg-color-yellow" ion-button (click)="deleteConfirmation(channel.itemsList,idx)">
                         <span class="i-delete-custom"></span>
                     </button>
-                    <!--<button class="bg-color-yellow" ion-button>
-                    <span class="i-more-custom"></span>
-                    </button>-->
                 </ion-item-options>
                 </ion-item-sliding>
             </ion-list>
-
-            <!--<ion-list>
-            <ion-item-sliding class="list-cell" *ngFor="let channel of subscribedChannels |customFilter: {others :{listName:searchListName}}">
-                <div class="list-cell-cont"> 
-                    <ion-item>
-                    <div class="title">
-                    	<h4>{{channel.others.listName}}</h4>
-                        <p>Lorem Ipsum is simply dummy text of the printing.</p>
-                    </div>
-                    </ion-item>
-                    <div class="list-info" (click)="showItems(channel.itemsList,channel.others.listName)">
-                    	<span class="items-no"><span>20</span> Items</span>
-                    </div>
-                </div>
-                <ion-item-options side="left">
-                    <div class="options">
-                	<span class="i-cus i-edit"></span>
-                	<span class="i-cus i-share"></span>
-                	<span class="i-cus i-delete"></span>
-                	<span class="i-cus i-more"></span>
-                </div>
-                </ion-item-options>
-            </ion-item-sliding>
-            </ion-list>-->
-        	<!--<div class="list-cell" *ngFor="let channel of subscribedChannels |customFilter: {others :{listName:searchListName}}">
-            	<div class="options">
-                	<span class="i-cus i-edit"></span>
-                	<span class="i-cus i-share"></span>
-                	<span class="i-cus i-delete"></span>
-                	<span class="i-cus i-more"></span>
-                </div>
-            	<div class="list-cell-cont"> 
-                	<div class="cus-checkbox">
-                    	<input type="checkbox" id="checkbox1" name="checkbox" />
-  						<label for="checkbox1"><span></span></label>
-                    </div>           	
-                    <div class="title">
-                    	<h4>{{channel.others.listName}}</h4>
-                        <p>Lorem Ipsum is simply dummy text of the printing.</p>
-                    </div>
-                    <div class="list-info" (click)="showItems(channel.itemsList,channel.others.listName)">
-                    	<span class="items-no"><span>20</span> Items</span>
-                    </div>
-                </div>
-            </div>-->
         </div>
-     
-        <!--<nav class="nav-bottom">
-        	<ul>
-            	<li class="active">
-                	<span class="i-cus i-list"></span>
-                    <span class="text">List</span>
-                </li>
-                <li>
-                	<span class="i-cus i-add-list"></span>
-                    <span class="text">Add</span>
-                </li>
-                <li>
-                	<span class="i-cus i-profile"></span>
-                    <span class="text">Profile</span>
-                </li>
-            </ul>
-        </nav>-->
     </section>
     <!-- End My List -->
-
 </ion-content>
 
-<!--<ion-footer>
-    <nav class="nav-bottom">
-        	<ul>
-            	<li class="active">
-                	<span class="i-cus i-list"></span>
-                    <span class="text">List</span>
-                </li>
-                <li>
-                	<span class="i-cus i-add-list"></span>
-                    <span class="text">Add</span>
-                </li>
-                <li>
-                	<span class="i-cus i-profile"></span>
-                    <span class="text">Profile</span>
-                </li>
-            </ul>
-        </nav>
-
-</ion-footer>-->

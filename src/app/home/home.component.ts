@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { AlertController, LoadingController, NavController, NavParams, PopoverController,ItemSliding  } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Storage } from '@ionic/storage';
 import {TwilioService } from '../_services/twilio.service';
@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit{
     subscribedChannels: any;
     searchListName: string = "";
     userName: string = "";
+    activeItemSliding: ItemSliding = null;
     constructor(private twilioService: TwilioService,
         public alertCtrl: AlertController,
         public loadingCtrl: LoadingController,
@@ -107,6 +108,7 @@ export class HomeComponent implements OnInit{
     }
 
     shareToUsers(itemsList, itemListName) {       
+        this.closeSlider();
         this.navCtrl.push(ShareComponent, {
             "lid": itemsList,
             "uid": this.uid,
@@ -140,6 +142,7 @@ export class HomeComponent implements OnInit{
             ]
         });
         prompt.present();
+        this.closeSlider();
     }
 
     deleteItemList(itemsList,index) {
@@ -175,4 +178,33 @@ export class HomeComponent implements OnInit{
                 )
             }
     }  
+
+    openSlider(itemSlide: ItemSliding) {
+        console.log("ipe", itemSlide)
+        //alert(itemSlide);
+        if (this.activeItemSliding !== null) { //use this if only one active sliding item allowed
+            this.closeSlider();
+        }
+
+        this.activeItemSliding = itemSlide;
+
+        let swipeAmount = 109; //set your required swipe amount
+        itemSlide.startSliding(swipeAmount);
+        itemSlide.moveSliding(swipeAmount);
+
+        itemSlide.setElementClass('active-options-right', true);
+        itemSlide.setElementClass('active-swipe-right', true);
+
+        itemSlide.item.setElementStyle('transition', null);
+        itemSlide.item.setElementStyle('transform', 'translate3d(' + swipeAmount + 'px, 0px, 0px)');
+    }
+
+    closeSlider() {
+        console.log('closing item slide..');
+
+        if (this.activeItemSliding) {
+            this.activeItemSliding.close();
+            this.activeItemSliding = null;
+        }
+    }
 }
